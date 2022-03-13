@@ -1,0 +1,60 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "genix_op_conf.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .global tx_genix_config
+  18              	 .section .data.tx_genix_config,"aw",%progbits
+  19              	 .align 2
+  22              	tx_genix_config:
+  23 0000 A4       	 .byte -92
+  24 0001 00000000 	 .space 7
+  24      000000
+  25              	 .global rx_genix_config
+  26              	 .section .bss.rx_genix_config,"aw",%nobits
+  27              	 .align 2
+  30              	rx_genix_config:
+  31 0000 00000000 	 .space 8
+  31      00000000 
+  32              	 .global uart_genix_config
+  33              	 .section .data.uart_genix_config,"aw",%progbits
+  34              	 .align 2
+  37              	uart_genix_config:
+  38 0000 80250000 	 .word 9600
+  39 0004 00       	 .space 1
+  40 0005 08       	 .byte 8
+  41 0006 00       	 .space 1
+  42 0007 01       	 .byte 1
+  43 0008 00000000 	 .space 4
+  44              	 .text
+  45              	.Letext0:
+  46              	 .file 1 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  47              	 .file 2 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  48              	 .file 3 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_usic.h"
+  49              	 .file 4 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_uart.h"
+  50              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_gpio.h"
+  51              	 .file 6 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc1_gpio.h"
+  52              	 .file 7 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
+  53              	 .file 8 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/system_XMC1400.h"
+  54              	 .file 9 "../interconnect/genix/genix_op_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 genix_op_conf.c
+    {standard input}:22     .data.tx_genix_config:00000000 tx_genix_config
+    {standard input}:19     .data.tx_genix_config:00000000 $d
+    {standard input}:30     .bss.rx_genix_config:00000000 rx_genix_config
+    {standard input}:27     .bss.rx_genix_config:00000000 $d
+    {standard input}:37     .data.uart_genix_config:00000000 uart_genix_config
+    {standard input}:34     .data.uart_genix_config:00000000 $d
+
+NO UNDEFINED SYMBOLS

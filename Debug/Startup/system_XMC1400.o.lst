@@ -1,0 +1,620 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "system_XMC1400.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .global SystemCoreClock
+  18              	 .section .no_init,"aw",%progbits
+  19              	 .align 2
+  22              	SystemCoreClock:
+  23 0000 00000000 	 .space 4
+  24              	 .section .text.SystemInit,"ax",%progbits
+  25              	 .align 2
+  26              	 .weak SystemInit
+  27              	 .code 16
+  28              	 .thumb_func
+  30              	SystemInit:
+  31              	.LFB42:
+  32              	 .file 1 "../Startup/system_XMC1400.c"
+   1:../Startup/system_XMC1400.c **** /**************************************************************************************************
+   2:../Startup/system_XMC1400.c ****  * @file     system_XMC1400.c
+   3:../Startup/system_XMC1400.c ****  * @brief    Device specific initialization for the XMC1400-Series according to CMSIS
+   4:../Startup/system_XMC1400.c ****  * @version  V1.6
+   5:../Startup/system_XMC1400.c ****  * @date     04 June 2019
+   6:../Startup/system_XMC1400.c ****  *
+   7:../Startup/system_XMC1400.c ****  * @cond
+   8:../Startup/system_XMC1400.c ****  **************************************************************************************************
+   9:../Startup/system_XMC1400.c ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:../Startup/system_XMC1400.c ****  * All rights reserved.
+  11:../Startup/system_XMC1400.c ****  *
+  12:../Startup/system_XMC1400.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Startup/system_XMC1400.c ****  * following conditions are met:
+  14:../Startup/system_XMC1400.c ****  *
+  15:../Startup/system_XMC1400.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Startup/system_XMC1400.c ****  * disclaimer.
+  17:../Startup/system_XMC1400.c ****  *
+  18:../Startup/system_XMC1400.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Startup/system_XMC1400.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.
+  20:../Startup/system_XMC1400.c ****  *
+  21:../Startup/system_XMC1400.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Startup/system_XMC1400.c ****  * products derived from this software without specific prior written permission.
+  23:../Startup/system_XMC1400.c ****  *
+  24:../Startup/system_XMC1400.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Startup/system_XMC1400.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Startup/system_XMC1400.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Startup/system_XMC1400.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Startup/system_XMC1400.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Startup/system_XMC1400.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Startup/system_XMC1400.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  31:../Startup/system_XMC1400.c ****  *
+  32:../Startup/system_XMC1400.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Startup/system_XMC1400.c ****  * Infineon Technologies AG dave@infineon.com).
+  34:../Startup/system_XMC1400.c ****  **************************************************************************************************
+  35:../Startup/system_XMC1400.c ****  *
+  36:../Startup/system_XMC1400.c ****  * *************************** Change history ********************************
+  37:../Startup/system_XMC1400.c ****  * V1.0, 03 Sep 2015, JFT : Initial version
+  38:../Startup/system_XMC1400.c ****  *                          MCLK = 48MHz, PCLK = 96MHz
+  39:../Startup/system_XMC1400.c ****  * V1.1, 09 Dec 2015, JFT : Enable prefetch unit
+  40:../Startup/system_XMC1400.c ****  * V1.2, 19 Jun 2017, Rely on cmsis_compiler.h instead of defining __WEAK
+  41:../Startup/system_XMC1400.c ****  *                    Added support for ARM Compiler 6 (armclang) 
+  42:../Startup/system_XMC1400.c ****  * V1.3, 20 Jun 2018, Fixed OSC_HP oscillator watchdog result detection in startup
+  43:../Startup/system_XMC1400.c ****  *                    Added wait time for RTC_XTAL oscillator startup time ~5s
+  44:../Startup/system_XMC1400.c ****  * V1.4, 29 Oct 2018, Fix variable location of SystemCoreClock for ARMCC compiler
+  45:../Startup/system_XMC1400.c ****  * V1.5, 20 Mar 2019, Fix clock initialization if external XTAL is used (clock watchdog issue, see 
+  46:../Startup/system_XMC1400.c ****  *                    Added DISABLE_WAIT_RTC_XTAL_OSC_STARTUP preprocessor guard:
+  47:../Startup/system_XMC1400.c ****  *                      The RTC_XTAL can be used as clock source for RTC or as reference for DCO1 c
+  48:../Startup/system_XMC1400.c ****  *                      In both cases if no wait is done in the startup after enabling the RTC_XTAL
+  49:../Startup/system_XMC1400.c ****  *                      the RTC_Enable() or the calibration will stall the MCU until the oscillator
+  50:../Startup/system_XMC1400.c ****  *
+  51:../Startup/system_XMC1400.c ****  * V1.6, 04 June 2019, Sync. code of SystemCoreClockSetup() to XMC_SCU_CLOCK_Init() in xmc1_scu.c
+  52:../Startup/system_XMC1400.c ****  * 
+  53:../Startup/system_XMC1400.c ****  * @endcond
+  54:../Startup/system_XMC1400.c ****  */
+  55:../Startup/system_XMC1400.c **** 
+  56:../Startup/system_XMC1400.c **** /*******************************************************************************
+  57:../Startup/system_XMC1400.c ****  * HEADER FILES
+  58:../Startup/system_XMC1400.c ****  *******************************************************************************/
+  59:../Startup/system_XMC1400.c **** 
+  60:../Startup/system_XMC1400.c **** #include <XMC1400.h>
+  61:../Startup/system_XMC1400.c **** #include "system_XMC1400.h"
+  62:../Startup/system_XMC1400.c **** 
+  63:../Startup/system_XMC1400.c **** /*******************************************************************************
+  64:../Startup/system_XMC1400.c ****  * MACROS
+  65:../Startup/system_XMC1400.c ****  *******************************************************************************/
+  66:../Startup/system_XMC1400.c **** #define DCO1_FREQUENCY (48000000U)
+  67:../Startup/system_XMC1400.c **** 
+  68:../Startup/system_XMC1400.c **** /*
+  69:../Startup/system_XMC1400.c **** //-------- <<< Use Configuration Wizard in Context Menu >>> ------------------
+  70:../Startup/system_XMC1400.c **** */
+  71:../Startup/system_XMC1400.c **** 
+  72:../Startup/system_XMC1400.c **** /*
+  73:../Startup/system_XMC1400.c **** // <h> Clock configuration
+  74:../Startup/system_XMC1400.c **** */
+  75:../Startup/system_XMC1400.c **** 
+  76:../Startup/system_XMC1400.c **** /*
+  77:../Startup/system_XMC1400.c **** //    <o> External crystal frequency [Hz]
+  78:../Startup/system_XMC1400.c **** //       <8000000=> 8MHz
+  79:../Startup/system_XMC1400.c **** //       <12000000=> 12MHz
+  80:../Startup/system_XMC1400.c **** //       <16000000=> 16MHz
+  81:../Startup/system_XMC1400.c **** //       <20000000=> 20MHz
+  82:../Startup/system_XMC1400.c **** //    <i> Defines external crystal frequency
+  83:../Startup/system_XMC1400.c **** //    <i> Default: 20MHz
+  84:../Startup/system_XMC1400.c **** */
+  85:../Startup/system_XMC1400.c **** #define OSCHP_FREQUENCY (20000000U)
+  86:../Startup/system_XMC1400.c **** 
+  87:../Startup/system_XMC1400.c **** /*
+  88:../Startup/system_XMC1400.c **** //    <o> DCLK clock source selection
+  89:../Startup/system_XMC1400.c **** //       <0=> Internal oscillator DCO1 (48MHz)
+  90:../Startup/system_XMC1400.c **** //       <1=> External crystal oscillator
+  91:../Startup/system_XMC1400.c **** //    <i> Default: Internal oscillator DCO1 (48MHz)
+  92:../Startup/system_XMC1400.c **** */
+  93:../Startup/system_XMC1400.c **** #define DCLK_CLOCK_SRC 0
+  94:../Startup/system_XMC1400.c **** #define DCLK_CLOCK_SRC_DCO1 0
+  95:../Startup/system_XMC1400.c **** #define DCLK_CLOCK_SRC_EXT_XTAL 1
+  96:../Startup/system_XMC1400.c **** 
+  97:../Startup/system_XMC1400.c **** /*
+  98:../Startup/system_XMC1400.c **** //    <o> OSCHP external oscillator mode
+  99:../Startup/system_XMC1400.c **** //       <0=> Crystal mode
+ 100:../Startup/system_XMC1400.c **** //       <1=> External clock direct input mode
+ 101:../Startup/system_XMC1400.c **** //    <i> Default: Crystal mode
+ 102:../Startup/system_XMC1400.c **** */
+ 103:../Startup/system_XMC1400.c **** #define OSCHP_MODE 0
+ 104:../Startup/system_XMC1400.c **** #define OSCHP_MODE_XTAL 0
+ 105:../Startup/system_XMC1400.c **** #define OSCHP_MODE_DIRECT 1
+ 106:../Startup/system_XMC1400.c **** 
+ 107:../Startup/system_XMC1400.c **** /*
+ 108:../Startup/system_XMC1400.c **** //    <o> RTC clock source selection
+ 109:../Startup/system_XMC1400.c **** //       <0=> Internal oscillator DCO2 (32768Hz)
+ 110:../Startup/system_XMC1400.c **** //       <5=> External crystal oscillator
+ 111:../Startup/system_XMC1400.c **** //    <i> Default: Internal oscillator DCO2 (32768Hz)
+ 112:../Startup/system_XMC1400.c **** */
+ 113:../Startup/system_XMC1400.c **** #define RTC_CLOCK_SRC 0
+ 114:../Startup/system_XMC1400.c **** #define RTC_CLOCK_SRC_DCO2 0
+ 115:../Startup/system_XMC1400.c **** #define RTC_CLOCK_SRC_EXT_XTAL 5
+ 116:../Startup/system_XMC1400.c **** /*
+ 117:../Startup/system_XMC1400.c **** //    <o> PCLK clock source selection
+ 118:../Startup/system_XMC1400.c **** //       <0=> MCLK
+ 119:../Startup/system_XMC1400.c **** //       <1=> 2xMCLK
+ 120:../Startup/system_XMC1400.c **** //    <i> Default: 2xMCLK
+ 121:../Startup/system_XMC1400.c **** */
+ 122:../Startup/system_XMC1400.c **** #define PCLK_CLOCK_SRC 1
+ 123:../Startup/system_XMC1400.c **** #define PCLK_CLOCK_SRC_MCLK 0
+ 124:../Startup/system_XMC1400.c **** #define PCLK_CLOCK_SRC_2XMCLK 1
+ 125:../Startup/system_XMC1400.c **** 
+ 126:../Startup/system_XMC1400.c **** /*
+ 127:../Startup/system_XMC1400.c **** //-------- <<< end of configuration section >>> ------------------
+ 128:../Startup/system_XMC1400.c **** */
+ 129:../Startup/system_XMC1400.c **** 
+ 130:../Startup/system_XMC1400.c **** /*******************************************************************************
+ 131:../Startup/system_XMC1400.c ****  * GLOBAL VARIABLES
+ 132:../Startup/system_XMC1400.c ****  *******************************************************************************/
+ 133:../Startup/system_XMC1400.c **** 
+ 134:../Startup/system_XMC1400.c **** #if defined ( __CC_ARM )
+ 135:../Startup/system_XMC1400.c **** uint32_t SystemCoreClock __attribute__((at(0x20003FFC)));
+ 136:../Startup/system_XMC1400.c **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ 137:../Startup/system_XMC1400.c **** uint32_t SystemCoreClock __attribute__((section(".bss.ARM.__at_0x20003FFC")));
+ 138:../Startup/system_XMC1400.c **** #elif defined ( __ICCARM__ )
+ 139:../Startup/system_XMC1400.c **** __no_init uint32_t SystemCoreClock;
+ 140:../Startup/system_XMC1400.c **** #elif defined ( __GNUC__ )
+ 141:../Startup/system_XMC1400.c **** uint32_t SystemCoreClock __attribute__((section(".no_init")));
+ 142:../Startup/system_XMC1400.c **** #elif defined ( __TASKING__ )
+ 143:../Startup/system_XMC1400.c **** uint32_t SystemCoreClock __at( 0x20003FFC );
+ 144:../Startup/system_XMC1400.c **** #endif
+ 145:../Startup/system_XMC1400.c **** 
+ 146:../Startup/system_XMC1400.c **** /*******************************************************************************
+ 147:../Startup/system_XMC1400.c ****  * LOCAL FUNCTIONS
+ 148:../Startup/system_XMC1400.c ****  *******************************************************************************/
+ 149:../Startup/system_XMC1400.c **** #if (DCLK_CLOCK_SRC != DCLK_CLOCK_SRC_DCO1) || ((RTC_CLOCK_SRC == RTC_CLOCK_SRC_EXT_XTAL) && (!defi
+ 150:../Startup/system_XMC1400.c **** __STATIC_FORCEINLINE void delay(uint32_t cycles)
+ 151:../Startup/system_XMC1400.c **** {
+ 152:../Startup/system_XMC1400.c ****   while(--cycles > 0)
+ 153:../Startup/system_XMC1400.c ****   {
+ 154:../Startup/system_XMC1400.c ****     __NOP();
+ 155:../Startup/system_XMC1400.c ****   }
+ 156:../Startup/system_XMC1400.c **** }
+ 157:../Startup/system_XMC1400.c **** #endif
+ 158:../Startup/system_XMC1400.c **** 
+ 159:../Startup/system_XMC1400.c **** /*******************************************************************************
+ 160:../Startup/system_XMC1400.c ****  * API IMPLEMENTATION
+ 161:../Startup/system_XMC1400.c ****  *******************************************************************************/
+ 162:../Startup/system_XMC1400.c **** 
+ 163:../Startup/system_XMC1400.c **** __WEAK void SystemInit(void)
+ 164:../Startup/system_XMC1400.c **** {
+  33              	 .loc 1 164 0
+  34              	 .cfi_startproc
+  35 0000 80B5     	 push {r7,lr}
+  36              	.LCFI0:
+  37              	 .cfi_def_cfa_offset 8
+  38              	 .cfi_offset 7,-8
+  39              	 .cfi_offset 14,-4
+  40 0002 00AF     	 add r7,sp,#0
+  41              	.LCFI1:
+  42              	 .cfi_def_cfa_register 7
+ 165:../Startup/system_XMC1400.c ****   SystemCoreSetup();
+  43              	 .loc 1 165 0
+  44 0004 FFF7FEFF 	 bl SystemCoreSetup
+ 166:../Startup/system_XMC1400.c ****   SystemCoreClockSetup();
+  45              	 .loc 1 166 0
+  46 0008 FFF7FEFF 	 bl SystemCoreClockSetup
+ 167:../Startup/system_XMC1400.c **** }
+  47              	 .loc 1 167 0
+  48 000c BD46     	 mov sp,r7
+  49              	 
+  50 000e 80BD     	 pop {r7,pc}
+  51              	 .cfi_endproc
+  52              	.LFE42:
+  54              	 .section .text.SystemCoreSetup,"ax",%progbits
+  55              	 .align 2
+  56              	 .weak SystemCoreSetup
+  57              	 .code 16
+  58              	 .thumb_func
+  60              	SystemCoreSetup:
+  61              	.LFB43:
+ 168:../Startup/system_XMC1400.c **** 
+ 169:../Startup/system_XMC1400.c **** __WEAK void SystemCoreSetup(void)
+ 170:../Startup/system_XMC1400.c **** {
+  62              	 .loc 1 170 0
+  63              	 .cfi_startproc
+  64 0000 80B5     	 push {r7,lr}
+  65              	.LCFI2:
+  66              	 .cfi_def_cfa_offset 8
+  67              	 .cfi_offset 7,-8
+  68              	 .cfi_offset 14,-4
+  69 0002 00AF     	 add r7,sp,#0
+  70              	.LCFI3:
+  71              	 .cfi_def_cfa_register 7
+ 171:../Startup/system_XMC1400.c ****   /* Enable Prefetch unit */
+ 172:../Startup/system_XMC1400.c ****   SCU_GENERAL->PFUCR &= ~SCU_GENERAL_PFUCR_PFUBYP_Msk;
+  72              	 .loc 1 172 0
+  73 0004 034B     	 ldr r3,.L3
+  74 0006 034A     	 ldr r2,.L3
+  75 0008 926E     	 ldr r2,[r2,#104]
+  76 000a 0121     	 mov r1,#1
+  77 000c 8A43     	 bic r2,r1
+  78 000e 9A66     	 str r2,[r3,#104]
+ 173:../Startup/system_XMC1400.c **** }
+  79              	 .loc 1 173 0
+  80 0010 BD46     	 mov sp,r7
+  81              	 
+  82 0012 80BD     	 pop {r7,pc}
+  83              	.L4:
+  84              	 .align 2
+  85              	.L3:
+  86 0014 00000140 	 .word 1073807360
+  87              	 .cfi_endproc
+  88              	.LFE43:
+  90              	 .section .text.SystemCoreClockSetup,"ax",%progbits
+  91              	 .align 2
+  92              	 .weak SystemCoreClockSetup
+  93              	 .code 16
+  94              	 .thumb_func
+  96              	SystemCoreClockSetup:
+  97              	.LFB44:
+ 174:../Startup/system_XMC1400.c **** 
+ 175:../Startup/system_XMC1400.c **** __WEAK void SystemCoreClockSetup(void)
+ 176:../Startup/system_XMC1400.c **** {
+  98              	 .loc 1 176 0
+  99              	 .cfi_startproc
+ 100 0000 80B5     	 push {r7,lr}
+ 101              	.LCFI4:
+ 102              	 .cfi_def_cfa_offset 8
+ 103              	 .cfi_offset 7,-8
+ 104              	 .cfi_offset 14,-4
+ 105 0002 00AF     	 add r7,sp,#0
+ 106              	.LCFI5:
+ 107              	 .cfi_def_cfa_register 7
+ 177:../Startup/system_XMC1400.c ****   /* Clock setup done during SSW using the CLOCK_VAL1 and CLOCK_VAL2 defined in vector table */
+ 178:../Startup/system_XMC1400.c **** 
+ 179:../Startup/system_XMC1400.c ****   /* disable bit protection */
+ 180:../Startup/system_XMC1400.c ****   SCU_GENERAL->PASSWD = 0x000000C0UL;
+ 108              	 .loc 1 180 0
+ 109 0004 094B     	 ldr r3,.L6
+ 110 0006 C022     	 mov r2,#192
+ 111 0008 5A62     	 str r2,[r3,#36]
+ 181:../Startup/system_XMC1400.c **** 
+ 182:../Startup/system_XMC1400.c **** #if DCLK_CLOCK_SRC != DCLK_CLOCK_SRC_DCO1
+ 183:../Startup/system_XMC1400.c **** 
+ 184:../Startup/system_XMC1400.c ****   if (OSCHP_GetFrequency() > 20000000U)
+ 185:../Startup/system_XMC1400.c ****   {
+ 186:../Startup/system_XMC1400.c ****     SCU_ANALOG->ANAOSCHPCTRL |= SCU_ANALOG_ANAOSCHPCTRL_HYSCTRL_Msk;
+ 187:../Startup/system_XMC1400.c ****   }
+ 188:../Startup/system_XMC1400.c **** 
+ 189:../Startup/system_XMC1400.c ****   /* OSCHP source selection - OSC mode */
+ 190:../Startup/system_XMC1400.c ****   SCU_ANALOG->ANAOSCHPCTRL = (SCU_ANALOG->ANAOSCHPCTRL & ~SCU_ANALOG_ANAOSCHPCTRL_MODE_Msk) |
+ 191:../Startup/system_XMC1400.c ****                              (OSCHP_MODE << SCU_ANALOG_ANAOSCHPCTRL_MODE_Pos);
+ 192:../Startup/system_XMC1400.c **** 
+ 193:../Startup/system_XMC1400.c ****   do 
+ 194:../Startup/system_XMC1400.c ****   {
+ 195:../Startup/system_XMC1400.c ****     /* clear the status bit before restarting the detection. */
+ 196:../Startup/system_XMC1400.c ****     SCU_INTERRUPT->SRCLR1 = SCU_INTERRUPT_SRCLR1_LOECI_Msk;
+ 197:../Startup/system_XMC1400.c **** 
+ 198:../Startup/system_XMC1400.c ****     /* According to errata SCU_CM.023, to reset the XOWD it is needed to disable/enable the watchdo
+ 199:../Startup/system_XMC1400.c ****        keeping in between at least one DCO2 cycle */
+ 200:../Startup/system_XMC1400.c ****     
+ 201:../Startup/system_XMC1400.c ****     /* Disable XOWD */
+ 202:../Startup/system_XMC1400.c ****     SCU_CLK->OSCCSR &= ~SCU_CLK_OSCCSR_XOWDEN_Msk;
+ 203:../Startup/system_XMC1400.c ****       
+ 204:../Startup/system_XMC1400.c ****     /* Clock domains synchronization, at least 1 DCO2 cycle */
+ 205:../Startup/system_XMC1400.c ****     /* delay value calculation assuming worst case DCO1=48Mhz and 3cycles per delay iteration */
+ 206:../Startup/system_XMC1400.c ****     delay(538);
+ 207:../Startup/system_XMC1400.c ****       
+ 208:../Startup/system_XMC1400.c ****     /* Enable XOWD */
+ 209:../Startup/system_XMC1400.c ****     SCU_CLK->OSCCSR |= SCU_CLK_OSCCSR_XOWDEN_Msk | SCU_CLK_OSCCSR_XOWDRES_Msk;
+ 210:../Startup/system_XMC1400.c **** 
+ 211:../Startup/system_XMC1400.c ****     /* OSCCSR.XOWDRES bit will be automatically reset to 0 after XOWD is reset */
+ 212:../Startup/system_XMC1400.c ****     while (SCU_CLK->OSCCSR & SCU_CLK_OSCCSR_XOWDRES_Msk);
+ 213:../Startup/system_XMC1400.c **** 
+ 214:../Startup/system_XMC1400.c ****     /* Wait a at least 5 DCO2 cycles for the update of the XTAL OWD result */
+ 215:../Startup/system_XMC1400.c ****     /* delay value calculation assuming worst case DCO1=48Mhz and 3cycles per delay iteration */
+ 216:../Startup/system_XMC1400.c ****     delay(2685);
+ 217:../Startup/system_XMC1400.c **** 
+ 218:../Startup/system_XMC1400.c ****   } while (SCU_INTERRUPT->SRRAW1 & SCU_INTERRUPT_SRRAW1_LOECI_Msk);
+ 219:../Startup/system_XMC1400.c **** 
+ 220:../Startup/system_XMC1400.c ****   /* DCLK source using OSC_HP */
+ 221:../Startup/system_XMC1400.c ****   SCU_CLK->CLKCR1 |= SCU_CLK_CLKCR1_DCLKSEL_Msk;
+ 222:../Startup/system_XMC1400.c ****   
+ 223:../Startup/system_XMC1400.c **** #else
+ 224:../Startup/system_XMC1400.c ****     
+ 225:../Startup/system_XMC1400.c ****   /* DCLK source using DCO1 */
+ 226:../Startup/system_XMC1400.c ****   SCU_CLK->CLKCR1 &= ~SCU_CLK_CLKCR1_DCLKSEL_Msk;
+ 112              	 .loc 1 226 0
+ 113 000a 094B     	 ldr r3,.L6+4
+ 114 000c 084A     	 ldr r2,.L6+4
+ 115 000e D269     	 ldr r2,[r2,#28]
+ 116 0010 0849     	 ldr r1,.L6+8
+ 117 0012 0A40     	 and r2,r1
+ 118 0014 DA61     	 str r2,[r3,#28]
+ 227:../Startup/system_XMC1400.c ****   
+ 228:../Startup/system_XMC1400.c **** #endif    
+ 229:../Startup/system_XMC1400.c **** 
+ 230:../Startup/system_XMC1400.c **** #if RTC_CLOCK_SRC == RTC_CLOCK_SRC_EXT_XTAL
+ 231:../Startup/system_XMC1400.c ****   /* Enable OSC_LP */
+ 232:../Startup/system_XMC1400.c ****   SCU_ANALOG->ANAOSCLPCTRL &= ~SCU_ANALOG_ANAOSCLPCTRL_MODE_Msk;
+ 233:../Startup/system_XMC1400.c **** #ifndef DISABLE_WAIT_RTC_XTAL_OSC_STARTUP  
+ 234:../Startup/system_XMC1400.c ****   /* Wait oscillator startup time ~5s */
+ 235:../Startup/system_XMC1400.c ****   delay(6500000);
+ 236:../Startup/system_XMC1400.c **** #endif  
+ 237:../Startup/system_XMC1400.c **** #endif  
+ 238:../Startup/system_XMC1400.c **** 
+ 239:../Startup/system_XMC1400.c ****   /* Update PCLK selection mux. */
+ 240:../Startup/system_XMC1400.c ****   /* Fractional divider enabled, MCLK frequency equal DCO1 frequency or external crystal frequency 
+ 241:../Startup/system_XMC1400.c ****   SCU_CLK->CLKCR = (1023UL <<SCU_CLK_CLKCR_CNTADJ_Pos) |
+ 119              	 .loc 1 241 0
+ 120 0016 064B     	 ldr r3,.L6+4
+ 121 0018 074A     	 ldr r2,.L6+12
+ 122 001a 1A60     	 str r2,[r3]
+ 242:../Startup/system_XMC1400.c ****                     (RTC_CLOCK_SRC << SCU_CLK_CLKCR_RTCCLKSEL_Pos) |
+ 243:../Startup/system_XMC1400.c ****                     (PCLK_CLOCK_SRC << SCU_CLK_CLKCR_PCLKSEL_Pos) |
+ 244:../Startup/system_XMC1400.c ****                     0x100U; /* IDIV = 1 */
+ 245:../Startup/system_XMC1400.c **** 
+ 246:../Startup/system_XMC1400.c ****   /* enable bit protection */
+ 247:../Startup/system_XMC1400.c ****   SCU_GENERAL->PASSWD = 0x000000C3UL;
+ 123              	 .loc 1 247 0
+ 124 001c 034B     	 ldr r3,.L6
+ 125 001e C322     	 mov r2,#195
+ 126 0020 5A62     	 str r2,[r3,#36]
+ 248:../Startup/system_XMC1400.c **** 
+ 249:../Startup/system_XMC1400.c ****   SystemCoreClockUpdate();
+ 127              	 .loc 1 249 0
+ 128 0022 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 250:../Startup/system_XMC1400.c **** }
+ 129              	 .loc 1 250 0
+ 130 0026 BD46     	 mov sp,r7
+ 131              	 
+ 132 0028 80BD     	 pop {r7,pc}
+ 133              	.L7:
+ 134 002a C046     	 .align 2
+ 135              	.L6:
+ 136 002c 00000140 	 .word 1073807360
+ 137 0030 00030140 	 .word 1073808128
+ 138 0034 FFFDFFFF 	 .word -513
+ 139 0038 0001F13F 	 .word 1072759040
+ 140              	 .cfi_endproc
+ 141              	.LFE44:
+ 143              	 .global __aeabi_uidiv
+ 144              	 .section .text.SystemCoreClockUpdate,"ax",%progbits
+ 145              	 .align 2
+ 146              	 .weak SystemCoreClockUpdate
+ 147              	 .code 16
+ 148              	 .thumb_func
+ 150              	SystemCoreClockUpdate:
+ 151              	.LFB45:
+ 251:../Startup/system_XMC1400.c **** 
+ 252:../Startup/system_XMC1400.c **** __WEAK void SystemCoreClockUpdate(void)
+ 253:../Startup/system_XMC1400.c **** {
+ 152              	 .loc 1 253 0
+ 153              	 .cfi_startproc
+ 154 0000 80B5     	 push {r7,lr}
+ 155              	.LCFI6:
+ 156              	 .cfi_def_cfa_offset 8
+ 157              	 .cfi_offset 7,-8
+ 158              	 .cfi_offset 14,-4
+ 159 0002 00AF     	 add r7,sp,#0
+ 160              	.LCFI7:
+ 161              	 .cfi_def_cfa_register 7
+ 254:../Startup/system_XMC1400.c ****   static uint32_t IDIV, FDIV;
+ 255:../Startup/system_XMC1400.c **** 
+ 256:../Startup/system_XMC1400.c ****   IDIV = ((SCU_CLK->CLKCR) & SCU_CLK_CLKCR_IDIV_Msk) >> SCU_CLK_CLKCR_IDIV_Pos;
+ 162              	 .loc 1 256 0
+ 163 0004 2A4B     	 ldr r3,.L14
+ 164 0006 1A68     	 ldr r2,[r3]
+ 165 0008 FF23     	 mov r3,#255
+ 166 000a 1B02     	 lsl r3,r3,#8
+ 167 000c 1340     	 and r3,r2
+ 168 000e 1A0A     	 lsr r2,r3,#8
+ 169 0010 284B     	 ldr r3,.L14+4
+ 170 0012 1A60     	 str r2,[r3]
+ 257:../Startup/system_XMC1400.c **** 
+ 258:../Startup/system_XMC1400.c ****   if (IDIV != 0)
+ 171              	 .loc 1 258 0
+ 172 0014 274B     	 ldr r3,.L14+4
+ 173 0016 1B68     	 ldr r3,[r3]
+ 174 0018 002B     	 cmp r3,#0
+ 175 001a 37D0     	 beq .L9
+ 259:../Startup/system_XMC1400.c ****   {
+ 260:../Startup/system_XMC1400.c ****     FDIV = ((SCU_CLK->CLKCR) & SCU_CLK_CLKCR_FDIV_Msk) >> SCU_CLK_CLKCR_FDIV_Pos;
+ 176              	 .loc 1 260 0
+ 177 001c 244B     	 ldr r3,.L14
+ 178 001e 1B68     	 ldr r3,[r3]
+ 179 0020 FF22     	 mov r2,#255
+ 180 0022 1A40     	 and r2,r3
+ 181 0024 244B     	 ldr r3,.L14+8
+ 182 0026 1A60     	 str r2,[r3]
+ 261:../Startup/system_XMC1400.c ****     FDIV |= ((SCU_CLK->CLKCR1) & SCU_CLK_CLKCR1_FDIV_Msk) << 8;
+ 183              	 .loc 1 261 0
+ 184 0028 214B     	 ldr r3,.L14
+ 185 002a DB69     	 ldr r3,[r3,#28]
+ 186 002c 0322     	 mov r2,#3
+ 187 002e 1340     	 and r3,r2
+ 188 0030 1A02     	 lsl r2,r3,#8
+ 189 0032 214B     	 ldr r3,.L14+8
+ 190 0034 1B68     	 ldr r3,[r3]
+ 191 0036 1A43     	 orr r2,r3
+ 192 0038 1F4B     	 ldr r3,.L14+8
+ 193 003a 1A60     	 str r2,[r3]
+ 262:../Startup/system_XMC1400.c ****     
+ 263:../Startup/system_XMC1400.c ****     /* Fractional divider is enabled and used */
+ 264:../Startup/system_XMC1400.c ****     if (((SCU_CLK->CLKCR1) & SCU_CLK_CLKCR1_DCLKSEL_Msk) == 0U)
+ 194              	 .loc 1 264 0
+ 195 003c 1C4B     	 ldr r3,.L14
+ 196 003e DA69     	 ldr r2,[r3,#28]
+ 197 0040 8023     	 mov r3,#128
+ 198 0042 9B00     	 lsl r3,r3,#2
+ 199 0044 1340     	 and r3,r2
+ 200 0046 0ED1     	 bne .L10
+ 265:../Startup/system_XMC1400.c ****     {
+ 266:../Startup/system_XMC1400.c ****        SystemCoreClock = ((uint32_t)((DCO1_FREQUENCY << 6U) / ((IDIV << 10) + FDIV))) << 4U;
+ 201              	 .loc 1 266 0
+ 202 0048 1A4B     	 ldr r3,.L14+4
+ 203 004a 1B68     	 ldr r3,[r3]
+ 204 004c 9A02     	 lsl r2,r3,#10
+ 205 004e 1A4B     	 ldr r3,.L14+8
+ 206 0050 1B68     	 ldr r3,[r3]
+ 207 0052 D318     	 add r3,r2,r3
+ 208 0054 1948     	 ldr r0,.L14+12
+ 209 0056 191C     	 mov r1,r3
+ 210 0058 FFF7FEFF 	 bl __aeabi_uidiv
+ 211 005c 031C     	 mov r3,r0
+ 212 005e 1A01     	 lsl r2,r3,#4
+ 213 0060 174B     	 ldr r3,.L14+16
+ 214 0062 1A60     	 str r2,[r3]
+ 215 0064 21E0     	 b .L8
+ 216              	.L10:
+ 267:../Startup/system_XMC1400.c ****     }
+ 268:../Startup/system_XMC1400.c ****     else
+ 269:../Startup/system_XMC1400.c ****     {
+ 270:../Startup/system_XMC1400.c ****        SystemCoreClock = ((uint32_t)((OSCHP_GetFrequency() << 6U) / ((IDIV << 10) + FDIV))) << 4U;
+ 217              	 .loc 1 270 0
+ 218 0066 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 219 006a 031C     	 mov r3,r0
+ 220 006c 9901     	 lsl r1,r3,#6
+ 221 006e 114B     	 ldr r3,.L14+4
+ 222 0070 1B68     	 ldr r3,[r3]
+ 223 0072 9A02     	 lsl r2,r3,#10
+ 224 0074 104B     	 ldr r3,.L14+8
+ 225 0076 1B68     	 ldr r3,[r3]
+ 226 0078 D318     	 add r3,r2,r3
+ 227 007a 081C     	 mov r0,r1
+ 228 007c 191C     	 mov r1,r3
+ 229 007e FFF7FEFF 	 bl __aeabi_uidiv
+ 230 0082 031C     	 mov r3,r0
+ 231 0084 1A01     	 lsl r2,r3,#4
+ 232 0086 0E4B     	 ldr r3,.L14+16
+ 233 0088 1A60     	 str r2,[r3]
+ 234 008a 0EE0     	 b .L8
+ 235              	.L9:
+ 271:../Startup/system_XMC1400.c ****     }
+ 272:../Startup/system_XMC1400.c ****   }
+ 273:../Startup/system_XMC1400.c ****   else
+ 274:../Startup/system_XMC1400.c ****   {
+ 275:../Startup/system_XMC1400.c ****     /* Fractional divider bypassed. */
+ 276:../Startup/system_XMC1400.c ****     if (((SCU_CLK->CLKCR1) & SCU_CLK_CLKCR1_DCLKSEL_Msk) == 0U)
+ 236              	 .loc 1 276 0
+ 237 008c 084B     	 ldr r3,.L14
+ 238 008e DA69     	 ldr r2,[r3,#28]
+ 239 0090 8023     	 mov r3,#128
+ 240 0092 9B00     	 lsl r3,r3,#2
+ 241 0094 1340     	 and r3,r2
+ 242 0096 03D1     	 bne .L13
+ 277:../Startup/system_XMC1400.c ****     {
+ 278:../Startup/system_XMC1400.c ****         SystemCoreClock = DCO1_FREQUENCY;
+ 243              	 .loc 1 278 0
+ 244 0098 094B     	 ldr r3,.L14+16
+ 245 009a 0A4A     	 ldr r2,.L14+20
+ 246 009c 1A60     	 str r2,[r3]
+ 247 009e 04E0     	 b .L8
+ 248              	.L13:
+ 279:../Startup/system_XMC1400.c ****     }
+ 280:../Startup/system_XMC1400.c ****     else
+ 281:../Startup/system_XMC1400.c ****     {
+ 282:../Startup/system_XMC1400.c ****         SystemCoreClock = OSCHP_GetFrequency();
+ 249              	 .loc 1 282 0
+ 250 00a0 FFF7FEFF 	 bl OSCHP_GetFrequency
+ 251 00a4 021C     	 mov r2,r0
+ 252 00a6 064B     	 ldr r3,.L14+16
+ 253 00a8 1A60     	 str r2,[r3]
+ 254              	.L8:
+ 283:../Startup/system_XMC1400.c ****     }
+ 284:../Startup/system_XMC1400.c ****   }
+ 285:../Startup/system_XMC1400.c **** }
+ 255              	 .loc 1 285 0
+ 256 00aa BD46     	 mov sp,r7
+ 257              	 
+ 258 00ac 80BD     	 pop {r7,pc}
+ 259              	.L15:
+ 260 00ae C046     	 .align 2
+ 261              	.L14:
+ 262 00b0 00030140 	 .word 1073808128
+ 263 00b4 00000000 	 .word IDIV.5134
+ 264 00b8 00000000 	 .word FDIV.5135
+ 265 00bc 00001BB7 	 .word -1222967296
+ 266 00c0 00000000 	 .word SystemCoreClock
+ 267 00c4 006CDC02 	 .word 48000000
+ 268              	 .cfi_endproc
+ 269              	.LFE45:
+ 271              	 .section .text.OSCHP_GetFrequency,"ax",%progbits
+ 272              	 .align 2
+ 273              	 .weak OSCHP_GetFrequency
+ 274              	 .code 16
+ 275              	 .thumb_func
+ 277              	OSCHP_GetFrequency:
+ 278              	.LFB46:
+ 286:../Startup/system_XMC1400.c **** 
+ 287:../Startup/system_XMC1400.c **** __WEAK uint32_t OSCHP_GetFrequency(void)
+ 288:../Startup/system_XMC1400.c **** {
+ 279              	 .loc 1 288 0
+ 280              	 .cfi_startproc
+ 281 0000 80B5     	 push {r7,lr}
+ 282              	.LCFI8:
+ 283              	 .cfi_def_cfa_offset 8
+ 284              	 .cfi_offset 7,-8
+ 285              	 .cfi_offset 14,-4
+ 286 0002 00AF     	 add r7,sp,#0
+ 287              	.LCFI9:
+ 288              	 .cfi_def_cfa_register 7
+ 289:../Startup/system_XMC1400.c ****   return OSCHP_FREQUENCY;
+ 289              	 .loc 1 289 0
+ 290 0004 014B     	 ldr r3,.L18
+ 290:../Startup/system_XMC1400.c **** }
+ 291              	 .loc 1 290 0
+ 292 0006 181C     	 mov r0,r3
+ 293 0008 BD46     	 mov sp,r7
+ 294              	 
+ 295 000a 80BD     	 pop {r7,pc}
+ 296              	.L19:
+ 297              	 .align 2
+ 298              	.L18:
+ 299 000c 002D3101 	 .word 20000000
+ 300              	 .cfi_endproc
+ 301              	.LFE46:
+ 303              	 .section .bss.IDIV.5134,"aw",%nobits
+ 304              	 .align 2
+ 307              	IDIV.5134:
+ 308 0000 00000000 	 .space 4
+ 309              	 .section .bss.FDIV.5135,"aw",%nobits
+ 310              	 .align 2
+ 313              	FDIV.5135:
+ 314 0000 00000000 	 .space 4
+ 315              	 .text
+ 316              	.Letext0:
+ 317              	 .file 2 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 318              	 .file 3 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 319              	 .file 4 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/XMC1400.h"
+ 320              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 system_XMC1400.c
+    {standard input}:22     .no_init:00000000 SystemCoreClock
+    {standard input}:19     .no_init:00000000 $d
+    {standard input}:25     .text.SystemInit:00000000 $t
+    {standard input}:30     .text.SystemInit:00000000 SystemInit
+    {standard input}:60     .text.SystemCoreSetup:00000000 SystemCoreSetup
+    {standard input}:96     .text.SystemCoreClockSetup:00000000 SystemCoreClockSetup
+    {standard input}:55     .text.SystemCoreSetup:00000000 $t
+    {standard input}:86     .text.SystemCoreSetup:00000014 $d
+    {standard input}:91     .text.SystemCoreClockSetup:00000000 $t
+    {standard input}:150    .text.SystemCoreClockUpdate:00000000 SystemCoreClockUpdate
+    {standard input}:136    .text.SystemCoreClockSetup:0000002c $d
+    {standard input}:145    .text.SystemCoreClockUpdate:00000000 $t
+    {standard input}:277    .text.OSCHP_GetFrequency:00000000 OSCHP_GetFrequency
+    {standard input}:262    .text.SystemCoreClockUpdate:000000b0 $d
+    {standard input}:307    .bss.IDIV.5134:00000000 IDIV.5134
+    {standard input}:313    .bss.FDIV.5135:00000000 FDIV.5135
+    {standard input}:272    .text.OSCHP_GetFrequency:00000000 $t
+    {standard input}:299    .text.OSCHP_GetFrequency:0000000c $d
+    {standard input}:304    .bss.IDIV.5134:00000000 $d
+    {standard input}:310    .bss.FDIV.5135:00000000 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+__aeabi_uidiv

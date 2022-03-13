@@ -1,0 +1,61 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "esp32_op_conf.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .global tx_config
+  18              	 .section .data.tx_config,"aw",%progbits
+  19              	 .align 2
+  22              	tx_config:
+  23 0000 98       	 .byte -104
+  24 0001 00000000 	 .space 7
+  24      000000
+  25              	 .global rx_config
+  26              	 .section .data.rx_config,"aw",%progbits
+  27              	 .align 2
+  30              	rx_config:
+  31 0000 08       	 .byte 8
+  32 0001 00000000 	 .space 7
+  32      000000
+  33              	 .global uart_config
+  34              	 .section .data.uart_config,"aw",%progbits
+  35              	 .align 2
+  38              	uart_config:
+  39 0000 80250000 	 .word 9600
+  40 0004 00       	 .space 1
+  41 0005 08       	 .byte 8
+  42 0006 00       	 .space 1
+  43 0007 01       	 .byte 1
+  44 0008 00000000 	 .space 4
+  45              	 .text
+  46              	.Letext0:
+  47              	 .file 1 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  48              	 .file 2 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  49              	 .file 3 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_gpio.h"
+  50              	 .file 4 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc1_gpio.h"
+  51              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_usic.h"
+  52              	 .file 6 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_uart.h"
+  53              	 .file 7 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
+  54              	 .file 8 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/system_XMC1400.h"
+  55              	 .file 9 "../interconnect/esp32/esp32_op_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 esp32_op_conf.c
+    {standard input}:22     .data.tx_config:00000000 tx_config
+    {standard input}:19     .data.tx_config:00000000 $d
+    {standard input}:30     .data.rx_config:00000000 rx_config
+    {standard input}:27     .data.rx_config:00000000 $d
+    {standard input}:38     .data.uart_config:00000000 uart_config
+    {standard input}:35     .data.uart_config:00000000 $d
+
+NO UNDEFINED SYMBOLS

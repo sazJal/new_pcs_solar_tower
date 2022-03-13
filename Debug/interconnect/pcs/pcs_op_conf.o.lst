@@ -1,0 +1,110 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "pcs_op_conf.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .global pcs_button_config
+  18              	 .section .data.pcs_button_config,"aw",%progbits
+  19              	 .align 2
+  22              	pcs_button_config:
+  23 0000 80       	 .byte -128
+  24 0001 00000000 	 .space 7
+  24      000000
+  25              	 .global CAN0_txd_config
+  26              	 .section .data.CAN0_txd_config,"aw",%progbits
+  27              	 .align 2
+  30              	CAN0_txd_config:
+  31 0000 A4       	 .byte -92
+  32 0001 00000000 	 .space 7
+  32      000000
+  33              	 .global CAN0_rxd_config
+  34              	 .section .bss.CAN0_rxd_config,"aw",%nobits
+  35              	 .align 2
+  38              	CAN0_rxd_config:
+  39 0000 00000000 	 .space 8
+  39      00000000 
+  40              	 .global can_baud
+  41              	 .section .data.can_baud,"aw",%progbits
+  42              	 .align 2
+  45              	can_baud:
+  46 0000 C0D8A700 	 .word 11000000
+  47 0004 20A10700 	 .word 500000
+  48 0008 7017     	 .short 6000
+  49 000a 0300     	 .short 3
+  50              	 .global msgObjToPCS
+  51              	 .section .data.msgObjToPCS,"aw",%progbits
+  52              	 .align 3
+  55              	msgObjToPCS:
+  56 0000 80100450 	 .word 1342443648
+  57 0004 000000   	 .space 3
+  58 0007 80       	 .byte 128
+  59 0008 FF       	 .byte 255
+  60 0009 07       	 .byte 7
+  61 000a 00       	 .byte 0
+  62 000b 20       	 .byte 32
+  63 000c 08       	 .byte 8
+  64 000d 00000000 	 .space 11
+  64      00000000 
+  64      000000
+  65 0018 01       	 .byte 1
+  66 0019 00000000 	 .space 7
+  66      000000
+  67              	 .global msgObjFromPCS
+  68              	 .section .data.msgObjFromPCS,"aw",%progbits
+  69              	 .align 3
+  72              	msgObjFromPCS:
+  73 0000 40100450 	 .word 1342443584
+  74 0004 00       	 .byte 0
+  75 0005 02       	 .byte 2
+  76 0006 00       	 .byte 0
+  77 0007 80       	 .byte 128
+  78 0008 00       	 .byte 0
+  79 0009 02       	 .byte 2
+  80 000a 00       	 .byte 0
+  81 000b 20       	 .byte 32
+  82 000c 08       	 .byte 8
+  83 000d 00000000 	 .space 11
+  83      00000000 
+  83      000000
+  84 0018 00       	 .byte 0
+  85 0019 00000000 	 .space 7
+  85      000000
+  86              	 .text
+  87              	.Letext0:
+  88              	 .file 1 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+  89              	 .file 2 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+  90              	 .file 3 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/XMC1400.h"
+  91              	 .file 4 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_usic.h"
+  92              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_gpio.h"
+  93              	 .file 6 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc1_gpio.h"
+  94              	 .file 7 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_can.h"
+  95              	 .file 8 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
+  96              	 .file 9 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/system_XMC1400.h"
+  97              	 .file 10 "../interconnect/pcs/pcs_op_conf.c"
+DEFINED SYMBOLS
+                            *ABS*:00000000 pcs_op_conf.c
+    {standard input}:22     .data.pcs_button_config:00000000 pcs_button_config
+    {standard input}:19     .data.pcs_button_config:00000000 $d
+    {standard input}:30     .data.CAN0_txd_config:00000000 CAN0_txd_config
+    {standard input}:27     .data.CAN0_txd_config:00000000 $d
+    {standard input}:38     .bss.CAN0_rxd_config:00000000 CAN0_rxd_config
+    {standard input}:35     .bss.CAN0_rxd_config:00000000 $d
+    {standard input}:45     .data.can_baud:00000000 can_baud
+    {standard input}:42     .data.can_baud:00000000 $d
+    {standard input}:55     .data.msgObjToPCS:00000000 msgObjToPCS
+    {standard input}:52     .data.msgObjToPCS:00000000 $d
+    {standard input}:72     .data.msgObjFromPCS:00000000 msgObjFromPCS
+    {standard input}:69     .data.msgObjFromPCS:00000000 $d
+
+NO UNDEFINED SYMBOLS

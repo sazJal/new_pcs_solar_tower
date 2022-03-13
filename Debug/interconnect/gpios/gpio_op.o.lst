@@ -1,0 +1,476 @@
+   1              	 .cpu cortex-m0
+   2              	 .fpu softvfp
+   3              	 .eabi_attribute 20,1
+   4              	 .eabi_attribute 21,1
+   5              	 .eabi_attribute 23,3
+   6              	 .eabi_attribute 24,1
+   7              	 .eabi_attribute 25,1
+   8              	 .eabi_attribute 26,1
+   9              	 .eabi_attribute 30,6
+  10              	 .eabi_attribute 34,0
+  11              	 .eabi_attribute 18,4
+  12              	 .code 16
+  13              	 .file "gpio_op.c"
+  14              	 .text
+  15              	.Ltext0:
+  16              	 .cfi_sections .debug_frame
+  17              	 .section .text.XMC_GPIO_SetOutputHigh,"ax",%progbits
+  18              	 .align 2
+  19              	 .code 16
+  20              	 .thumb_func
+  22              	XMC_GPIO_SetOutputHigh:
+  23              	.LFB183:
+  24              	 .file 1 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_gpio.h"
+   1:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+   2:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @file xmc_gpio.h
+   3:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @date 2015-06-20
+   4:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   5:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @cond
+   6:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+   7:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * XMClib v2.1.24 - XMC Peripheral Driver Library 
+   8:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+   9:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Copyright (c) 2015-2019, Infineon Technologies AG
+  10:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * All rights reserved.                        
+  11:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                             
+  12:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * following conditions are met:   
+  14:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  15:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer.                        
+  17:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  18:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  21:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * products derived from this software without specific prior written permission.                  
+  23:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  24:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *                                                                              
+  32:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  35:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  36:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Change History
+  37:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * --------------
+  38:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  39:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-02-20:
+  40:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Initial draft<br>
+  41:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Documentation improved <br>
+  42:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *      
+  43:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * 2015-06-20:
+  44:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  45:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  46:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @endcond
+  47:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  48:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  49:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  50:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #ifndef XMC_GPIO_H
+  51:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_H
+  52:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  53:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  54:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * HEADER FILES
+  55:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  56:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  57:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc_common.h"
+  58:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  59:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  60:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup XMClib XMC Peripheral Library
+  61:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @{
+  62:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  63:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  64:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+  65:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @addtogroup GPIO
+  66:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @brief General Purpose Input Output (GPIO) driver for the XMC microcontroller family.
+  67:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  68:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * GPIO driver provide a generic and very flexible software interface for all standard digital I/O 
+  69:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Each port slice has individual interfaces for the operation as General Purpose I/O and it furthe
+  70:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * connectivity to the on-chip periphery and the control for the pad characteristics. 
+  71:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  72:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * The driver is divided into Input and Output mode.
+  73:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  74:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Input mode features:
+  75:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Configuration structure XMC_GPIO_CONFIG_t and initialization function XMC_GPIO_Init()
+  76:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of weak pull-up or pull-down device. Configuration structure XMC_GPIO_MO
+  77:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+  78:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of input hysteresis. XMC_GPIO_SetInputHysteresis()
+  79:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  80:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  81:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * 
+  82:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Output mode features:
+  83:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of push pull/open drain and Alternate output. Configuration structure XM
+  84:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+  85:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of pad driver strength. Configuration structure XMC_GPIO_OUTPUT_STRENGTH
+  86:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+  87:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  88:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * -# Allows the selection of initial output level. Configuration structure XMC_GPIO_OUTPUT_LEVEL_t
+  89:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+  90:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *@{
+  91:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+  92:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  
+  93:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+  94:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * MACROS
+  95:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+  96:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+  97:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Pos PORT0_IOCR0_PC0_Pos
+  98:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Msk PORT0_IOCR0_PC0_Msk
+  99:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 100:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #define PORT_IOCR_PC_Size 				(8U)
+ 101:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 											
+ 102:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 103:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_OUTPUT_LEVEL(level) ((level == XMC_GPIO_OUTPUT_LEVEL_LOW) || \
+ 104:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****                                             (level == XMC_GPIO_OUTPUT_LEVEL_HIGH))
+ 105:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 106:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #define XMC_GPIO_CHECK_HWCTRL(hwctrl) ((hwctrl == XMC_GPIO_HWCTRL_DISABLED) || \
+ 107:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL1) || \
+ 108:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****                                        (hwctrl == XMC_GPIO_HWCTRL_PERIPHERAL2))                    
+ 109:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****                                             
+ 110:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 111:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * ENUMS
+ 112:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 113:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 114:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 115:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 116:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines output level of a pin. Use type \a XMC_GPIO_OUTPUT_LEVEL_t for this enum.
+ 117:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 118:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_OUTPUT_LEVEL
+ 119:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 120:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_LOW  = 0x10000U, /**<  Reset bit */
+ 121:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_OUTPUT_LEVEL_HIGH = 0x1U, 	/**< Set bit  */
+ 122:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_OUTPUT_LEVEL_t;
+ 123:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 124:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 125:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Defines direct hardware control characteristics of the pin . Use type \a XMC_GPIO_HWCTRL_t for t
+ 126:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 127:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** typedef enum XMC_GPIO_HWCTRL
+ 128:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 129:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_DISABLED     = 0x0U, /**<  Software control only */
+ 130:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL1  = 0x1U, /**<  HWI0/HWO0 control path can override the software confi
+ 131:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_GPIO_HWCTRL_PERIPHERAL2  = 0x2U  /**<  HWI1/HWO1 control path can override the software confi
+ 132:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** } XMC_GPIO_HWCTRL_t;
+ 133:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 134:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 135:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * DEVICE FAMILY EXTENSIONS
+ 136:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 137:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 138:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  #if UC_FAMILY == XMC1
+ 139:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc1_gpio.h"
+ 140:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #elif UC_FAMILY == XMC4
+ 141:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #include "xmc4_gpio.h"
+ 142:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #else
+ 143:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #error "xmc_gpio.h: family device not supported"
+ 144:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 145:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 146:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**************************************************************************************************
+ 147:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * API PROTOTYPES
+ 148:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  **************************************************************************************************
+ 149:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 150:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #ifdef __cplusplus
+ 151:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** extern "C" {
+ 152:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** #endif
+ 153:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 154:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 155:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 156:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	  Constant pointer pointing to GPIO port, to access port registers like Pn_OUT,Pn_O
+ 157:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	  Port pin number.
+ 158:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  config GPIO configuration data structure. Refer data structure @ref XMC_GPIO_CONFIG_t fo
+ 159:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 160:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 161:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 162:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 163:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC1
+ 164:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,hysteresis, push pull
+ 165:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for a selected \a po
+ 166:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \a config provides selected I/O settings. It configures hardware registers Pn_IOCR,Pn_OUT, Pn_OM
+ 167:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 168:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \if XMC4
+ 169:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Initializes input / output mode settings like, pull up / pull down devices,push pull /open drain
+ 170:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Also configures alternate function outputs and clears hardware port control for selected \a port
+ 171:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * It configures hardware registers Pn_IOCR,Pn_OUT,Pn_OMR,Pn_PDISC and Pn_PDR.\n
+ 172:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \endif
+ 173:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 174:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 175:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 176:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 177:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 178:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * This API is called in definition of DAVE_init by code generation and therefore should not be exp
+ 179:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * for the normal operation. Use other APIs only after DAVE_init is called successfully (returns DA
+ 180:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 181:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 182:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 183:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 184:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 185:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_Init(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_CONFIG_t *const c
+ 186:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  
+ 187:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 188:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 189:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	Constant pointer pointing to GPIO port, to access hardware register Pn_IOCR.
+ 190:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 191:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  mode input / output functionality selection. Refer @ref XMC_GPIO_MODE_t for valid values
+ 192:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 193:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 194:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 195:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 196:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Sets digital input and output driver functionality and characteristics of a GPIO port pin. It co
+ 197:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * registers Pn_IOCR. \a mode is initially configured during initialization in XMC_GPIO_Init(). Cal
+ 198:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * the port direction functionality as needed later in the program.
+ 199:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 200:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 201:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *  None
+ 202:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 203:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 204:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 205:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** void XMC_GPIO_SetMode(XMC_GPIO_PORT_t *const port, const uint8_t pin, const XMC_GPIO_MODE_t mode);
+ 206:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 207:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 208:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 209:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 210:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port	 Constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 211:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	 Port pin number.
+ 212:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  level output level selection. Refer @ref XMC_GPIO_OUTPUT_LEVEL_t for valid values.
+ 213:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 214:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 215:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 216:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 217:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Set port pin output level to high or low.It configures hardware registers Pn_OMR.\a level is ini
+ 218:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * configured during initialization in XMC_GPIO_Init(). Call this API to alter output level as need
+ 219:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 220:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Related APIs:</b><BR>
+ 221:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputHigh(), XMC_GPIO_SetOutputLow().
+ 222:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 223:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 224:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().
+ 225:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 226:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 227:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 228:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 229:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputLevel(XMC_GPIO_PORT_t *const port, const uint8_t pin, const 
+ 230:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** {
+ 231:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 232:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputLevel: Invalid output level", XMC_GPIO_CHECK_OUTPUT_LEVEL(level));
+ 233:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   
+ 234:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)level << pin;
+ 235:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** }
+ 236:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 237:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 238:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** /**
+ 239:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  port constant pointer pointing to GPIO port, to access hardware register Pn_OMR.
+ 240:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @param  pin	Port pin number.
+ 241:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 242:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * @return None
+ 243:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 244:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Description:</b><br>
+ 245:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *  Sets port pin output to high. It configures hardware registers Pn_OMR.
+ 246:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 247:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *  \par<b>Related APIs:</b><BR>
+ 248:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *  XMC_GPIO_SetOutputLow()
+ 249:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 250:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * \par<b>Note:</b><br>
+ 251:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Prior to this api, user has to configure port pin to output mode using XMC_GPIO_SetMode().\n
+ 252:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  * Register Pn_OMR is virtual and does not contain any flip-flop. A read action delivers the value 
+ 253:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  *
+ 254:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****  */
+ 255:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 256:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** __STATIC_INLINE void XMC_GPIO_SetOutputHigh(XMC_GPIO_PORT_t *const port, const uint8_t pin)
+ 257:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** {
+  25              	 .loc 1 257 0
+  26              	 .cfi_startproc
+  27 0000 80B5     	 push {r7,lr}
+  28              	.LCFI0:
+  29              	 .cfi_def_cfa_offset 8
+  30              	 .cfi_offset 7,-8
+  31              	 .cfi_offset 14,-4
+  32 0002 82B0     	 sub sp,sp,#8
+  33              	.LCFI1:
+  34              	 .cfi_def_cfa_offset 16
+  35 0004 00AF     	 add r7,sp,#0
+  36              	.LCFI2:
+  37              	 .cfi_def_cfa_register 7
+  38 0006 7860     	 str r0,[r7,#4]
+  39 0008 0A1C     	 mov r2,r1
+  40 000a FB1C     	 add r3,r7,#3
+  41 000c 1A70     	 strb r2,[r3]
+ 258:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   XMC_ASSERT("XMC_GPIO_SetOutputHigh: Invalid port", XMC_GPIO_CHECK_OUTPUT_PORT(port));
+ 259:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** 
+ 260:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h ****   port->OMR = (uint32_t)0x1U << pin;
+  42              	 .loc 1 260 0
+  43 000e FB1C     	 add r3,r7,#3
+  44 0010 1B78     	 ldrb r3,[r3]
+  45 0012 0122     	 mov r2,#1
+  46 0014 9A40     	 lsl r2,r2,r3
+  47 0016 7B68     	 ldr r3,[r7,#4]
+  48 0018 5A60     	 str r2,[r3,#4]
+ 261:C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc\xmc_gpio.h **** }
+  49              	 .loc 1 261 0
+  50 001a BD46     	 mov sp,r7
+  51 001c 02B0     	 add sp,sp,#8
+  52              	 
+  53 001e 80BD     	 pop {r7,pc}
+  54              	 .cfi_endproc
+  55              	.LFE183:
+  57              	 .comm led,8,4
+  58              	 .comm button,8,4
+  59              	 .comm dipswitch_config,8,4
+  60              	 .section .text.GPIO_Init,"ax",%progbits
+  61              	 .align 2
+  62              	 .global GPIO_Init
+  63              	 .code 16
+  64              	 .thumb_func
+  66              	GPIO_Init:
+  67              	.LFB230:
+  68              	 .file 2 "../interconnect/gpios/gpio_op.c"
+   1:../interconnect/gpios/gpio_op.c **** /*
+   2:../interconnect/gpios/gpio_op.c ****  * gpio_op.c
+   3:../interconnect/gpios/gpio_op.c ****  *
+   4:../interconnect/gpios/gpio_op.c ****  *  Created on: Mar 3, 2022
+   5:../interconnect/gpios/gpio_op.c ****  *      Author: Lenovo
+   6:../interconnect/gpios/gpio_op.c ****  */
+   7:../interconnect/gpios/gpio_op.c **** 
+   8:../interconnect/gpios/gpio_op.c **** #include "gpio_op.h"
+   9:../interconnect/gpios/gpio_op.c **** 
+  10:../interconnect/gpios/gpio_op.c **** void GPIO_Init(void)
+  11:../interconnect/gpios/gpio_op.c **** {
+  69              	 .loc 2 11 0
+  70              	 .cfi_startproc
+  71 0000 80B5     	 push {r7,lr}
+  72              	.LCFI3:
+  73              	 .cfi_def_cfa_offset 8
+  74              	 .cfi_offset 7,-8
+  75              	 .cfi_offset 14,-4
+  76 0002 00AF     	 add r7,sp,#0
+  77              	.LCFI4:
+  78              	 .cfi_def_cfa_register 7
+  12:../interconnect/gpios/gpio_op.c **** 	/* Initialize LEDs */
+  13:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P2_11, &led);
+  79              	 .loc 2 13 0
+  80 0004 244A     	 ldr r2,.L3
+  81 0006 254B     	 ldr r3,.L3+4
+  82 0008 101C     	 mov r0,r2
+  83 000a 0B21     	 mov r1,#11
+  84 000c 1A1C     	 mov r2,r3
+  85 000e FFF7FEFF 	 bl XMC_GPIO_Init
+  14:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P2_12, &led);
+  86              	 .loc 2 14 0
+  87 0012 214A     	 ldr r2,.L3
+  88 0014 214B     	 ldr r3,.L3+4
+  89 0016 101C     	 mov r0,r2
+  90 0018 0C21     	 mov r1,#12
+  91 001a 1A1C     	 mov r2,r3
+  92 001c FFF7FEFF 	 bl XMC_GPIO_Init
+  15:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P2_13, &led);
+  93              	 .loc 2 15 0
+  94 0020 1D4A     	 ldr r2,.L3
+  95 0022 1E4B     	 ldr r3,.L3+4
+  96 0024 101C     	 mov r0,r2
+  97 0026 0D21     	 mov r1,#13
+  98 0028 1A1C     	 mov r2,r3
+  99 002a FFF7FEFF 	 bl XMC_GPIO_Init
+  16:../interconnect/gpios/gpio_op.c **** 
+  17:../interconnect/gpios/gpio_op.c **** 	/* Initialize DIP Switches */
+  18:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P4_2,&dipswitch_config);
+ 100              	 .loc 2 18 0
+ 101 002e 1C4A     	 ldr r2,.L3+8
+ 102 0030 1C4B     	 ldr r3,.L3+12
+ 103 0032 101C     	 mov r0,r2
+ 104 0034 0221     	 mov r1,#2
+ 105 0036 1A1C     	 mov r2,r3
+ 106 0038 FFF7FEFF 	 bl XMC_GPIO_Init
+  19:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P4_3,&dipswitch_config);
+ 107              	 .loc 2 19 0
+ 108 003c 184A     	 ldr r2,.L3+8
+ 109 003e 194B     	 ldr r3,.L3+12
+ 110 0040 101C     	 mov r0,r2
+ 111 0042 0321     	 mov r1,#3
+ 112 0044 1A1C     	 mov r2,r3
+ 113 0046 FFF7FEFF 	 bl XMC_GPIO_Init
+  20:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P4_4,&dipswitch_config);
+ 114              	 .loc 2 20 0
+ 115 004a 154A     	 ldr r2,.L3+8
+ 116 004c 154B     	 ldr r3,.L3+12
+ 117 004e 101C     	 mov r0,r2
+ 118 0050 0421     	 mov r1,#4
+ 119 0052 1A1C     	 mov r2,r3
+ 120 0054 FFF7FEFF 	 bl XMC_GPIO_Init
+  21:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P4_5,&dipswitch_config);
+ 121              	 .loc 2 21 0
+ 122 0058 114A     	 ldr r2,.L3+8
+ 123 005a 124B     	 ldr r3,.L3+12
+ 124 005c 101C     	 mov r0,r2
+ 125 005e 0521     	 mov r1,#5
+ 126 0060 1A1C     	 mov r2,r3
+ 127 0062 FFF7FEFF 	 bl XMC_GPIO_Init
+  22:../interconnect/gpios/gpio_op.c **** 
+  23:../interconnect/gpios/gpio_op.c **** 	/* Initialize Start Button */
+  24:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_Init(P2_2, &button);
+ 128              	 .loc 2 24 0
+ 129 0066 0C4A     	 ldr r2,.L3
+ 130 0068 0F4B     	 ldr r3,.L3+16
+ 131 006a 101C     	 mov r0,r2
+ 132 006c 0221     	 mov r1,#2
+ 133 006e 1A1C     	 mov r2,r3
+ 134 0070 FFF7FEFF 	 bl XMC_GPIO_Init
+  25:../interconnect/gpios/gpio_op.c **** 
+  26:../interconnect/gpios/gpio_op.c **** 	/* Set all LED off */
+  27:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_SetOutputHigh(P2_11);
+ 135              	 .loc 2 27 0
+ 136 0074 084B     	 ldr r3,.L3
+ 137 0076 181C     	 mov r0,r3
+ 138 0078 0B21     	 mov r1,#11
+ 139 007a FFF7FEFF 	 bl XMC_GPIO_SetOutputHigh
+  28:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_SetOutputHigh(P2_12);
+ 140              	 .loc 2 28 0
+ 141 007e 064B     	 ldr r3,.L3
+ 142 0080 181C     	 mov r0,r3
+ 143 0082 0C21     	 mov r1,#12
+ 144 0084 FFF7FEFF 	 bl XMC_GPIO_SetOutputHigh
+  29:../interconnect/gpios/gpio_op.c **** 	XMC_GPIO_SetOutputHigh(P2_13);
+ 145              	 .loc 2 29 0
+ 146 0088 034B     	 ldr r3,.L3
+ 147 008a 181C     	 mov r0,r3
+ 148 008c 0D21     	 mov r1,#13
+ 149 008e FFF7FEFF 	 bl XMC_GPIO_SetOutputHigh
+  30:../interconnect/gpios/gpio_op.c **** 
+  31:../interconnect/gpios/gpio_op.c **** 
+  32:../interconnect/gpios/gpio_op.c **** }
+ 150              	 .loc 2 32 0
+ 151 0092 BD46     	 mov sp,r7
+ 152              	 
+ 153 0094 80BD     	 pop {r7,pc}
+ 154              	.L4:
+ 155 0096 C046     	 .align 2
+ 156              	.L3:
+ 157 0098 00020440 	 .word 1074004480
+ 158 009c 00000000 	 .word led
+ 159 00a0 00040440 	 .word 1074004992
+ 160 00a4 00000000 	 .word dipswitch_config
+ 161 00a8 00000000 	 .word button
+ 162              	 .cfi_endproc
+ 163              	.LFE230:
+ 165              	 .text
+ 166              	.Letext0:
+ 167              	 .file 3 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 168              	 .file 4 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 169              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_usic.h"
+ 170              	 .file 6 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc1_gpio.h"
+ 171              	 .file 7 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 172              	 .file 8 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/system_XMC1400.h"
+ 173              	 .file 9 "../interconnect/gpios/gpio_op_conf.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 gpio_op.c
+    {standard input}:18     .text.XMC_GPIO_SetOutputHigh:00000000 $t
+    {standard input}:22     .text.XMC_GPIO_SetOutputHigh:00000000 XMC_GPIO_SetOutputHigh
+                            *COM*:00000008 led
+                            *COM*:00000008 button
+                            *COM*:00000008 dipswitch_config
+    {standard input}:61     .text.GPIO_Init:00000000 $t
+    {standard input}:66     .text.GPIO_Init:00000000 GPIO_Init
+    {standard input}:157    .text.GPIO_Init:00000098 $d
+                     .debug_frame:00000010 $d
+
+UNDEFINED SYMBOLS
+XMC_GPIO_Init
