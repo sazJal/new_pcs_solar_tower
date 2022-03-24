@@ -434,7 +434,7 @@
   98              	 .comm pcsACinvStatus,4,4
   99              	 .comm pcsPVconvStatus,4,4
  100              	 .comm pcsBatconvStatus,4,4
- 101              	 .comm data_group,76,4
+ 101              	 .comm data_group,80,4
  102              	 .comm buffptr,4,4
  103              	 .comm espBuffer,80,4
  104              	 .comm pduSensorRaw,8,4
@@ -444,14 +444,15 @@
  108              	 .comm mcu_state,1,1
  109              	 .comm controlFlag,6,4
  110              	 .global __aeabi_fcmpgt
- 111 0026 C046     	 .section .text.OP_SetupConnection,"ax",%progbits
- 112              	 .align 2
- 113              	 .global OP_SetupConnection
- 114              	 .code 16
- 115              	 .thumb_func
- 117              	OP_SetupConnection:
- 118              	.LFB380:
- 119              	 .file 2 "../operation/operation.c"
+ 111              	 .global __aeabi_fcmplt
+ 112 0026 C046     	 .section .text.OP_SetupConnection,"ax",%progbits
+ 113              	 .align 2
+ 114              	 .global OP_SetupConnection
+ 115              	 .code 16
+ 116              	 .thumb_func
+ 118              	OP_SetupConnection:
+ 119              	.LFB380:
+ 120              	 .file 2 "../operation/operation.c"
    1:../operation/operation.c **** /*
    2:../operation/operation.c ****  * operation.c
    3:../operation/operation.c ****  *
@@ -468,1246 +469,1382 @@
   14:../operation/operation.c **** void OP_SetupConnection(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam,
   15:../operation/operation.c **** 						OP_CTRL_FLAG_t *ctrlFlag, float pvVoltage, PCS_BMC_STATUS_t *pcsBmsStatus, PCS_STATUS_t *pcsS
   16:../operation/operation.c **** {
- 120              	 .loc 2 16 0
- 121              	 .cfi_startproc
- 122 0000 80B5     	 push {r7,lr}
- 123              	.LCFI3:
- 124              	 .cfi_def_cfa_offset 8
- 125              	 .cfi_offset 7,-8
- 126              	 .cfi_offset 14,-4
- 127 0002 84B0     	 sub sp,sp,#16
- 128              	.LCFI4:
- 129              	 .cfi_def_cfa_offset 24
- 130 0004 00AF     	 add r7,sp,#0
- 131              	.LCFI5:
- 132              	 .cfi_def_cfa_register 7
- 133 0006 F860     	 str r0,[r7,#12]
- 134 0008 B960     	 str r1,[r7,#8]
- 135 000a 7A60     	 str r2,[r7,#4]
- 136 000c 3B60     	 str r3,[r7]
+ 121              	 .loc 2 16 0
+ 122              	 .cfi_startproc
+ 123 0000 80B5     	 push {r7,lr}
+ 124              	.LCFI3:
+ 125              	 .cfi_def_cfa_offset 8
+ 126              	 .cfi_offset 7,-8
+ 127              	 .cfi_offset 14,-4
+ 128 0002 84B0     	 sub sp,sp,#16
+ 129              	.LCFI4:
+ 130              	 .cfi_def_cfa_offset 24
+ 131 0004 00AF     	 add r7,sp,#0
+ 132              	.LCFI5:
+ 133              	 .cfi_def_cfa_register 7
+ 134 0006 F860     	 str r0,[r7,#12]
+ 135 0008 B960     	 str r1,[r7,#8]
+ 136 000a 7A60     	 str r2,[r7,#4]
+ 137 000c 3B60     	 str r3,[r7]
   17:../operation/operation.c **** 	static bool toggle_timer = false;
   18:../operation/operation.c **** 	/* 1. Ensure all relay at initial state */
   19:../operation/operation.c **** 	/* Initiate relay status */
   20:../operation/operation.c **** 	PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_OPEN);
- 137              	 .loc 2 20 0
- 138 000e 0020     	 mov r0,#0
- 139 0010 0021     	 mov r1,#0
- 140 0012 FFF7FEFF 	 bl PDU_Switch_Relay
+ 138              	 .loc 2 20 0
+ 139 000e 0020     	 mov r0,#0
+ 140 0010 0021     	 mov r1,#0
+ 141 0012 FFF7FEFF 	 bl PDU_Switch_Relay
   21:../operation/operation.c **** 	PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_OPEN);
- 141              	 .loc 2 21 0
- 142 0016 0320     	 mov r0,#3
- 143 0018 0021     	 mov r1,#0
- 144 001a FFF7FEFF 	 bl PDU_Switch_Relay
+ 142              	 .loc 2 21 0
+ 143 0016 0320     	 mov r0,#3
+ 144 0018 0021     	 mov r1,#0
+ 145 001a FFF7FEFF 	 bl PDU_Switch_Relay
   22:../operation/operation.c **** 	PDU_Switch_Relay(PDU_RELAY_KMP,  PDU_RELAY_OPEN);
- 145              	 .loc 2 22 0
- 146 001e 0120     	 mov r0,#1
- 147 0020 0021     	 mov r1,#0
- 148 0022 FFF7FEFF 	 bl PDU_Switch_Relay
+ 146              	 .loc 2 22 0
+ 147 001e 0120     	 mov r0,#1
+ 148 0020 0021     	 mov r1,#0
+ 149 0022 FFF7FEFF 	 bl PDU_Switch_Relay
   23:../operation/operation.c **** 	PDU_Switch_Relay(PDU_RELAY_KMF,  PDU_RELAY_OPEN);
- 149              	 .loc 2 23 0
- 150 0026 0220     	 mov r0,#2
- 151 0028 0021     	 mov r1,#0
- 152 002a FFF7FEFF 	 bl PDU_Switch_Relay
+ 150              	 .loc 2 23 0
+ 151 0026 0220     	 mov r0,#2
+ 152 0028 0021     	 mov r1,#0
+ 153 002a FFF7FEFF 	 bl PDU_Switch_Relay
   24:../operation/operation.c **** 
   25:../operation/operation.c **** 	/* CAN Status Setup */
   26:../operation/operation.c **** 	pcsBmsStatus->bmc_main_relay		= RELAY_OPEN;
- 153              	 .loc 2 26 0
- 154 002e BB69     	 ldr r3,[r7,#24]
- 155 0030 0022     	 mov r2,#0
- 156 0032 9A70     	 strb r2,[r3,#2]
+ 154              	 .loc 2 26 0
+ 155 002e BB69     	 ldr r3,[r7,#24]
+ 156 0030 0022     	 mov r2,#0
+ 157 0032 9A70     	 strb r2,[r3,#2]
   27:../operation/operation.c **** 	pcsBmsStatus->bmc_precharge_relay	= RELAY_OPEN;
- 157              	 .loc 2 27 0
- 158 0034 BB69     	 ldr r3,[r7,#24]
- 159 0036 0022     	 mov r2,#0
- 160 0038 DA70     	 strb r2,[r3,#3]
+ 158              	 .loc 2 27 0
+ 159 0034 BB69     	 ldr r3,[r7,#24]
+ 160 0036 0022     	 mov r2,#0
+ 161 0038 DA70     	 strb r2,[r3,#3]
   28:../operation/operation.c **** 	pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
- 161              	 .loc 2 28 0
- 162 003a BB69     	 ldr r3,[r7,#24]
- 163 003c 0122     	 mov r2,#1
- 164 003e 1A70     	 strb r2,[r3]
+ 162              	 .loc 2 28 0
+ 163 003a BB69     	 ldr r3,[r7,#24]
+ 164 003c 0122     	 mov r2,#1
+ 165 003e 1A70     	 strb r2,[r3]
   29:../operation/operation.c **** 	pcsBmsStatus->bmc_pcs_command		= BMU_PCS_STOP;
- 165              	 .loc 2 29 0
- 166 0040 BB69     	 ldr r3,[r7,#24]
- 167 0042 0022     	 mov r2,#0
- 168 0044 5A70     	 strb r2,[r3,#1]
+ 166              	 .loc 2 29 0
+ 167 0040 BB69     	 ldr r3,[r7,#24]
+ 168 0042 0022     	 mov r2,#0
+ 169 0044 5A70     	 strb r2,[r3,#1]
   30:../operation/operation.c **** 
   31:../operation/operation.c **** 	/* 2. Checking PV Condition */
   32:../operation/operation.c **** 	if((pvVoltage > 150.0 || ctrlFlag->isBypass_power_mode))
- 169              	 .loc 2 32 0
- 170 0046 3868     	 ldr r0,[r7]
- 171 0048 2149     	 ldr r1,.L7
- 172 004a FFF7FEFF 	 bl __aeabi_fcmpgt
- 173 004e 031E     	 sub r3,r0,#0
- 174 0050 03D1     	 bne .L4
- 175              	 .loc 2 32 0 is_stmt 0 discriminator 1
- 176 0052 7B68     	 ldr r3,[r7,#4]
- 177 0054 DB78     	 ldrb r3,[r3,#3]
- 178 0056 002B     	 cmp r3,#0
- 179 0058 36D0     	 beq .L3
- 180              	.L4:
+ 170              	 .loc 2 32 0
+ 171 0046 3868     	 ldr r0,[r7]
+ 172 0048 2E49     	 ldr r1,.L10
+ 173 004a FFF7FEFF 	 bl __aeabi_fcmpgt
+ 174 004e 031E     	 sub r3,r0,#0
+ 175 0050 03D1     	 bne .L4
+ 176              	 .loc 2 32 0 is_stmt 0 discriminator 1
+ 177 0052 7B68     	 ldr r3,[r7,#4]
+ 178 0054 DB78     	 ldrb r3,[r3,#3]
+ 179 0056 002B     	 cmp r3,#0
+ 180 0058 38D0     	 beq .L5
+ 181              	.L4:
   33:../operation/operation.c **** 	{
   34:../operation/operation.c **** 		if((!sysTickParam->isTimeOut) && !toggle_timer) // start timer
- 181              	 .loc 2 34 0 is_stmt 1
- 182 005a BB68     	 ldr r3,[r7,#8]
- 183 005c 1B79     	 ldrb r3,[r3,#4]
- 184 005e 0122     	 mov r2,#1
- 185 0060 5340     	 eor r3,r2
- 186 0062 DBB2     	 uxtb r3,r3
- 187 0064 002B     	 cmp r3,#0
- 188 0066 10D0     	 beq .L6
- 189              	 .loc 2 34 0 is_stmt 0 discriminator 1
- 190 0068 1A4B     	 ldr r3,.L7+4
- 191 006a 1B78     	 ldrb r3,[r3]
- 192 006c 0122     	 mov r2,#1
- 193 006e 5340     	 eor r3,r2
- 194 0070 DBB2     	 uxtb r3,r3
- 195 0072 002B     	 cmp r3,#0
- 196 0074 09D0     	 beq .L6
+ 182              	 .loc 2 34 0 is_stmt 1
+ 183 005a BB68     	 ldr r3,[r7,#8]
+ 184 005c 1B79     	 ldrb r3,[r3,#4]
+ 185 005e 0122     	 mov r2,#1
+ 186 0060 5340     	 eor r3,r2
+ 187 0062 DBB2     	 uxtb r3,r3
+ 188 0064 002B     	 cmp r3,#0
+ 189 0066 10D0     	 beq .L6
+ 190              	 .loc 2 34 0 is_stmt 0 discriminator 1
+ 191 0068 274B     	 ldr r3,.L10+4
+ 192 006a 1B78     	 ldrb r3,[r3]
+ 193 006c 0122     	 mov r2,#1
+ 194 006e 5340     	 eor r3,r2
+ 195 0070 DBB2     	 uxtb r3,r3
+ 196 0072 002B     	 cmp r3,#0
+ 197 0074 09D0     	 beq .L6
   35:../operation/operation.c **** 		{
   36:../operation/operation.c **** 			toggle_timer = true;
- 197              	 .loc 2 36 0 is_stmt 1
- 198 0076 174B     	 ldr r3,.L7+4
- 199 0078 0122     	 mov r2,#1
- 200 007a 1A70     	 strb r2,[r3]
+ 198              	 .loc 2 36 0 is_stmt 1
+ 199 0076 244B     	 ldr r3,.L10+4
+ 200 0078 0122     	 mov r2,#1
+ 201 007a 1A70     	 strb r2,[r3]
   37:../operation/operation.c **** 			sysTickParam->enable	= true;
- 201              	 .loc 2 37 0
- 202 007c BB68     	 ldr r3,[r7,#8]
- 203 007e 0122     	 mov r2,#1
- 204 0080 1A70     	 strb r2,[r3]
-  38:../operation/operation.c **** 			sysTickParam->count		= 5;
- 205              	 .loc 2 38 0
- 206 0082 BB68     	 ldr r3,[r7,#8]
- 207 0084 0522     	 mov r2,#5
- 208 0086 5A80     	 strh r2,[r3,#2]
- 209 0088 1EE0     	 b .L3
- 210              	.L6:
+ 202              	 .loc 2 37 0
+ 203 007c BB68     	 ldr r3,[r7,#8]
+ 204 007e 0122     	 mov r2,#1
+ 205 0080 1A70     	 strb r2,[r3]
+  38:../operation/operation.c **** 			sysTickParam->count		= 15;
+ 206              	 .loc 2 38 0
+ 207 0082 BB68     	 ldr r3,[r7,#8]
+ 208 0084 0F22     	 mov r2,#15
+ 209 0086 5A80     	 strh r2,[r3,#2]
+ 210 0088 1FE0     	 b .L7
+ 211              	.L6:
   39:../operation/operation.c **** 		}
   40:../operation/operation.c **** 		else if((sysTickParam->isTimeOut) && toggle_timer)
- 211              	 .loc 2 40 0
- 212 008a BB68     	 ldr r3,[r7,#8]
- 213 008c 1B79     	 ldrb r3,[r3,#4]
- 214 008e 002B     	 cmp r3,#0
- 215 0090 1AD0     	 beq .L3
- 216              	 .loc 2 40 0 is_stmt 0 discriminator 1
- 217 0092 104B     	 ldr r3,.L7+4
- 218 0094 1B78     	 ldrb r3,[r3]
- 219 0096 002B     	 cmp r3,#0
- 220 0098 16D0     	 beq .L3
+ 212              	 .loc 2 40 0
+ 213 008a BB68     	 ldr r3,[r7,#8]
+ 214 008c 1B79     	 ldrb r3,[r3,#4]
+ 215 008e 002B     	 cmp r3,#0
+ 216 0090 1BD0     	 beq .L7
+ 217              	 .loc 2 40 0 is_stmt 0 discriminator 1
+ 218 0092 1D4B     	 ldr r3,.L10+4
+ 219 0094 1B78     	 ldrb r3,[r3]
+ 220 0096 002B     	 cmp r3,#0
+ 221 0098 17D0     	 beq .L7
   41:../operation/operation.c **** 		{
   42:../operation/operation.c **** 			toggle_timer = false;
- 221              	 .loc 2 42 0 is_stmt 1
- 222 009a 0E4B     	 ldr r3,.L7+4
- 223 009c 0022     	 mov r2,#0
- 224 009e 1A70     	 strb r2,[r3]
+ 222              	 .loc 2 42 0 is_stmt 1
+ 223 009a 1B4B     	 ldr r3,.L10+4
+ 224 009c 0022     	 mov r2,#0
+ 225 009e 1A70     	 strb r2,[r3]
   43:../operation/operation.c **** 			sysTickParam->isTimeOut	= false;
- 225              	 .loc 2 43 0
- 226 00a0 BB68     	 ldr r3,[r7,#8]
- 227 00a2 0022     	 mov r2,#0
- 228 00a4 1A71     	 strb r2,[r3,#4]
+ 226              	 .loc 2 43 0
+ 227 00a0 BB68     	 ldr r3,[r7,#8]
+ 228 00a2 0022     	 mov r2,#0
+ 229 00a4 1A71     	 strb r2,[r3,#4]
   44:../operation/operation.c **** 			sysTickParam->count		= 0;
- 229              	 .loc 2 44 0
- 230 00a6 BB68     	 ldr r3,[r7,#8]
- 231 00a8 0022     	 mov r2,#0
- 232 00aa 5A80     	 strh r2,[r3,#2]
+ 230              	 .loc 2 44 0
+ 231 00a6 BB68     	 ldr r3,[r7,#8]
+ 232 00a8 0022     	 mov r2,#0
+ 233 00aa 5A80     	 strh r2,[r3,#2]
   45:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KMF,  PDU_RELAY_CLOSE);
- 233              	 .loc 2 45 0
- 234 00ac 0220     	 mov r0,#2
- 235 00ae 0121     	 mov r1,#1
- 236 00b0 FFF7FEFF 	 bl PDU_Switch_Relay
+ 234              	 .loc 2 45 0
+ 235 00ac 0220     	 mov r0,#2
+ 236 00ae 0121     	 mov r1,#1
+ 237 00b0 FFF7FEFF 	 bl PDU_Switch_Relay
   46:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_CLOSE);
- 237              	 .loc 2 46 0
- 238 00b4 0320     	 mov r0,#3
- 239 00b6 0121     	 mov r1,#1
- 240 00b8 FFF7FEFF 	 bl PDU_Switch_Relay
+ 238              	 .loc 2 46 0
+ 239 00b4 0320     	 mov r0,#3
+ 240 00b6 0121     	 mov r1,#1
+ 241 00b8 FFF7FEFF 	 bl PDU_Switch_Relay
   47:../operation/operation.c **** 			pcsBmsStatus->bmc_precharge_relay = RELAY_CLOSE;
- 241              	 .loc 2 47 0
- 242 00bc BB69     	 ldr r3,[r7,#24]
- 243 00be 0122     	 mov r2,#1
- 244 00c0 DA70     	 strb r2,[r3,#3]
+ 242              	 .loc 2 47 0
+ 243 00bc BB69     	 ldr r3,[r7,#24]
+ 244 00be 0122     	 mov r2,#1
+ 245 00c0 DA70     	 strb r2,[r3,#3]
   48:../operation/operation.c **** 			*state	= OP_TURN_ON;
- 245              	 .loc 2 48 0
- 246 00c2 FB68     	 ldr r3,[r7,#12]
- 247 00c4 0122     	 mov r2,#1
- 248 00c6 1A70     	 strb r2,[r3]
- 249              	.L3:
+ 246              	 .loc 2 48 0
+ 247 00c2 FB68     	 ldr r3,[r7,#12]
+ 248 00c4 0122     	 mov r2,#1
+ 249 00c6 1A70     	 strb r2,[r3]
+  34:../operation/operation.c **** 		{
+ 250              	 .loc 2 34 0
+ 251 00c8 19E0     	 b .L3
+ 252              	.L7:
+ 253 00ca 18E0     	 b .L3
+ 254              	.L5:
   49:../operation/operation.c **** 		}
   50:../operation/operation.c **** 	}
-  51:../operation/operation.c **** }
- 250              	 .loc 2 51 0
- 251 00c8 BD46     	 mov sp,r7
- 252 00ca 04B0     	 add sp,sp,#16
- 253              	 
- 254 00cc 80BD     	 pop {r7,pc}
- 255              	.L8:
- 256 00ce C046     	 .align 2
- 257              	.L7:
- 258 00d0 00001643 	 .word 1125515264
- 259 00d4 00000000 	 .word toggle_timer.10956
- 260              	 .cfi_endproc
- 261              	.LFE380:
- 263              	 .section .text.OP_TurnOnPCS,"ax",%progbits
- 264              	 .align 2
- 265              	 .global OP_TurnOnPCS
- 266              	 .code 16
- 267              	 .thumb_func
- 269              	OP_TurnOnPCS:
- 270              	.LFB381:
-  52:../operation/operation.c **** 
-  53:../operation/operation.c **** void OP_TurnOnPCS(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam,
-  54:../operation/operation.c **** 		OP_CTRL_FLAG_t *ctrlFlag, PCS_BMC_STATUS_t *pcsBmsStatus, PCS_STATUS_t *pcsStatus)
-  55:../operation/operation.c **** {
- 271              	 .loc 2 55 0
- 272              	 .cfi_startproc
- 273 0000 80B5     	 push {r7,lr}
- 274              	.LCFI6:
- 275              	 .cfi_def_cfa_offset 8
- 276              	 .cfi_offset 7,-8
- 277              	 .cfi_offset 14,-4
- 278 0002 84B0     	 sub sp,sp,#16
- 279              	.LCFI7:
- 280              	 .cfi_def_cfa_offset 24
- 281 0004 00AF     	 add r7,sp,#0
- 282              	.LCFI8:
- 283              	 .cfi_def_cfa_register 7
- 284 0006 F860     	 str r0,[r7,#12]
- 285 0008 B960     	 str r1,[r7,#8]
- 286 000a 7A60     	 str r2,[r7,#4]
- 287 000c 3B60     	 str r3,[r7]
-  56:../operation/operation.c **** 	static bool toggle_timer = false;
-  57:../operation/operation.c **** 	static bool isPrechargeExecuted = false;
-  58:../operation/operation.c **** 
-  59:../operation/operation.c **** 	if(!XMC_GPIO_GetInput(P2_2) && !isPrechargeExecuted && (pcsStatus->pcs_system_status == PCS_STAT_S
- 288              	 .loc 2 59 0
- 289 000e 514B     	 ldr r3,.L16
- 290 0010 181C     	 mov r0,r3
- 291 0012 0221     	 mov r1,#2
- 292 0014 FFF7FEFF 	 bl XMC_GPIO_GetInput
- 293 0018 031E     	 sub r3,r0,#0
- 294 001a 42D1     	 bne .L10
- 295              	 .loc 2 59 0 is_stmt 0 discriminator 1
- 296 001c 4E4B     	 ldr r3,.L16+4
- 297 001e 1B78     	 ldrb r3,[r3]
- 298 0020 0122     	 mov r2,#1
- 299 0022 5340     	 eor r3,r2
- 300 0024 DBB2     	 uxtb r3,r3
- 301 0026 002B     	 cmp r3,#0
- 302 0028 3BD0     	 beq .L10
- 303              	 .loc 2 59 0 discriminator 2
- 304 002a BB69     	 ldr r3,[r7,#24]
- 305 002c 1B78     	 ldrb r3,[r3]
- 306 002e 042B     	 cmp r3,#4
- 307 0030 37D1     	 bne .L10
-  60:../operation/operation.c **** 	{
-  61:../operation/operation.c **** 		if((!sysTickParam->isTimeOut) && (!sysTickParam->enable) && !toggle_timer)
- 308              	 .loc 2 61 0 is_stmt 1
- 309 0032 BB68     	 ldr r3,[r7,#8]
- 310 0034 1B79     	 ldrb r3,[r3,#4]
- 311 0036 0122     	 mov r2,#1
- 312 0038 5340     	 eor r3,r2
- 313 003a DBB2     	 uxtb r3,r3
- 314 003c 002B     	 cmp r3,#0
- 315 003e 17D0     	 beq .L11
- 316              	 .loc 2 61 0 is_stmt 0 discriminator 1
- 317 0040 BB68     	 ldr r3,[r7,#8]
- 318 0042 1B78     	 ldrb r3,[r3]
- 319 0044 0122     	 mov r2,#1
- 320 0046 5340     	 eor r3,r2
- 321 0048 DBB2     	 uxtb r3,r3
- 322 004a 002B     	 cmp r3,#0
- 323 004c 10D0     	 beq .L11
- 324              	 .loc 2 61 0 discriminator 2
- 325 004e 434B     	 ldr r3,.L16+8
- 326 0050 1B78     	 ldrb r3,[r3]
- 327 0052 0122     	 mov r2,#1
- 328 0054 5340     	 eor r3,r2
- 329 0056 DBB2     	 uxtb r3,r3
- 330 0058 002B     	 cmp r3,#0
- 331 005a 09D0     	 beq .L11
-  62:../operation/operation.c **** 		{
-  63:../operation/operation.c **** 			toggle_timer			= true;
- 332              	 .loc 2 63 0 is_stmt 1
- 333 005c 3F4B     	 ldr r3,.L16+8
- 334 005e 0122     	 mov r2,#1
- 335 0060 1A70     	 strb r2,[r3]
-  64:../operation/operation.c **** 			sysTickParam->enable	= true;
- 336              	 .loc 2 64 0
- 337 0062 BB68     	 ldr r3,[r7,#8]
- 338 0064 0122     	 mov r2,#1
- 339 0066 1A70     	 strb r2,[r3]
-  65:../operation/operation.c **** 			sysTickParam->count		= 2;
- 340              	 .loc 2 65 0
- 341 0068 BB68     	 ldr r3,[r7,#8]
- 342 006a 0222     	 mov r2,#2
- 343 006c 5A80     	 strh r2,[r3,#2]
- 344 006e 17E0     	 b .L12
- 345              	.L11:
-  66:../operation/operation.c **** 		}
-  67:../operation/operation.c **** 		else if ((sysTickParam->isTimeOut) && (!sysTickParam->enable))
- 346              	 .loc 2 67 0
- 347 0070 BB68     	 ldr r3,[r7,#8]
- 348 0072 1B79     	 ldrb r3,[r3,#4]
- 349 0074 002B     	 cmp r3,#0
- 350 0076 13D0     	 beq .L12
- 351              	 .loc 2 67 0 is_stmt 0 discriminator 1
- 352 0078 BB68     	 ldr r3,[r7,#8]
- 353 007a 1B78     	 ldrb r3,[r3]
- 354 007c 0122     	 mov r2,#1
- 355 007e 5340     	 eor r3,r2
- 356 0080 DBB2     	 uxtb r3,r3
- 357 0082 002B     	 cmp r3,#0
- 358 0084 0CD0     	 beq .L12
-  68:../operation/operation.c **** 		{
-  69:../operation/operation.c **** 			ctrlFlag->isPerforming_Precharge = true;
- 359              	 .loc 2 69 0 is_stmt 1
- 360 0086 7B68     	 ldr r3,[r7,#4]
- 361 0088 0122     	 mov r2,#1
- 362 008a 1A70     	 strb r2,[r3]
-  70:../operation/operation.c **** 			toggle_timer			= false;
- 363              	 .loc 2 70 0
- 364 008c 334B     	 ldr r3,.L16+8
- 365 008e 0022     	 mov r2,#0
- 366 0090 1A70     	 strb r2,[r3]
-  71:../operation/operation.c **** 			sysTickParam->isTimeOut = false;
- 367              	 .loc 2 71 0
- 368 0092 BB68     	 ldr r3,[r7,#8]
- 369 0094 0022     	 mov r2,#0
- 370 0096 1A71     	 strb r2,[r3,#4]
-  72:../operation/operation.c **** 			sysTickParam->count		= 0;
- 371              	 .loc 2 72 0
- 372 0098 BB68     	 ldr r3,[r7,#8]
- 373 009a 0022     	 mov r2,#0
- 374 009c 5A80     	 strh r2,[r3,#2]
-  61:../operation/operation.c **** 		{
- 375              	 .loc 2 61 0
- 376 009e 17E0     	 b .L13
- 377              	.L12:
- 378 00a0 16E0     	 b .L13
- 379              	.L10:
+  51:../operation/operation.c **** 	else if((pvVoltage < 150.0 || !ctrlFlag->isBypass_power_mode))
+ 255              	 .loc 2 51 0
+ 256 00cc 3868     	 ldr r0,[r7]
+ 257 00ce 0D49     	 ldr r1,.L10
+ 258 00d0 FFF7FEFF 	 bl __aeabi_fcmplt
+ 259 00d4 031E     	 sub r3,r0,#0
+ 260 00d6 06D1     	 bne .L9
+ 261              	 .loc 2 51 0 is_stmt 0 discriminator 1
+ 262 00d8 7B68     	 ldr r3,[r7,#4]
+ 263 00da DB78     	 ldrb r3,[r3,#3]
+ 264 00dc 0122     	 mov r2,#1
+ 265 00de 5340     	 eor r3,r2
+ 266 00e0 DBB2     	 uxtb r3,r3
+ 267 00e2 002B     	 cmp r3,#0
+ 268 00e4 0BD0     	 beq .L3
+ 269              	.L9:
+  52:../operation/operation.c **** 	{
+  53:../operation/operation.c **** 		toggle_timer = false;
+ 270              	 .loc 2 53 0 is_stmt 1
+ 271 00e6 084B     	 ldr r3,.L10+4
+ 272 00e8 0022     	 mov r2,#0
+ 273 00ea 1A70     	 strb r2,[r3]
+  54:../operation/operation.c **** 		sysTickParam->enable	= false;
+ 274              	 .loc 2 54 0
+ 275 00ec BB68     	 ldr r3,[r7,#8]
+ 276 00ee 0022     	 mov r2,#0
+ 277 00f0 1A70     	 strb r2,[r3]
+  55:../operation/operation.c **** 		sysTickParam->isTimeOut	= false;
+ 278              	 .loc 2 55 0
+ 279 00f2 BB68     	 ldr r3,[r7,#8]
+ 280 00f4 0022     	 mov r2,#0
+ 281 00f6 1A71     	 strb r2,[r3,#4]
+  56:../operation/operation.c **** 		sysTickParam->count		= 0;
+ 282              	 .loc 2 56 0
+ 283 00f8 BB68     	 ldr r3,[r7,#8]
+ 284 00fa 0022     	 mov r2,#0
+ 285 00fc 5A80     	 strh r2,[r3,#2]
+ 286              	.L3:
+  57:../operation/operation.c **** 	}
+  58:../operation/operation.c **** }
+ 287              	 .loc 2 58 0
+ 288 00fe BD46     	 mov sp,r7
+ 289 0100 04B0     	 add sp,sp,#16
+ 290              	 
+ 291 0102 80BD     	 pop {r7,pc}
+ 292              	.L11:
+ 293              	 .align 2
+ 294              	.L10:
+ 295 0104 00001643 	 .word 1125515264
+ 296 0108 00000000 	 .word toggle_timer.10959
+ 297              	 .cfi_endproc
+ 298              	.LFE380:
+ 300              	 .section .text.OP_TurnOnPCS,"ax",%progbits
+ 301              	 .align 2
+ 302              	 .global OP_TurnOnPCS
+ 303              	 .code 16
+ 304              	 .thumb_func
+ 306              	OP_TurnOnPCS:
+ 307              	.LFB381:
+  59:../operation/operation.c **** 
+  60:../operation/operation.c **** void OP_TurnOnPCS(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam,
+  61:../operation/operation.c **** 		OP_CTRL_FLAG_t *ctrlFlag, PCS_BMC_STATUS_t *pcsBmsStatus, PCS_STATUS_t *pcsStatus)
+  62:../operation/operation.c **** {
+ 308              	 .loc 2 62 0
+ 309              	 .cfi_startproc
+ 310 0000 80B5     	 push {r7,lr}
+ 311              	.LCFI6:
+ 312              	 .cfi_def_cfa_offset 8
+ 313              	 .cfi_offset 7,-8
+ 314              	 .cfi_offset 14,-4
+ 315 0002 84B0     	 sub sp,sp,#16
+ 316              	.LCFI7:
+ 317              	 .cfi_def_cfa_offset 24
+ 318 0004 00AF     	 add r7,sp,#0
+ 319              	.LCFI8:
+ 320              	 .cfi_def_cfa_register 7
+ 321 0006 F860     	 str r0,[r7,#12]
+ 322 0008 B960     	 str r1,[r7,#8]
+ 323 000a 7A60     	 str r2,[r7,#4]
+ 324 000c 3B60     	 str r3,[r7]
+  63:../operation/operation.c **** 	static bool toggle_timer = false;
+  64:../operation/operation.c **** 	static bool isPrechargeExecuted = false;
+  65:../operation/operation.c **** 
+  66:../operation/operation.c **** 	if(!XMC_GPIO_GetInput(P2_2) && !isPrechargeExecuted && (pcsStatus->pcs_system_status == PCS_STAT_S
+ 325              	 .loc 2 66 0
+ 326 000e 514B     	 ldr r3,.L19
+ 327 0010 181C     	 mov r0,r3
+ 328 0012 0221     	 mov r1,#2
+ 329 0014 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 330 0018 031E     	 sub r3,r0,#0
+ 331 001a 42D1     	 bne .L13
+ 332              	 .loc 2 66 0 is_stmt 0 discriminator 1
+ 333 001c 4E4B     	 ldr r3,.L19+4
+ 334 001e 1B78     	 ldrb r3,[r3]
+ 335 0020 0122     	 mov r2,#1
+ 336 0022 5340     	 eor r3,r2
+ 337 0024 DBB2     	 uxtb r3,r3
+ 338 0026 002B     	 cmp r3,#0
+ 339 0028 3BD0     	 beq .L13
+ 340              	 .loc 2 66 0 discriminator 2
+ 341 002a BB69     	 ldr r3,[r7,#24]
+ 342 002c 1B78     	 ldrb r3,[r3]
+ 343 002e 042B     	 cmp r3,#4
+ 344 0030 37D1     	 bne .L13
+  67:../operation/operation.c **** 	{
+  68:../operation/operation.c **** 		if((!sysTickParam->isTimeOut) && (!sysTickParam->enable) && !toggle_timer)
+ 345              	 .loc 2 68 0 is_stmt 1
+ 346 0032 BB68     	 ldr r3,[r7,#8]
+ 347 0034 1B79     	 ldrb r3,[r3,#4]
+ 348 0036 0122     	 mov r2,#1
+ 349 0038 5340     	 eor r3,r2
+ 350 003a DBB2     	 uxtb r3,r3
+ 351 003c 002B     	 cmp r3,#0
+ 352 003e 17D0     	 beq .L14
+ 353              	 .loc 2 68 0 is_stmt 0 discriminator 1
+ 354 0040 BB68     	 ldr r3,[r7,#8]
+ 355 0042 1B78     	 ldrb r3,[r3]
+ 356 0044 0122     	 mov r2,#1
+ 357 0046 5340     	 eor r3,r2
+ 358 0048 DBB2     	 uxtb r3,r3
+ 359 004a 002B     	 cmp r3,#0
+ 360 004c 10D0     	 beq .L14
+ 361              	 .loc 2 68 0 discriminator 2
+ 362 004e 434B     	 ldr r3,.L19+8
+ 363 0050 1B78     	 ldrb r3,[r3]
+ 364 0052 0122     	 mov r2,#1
+ 365 0054 5340     	 eor r3,r2
+ 366 0056 DBB2     	 uxtb r3,r3
+ 367 0058 002B     	 cmp r3,#0
+ 368 005a 09D0     	 beq .L14
+  69:../operation/operation.c **** 		{
+  70:../operation/operation.c **** 			toggle_timer			= true;
+ 369              	 .loc 2 70 0 is_stmt 1
+ 370 005c 3F4B     	 ldr r3,.L19+8
+ 371 005e 0122     	 mov r2,#1
+ 372 0060 1A70     	 strb r2,[r3]
+  71:../operation/operation.c **** 			sysTickParam->enable	= true;
+ 373              	 .loc 2 71 0
+ 374 0062 BB68     	 ldr r3,[r7,#8]
+ 375 0064 0122     	 mov r2,#1
+ 376 0066 1A70     	 strb r2,[r3]
+  72:../operation/operation.c **** 			sysTickParam->count		= 2;
+ 377              	 .loc 2 72 0
+ 378 0068 BB68     	 ldr r3,[r7,#8]
+ 379 006a 0222     	 mov r2,#2
+ 380 006c 5A80     	 strh r2,[r3,#2]
+ 381 006e 17E0     	 b .L15
+ 382              	.L14:
   73:../operation/operation.c **** 		}
-  74:../operation/operation.c **** 	}
-  75:../operation/operation.c **** 	else if(XMC_GPIO_GetInput(P2_2) && !isPrechargeExecuted)
- 380              	 .loc 2 75 0
- 381 00a2 2C4B     	 ldr r3,.L16
- 382 00a4 181C     	 mov r0,r3
- 383 00a6 0221     	 mov r1,#2
- 384 00a8 FFF7FEFF 	 bl XMC_GPIO_GetInput
- 385 00ac 031E     	 sub r3,r0,#0
- 386 00ae 0FD0     	 beq .L13
- 387              	 .loc 2 75 0 is_stmt 0 discriminator 1
- 388 00b0 294B     	 ldr r3,.L16+4
- 389 00b2 1B78     	 ldrb r3,[r3]
- 390 00b4 0122     	 mov r2,#1
- 391 00b6 5340     	 eor r3,r2
- 392 00b8 DBB2     	 uxtb r3,r3
- 393 00ba 002B     	 cmp r3,#0
- 394 00bc 08D0     	 beq .L13
-  76:../operation/operation.c **** 	{
-  77:../operation/operation.c **** 		toggle_timer			= false;
- 395              	 .loc 2 77 0 is_stmt 1
- 396 00be 274B     	 ldr r3,.L16+8
- 397 00c0 0022     	 mov r2,#0
- 398 00c2 1A70     	 strb r2,[r3]
-  78:../operation/operation.c **** 		sysTickParam->enable 	= false;
- 399              	 .loc 2 78 0
- 400 00c4 BB68     	 ldr r3,[r7,#8]
- 401 00c6 0022     	 mov r2,#0
- 402 00c8 1A70     	 strb r2,[r3]
-  79:../operation/operation.c **** 		sysTickParam->count 	= 0;
- 403              	 .loc 2 79 0
- 404 00ca BB68     	 ldr r3,[r7,#8]
- 405 00cc 0022     	 mov r2,#0
- 406 00ce 5A80     	 strh r2,[r3,#2]
- 407              	.L13:
-  80:../operation/operation.c **** 	}
-  81:../operation/operation.c **** 
-  82:../operation/operation.c **** 	if(ctrlFlag->isPerforming_Precharge)
- 408              	 .loc 2 82 0
- 409 00d0 7B68     	 ldr r3,[r7,#4]
- 410 00d2 1B78     	 ldrb r3,[r3]
- 411 00d4 002B     	 cmp r3,#0
- 412 00d6 3AD0     	 beq .L9
+  74:../operation/operation.c **** 		else if ((sysTickParam->isTimeOut) && (!sysTickParam->enable))
+ 383              	 .loc 2 74 0
+ 384 0070 BB68     	 ldr r3,[r7,#8]
+ 385 0072 1B79     	 ldrb r3,[r3,#4]
+ 386 0074 002B     	 cmp r3,#0
+ 387 0076 13D0     	 beq .L15
+ 388              	 .loc 2 74 0 is_stmt 0 discriminator 1
+ 389 0078 BB68     	 ldr r3,[r7,#8]
+ 390 007a 1B78     	 ldrb r3,[r3]
+ 391 007c 0122     	 mov r2,#1
+ 392 007e 5340     	 eor r3,r2
+ 393 0080 DBB2     	 uxtb r3,r3
+ 394 0082 002B     	 cmp r3,#0
+ 395 0084 0CD0     	 beq .L15
+  75:../operation/operation.c **** 		{
+  76:../operation/operation.c **** 			ctrlFlag->isPerforming_Precharge = true;
+ 396              	 .loc 2 76 0 is_stmt 1
+ 397 0086 7B68     	 ldr r3,[r7,#4]
+ 398 0088 0122     	 mov r2,#1
+ 399 008a 1A70     	 strb r2,[r3]
+  77:../operation/operation.c **** 			toggle_timer			= false;
+ 400              	 .loc 2 77 0
+ 401 008c 334B     	 ldr r3,.L19+8
+ 402 008e 0022     	 mov r2,#0
+ 403 0090 1A70     	 strb r2,[r3]
+  78:../operation/operation.c **** 			sysTickParam->isTimeOut = false;
+ 404              	 .loc 2 78 0
+ 405 0092 BB68     	 ldr r3,[r7,#8]
+ 406 0094 0022     	 mov r2,#0
+ 407 0096 1A71     	 strb r2,[r3,#4]
+  79:../operation/operation.c **** 			sysTickParam->count		= 0;
+ 408              	 .loc 2 79 0
+ 409 0098 BB68     	 ldr r3,[r7,#8]
+ 410 009a 0022     	 mov r2,#0
+ 411 009c 5A80     	 strh r2,[r3,#2]
+  68:../operation/operation.c **** 		{
+ 412              	 .loc 2 68 0
+ 413 009e 17E0     	 b .L16
+ 414              	.L15:
+ 415 00a0 16E0     	 b .L16
+ 416              	.L13:
+  80:../operation/operation.c **** 		}
+  81:../operation/operation.c **** 	}
+  82:../operation/operation.c **** 	else if(XMC_GPIO_GetInput(P2_2) && !isPrechargeExecuted)
+ 417              	 .loc 2 82 0
+ 418 00a2 2C4B     	 ldr r3,.L19
+ 419 00a4 181C     	 mov r0,r3
+ 420 00a6 0221     	 mov r1,#2
+ 421 00a8 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 422 00ac 031E     	 sub r3,r0,#0
+ 423 00ae 0FD0     	 beq .L16
+ 424              	 .loc 2 82 0 is_stmt 0 discriminator 1
+ 425 00b0 294B     	 ldr r3,.L19+4
+ 426 00b2 1B78     	 ldrb r3,[r3]
+ 427 00b4 0122     	 mov r2,#1
+ 428 00b6 5340     	 eor r3,r2
+ 429 00b8 DBB2     	 uxtb r3,r3
+ 430 00ba 002B     	 cmp r3,#0
+ 431 00bc 08D0     	 beq .L16
   83:../operation/operation.c **** 	{
-  84:../operation/operation.c **** 		if(!isPrechargeExecuted)
- 413              	 .loc 2 84 0
- 414 00d8 1F4B     	 ldr r3,.L16+4
- 415 00da 1B78     	 ldrb r3,[r3]
- 416 00dc 0122     	 mov r2,#1
- 417 00de 5340     	 eor r3,r2
- 418 00e0 DBB2     	 uxtb r3,r3
- 419 00e2 002B     	 cmp r3,#0
- 420 00e4 0ED0     	 beq .L15
-  85:../operation/operation.c **** 		{
-  86:../operation/operation.c **** 			pcsBmsStatus->bmc_main_relay 		= RELAY_OPEN;
- 421              	 .loc 2 86 0
- 422 00e6 3B68     	 ldr r3,[r7]
- 423 00e8 0022     	 mov r2,#0
- 424 00ea 9A70     	 strb r2,[r3,#2]
-  87:../operation/operation.c **** 			pcsBmsStatus->bmc_precharge_relay	= RELAY_CLOSE;
- 425              	 .loc 2 87 0
- 426 00ec 3B68     	 ldr r3,[r7]
- 427 00ee 0122     	 mov r2,#1
- 428 00f0 DA70     	 strb r2,[r3,#3]
-  88:../operation/operation.c **** 			pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
- 429              	 .loc 2 88 0
- 430 00f2 3B68     	 ldr r3,[r7]
- 431 00f4 0122     	 mov r2,#1
- 432 00f6 1A70     	 strb r2,[r3]
-  89:../operation/operation.c **** 			pcsBmsStatus->bmc_pcs_command		= BMU_PCS_STOP;
- 433              	 .loc 2 89 0
- 434 00f8 3B68     	 ldr r3,[r7]
- 435 00fa 0022     	 mov r2,#0
- 436 00fc 5A70     	 strb r2,[r3,#1]
-  90:../operation/operation.c **** 			isPrechargeExecuted					= true;
- 437              	 .loc 2 90 0
- 438 00fe 164B     	 ldr r3,.L16+4
- 439 0100 0122     	 mov r2,#1
- 440 0102 1A70     	 strb r2,[r3]
- 441              	.L15:
-  91:../operation/operation.c **** 		}
-  92:../operation/operation.c **** 
-  93:../operation/operation.c **** 		if(pcsStatus->pcs_precharge_IsComplete)
- 442              	 .loc 2 93 0
- 443 0104 BB69     	 ldr r3,[r7,#24]
- 444 0106 5B78     	 ldrb r3,[r3,#1]
- 445 0108 002B     	 cmp r3,#0
- 446 010a 20D0     	 beq .L9
-  94:../operation/operation.c **** 		{
-  95:../operation/operation.c **** 			/* CLose Main Relay */
-  96:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_CLOSE);
- 447              	 .loc 2 96 0
- 448 010c 0120     	 mov r0,#1
- 449 010e 0121     	 mov r1,#1
- 450 0110 FFF7FEFF 	 bl PDU_Switch_Relay
-  97:../operation/operation.c **** 
-  98:../operation/operation.c **** 			/* Open Predischarge Relay */
-  99:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_OPEN);
- 451              	 .loc 2 99 0
- 452 0114 0320     	 mov r0,#3
- 453 0116 0021     	 mov r1,#0
- 454 0118 FFF7FEFF 	 bl PDU_Switch_Relay
- 100:../operation/operation.c **** 
- 101:../operation/operation.c **** 			pcsBmsStatus->bmc_main_relay		= RELAY_CLOSE;
- 455              	 .loc 2 101 0
- 456 011c 3B68     	 ldr r3,[r7]
- 457 011e 0122     	 mov r2,#1
- 458 0120 9A70     	 strb r2,[r3,#2]
- 102:../operation/operation.c **** 			pcsBmsStatus->bmc_precharge_relay	= RELAY_OPEN;
- 459              	 .loc 2 102 0
- 460 0122 3B68     	 ldr r3,[r7]
- 461 0124 0022     	 mov r2,#0
- 462 0126 DA70     	 strb r2,[r3,#3]
- 103:../operation/operation.c **** 			pcsBmsStatus->bmc_status			= BMU_RUNNING;
- 463              	 .loc 2 103 0
- 464 0128 3B68     	 ldr r3,[r7]
- 465 012a 0222     	 mov r2,#2
- 466 012c 1A70     	 strb r2,[r3]
- 104:../operation/operation.c **** 			pcsBmsStatus->bmc_pcs_command		= BMU_PCS_START;
- 467              	 .loc 2 104 0
- 468 012e 3B68     	 ldr r3,[r7]
- 469 0130 0122     	 mov r2,#1
- 470 0132 5A70     	 strb r2,[r3,#1]
- 105:../operation/operation.c **** 
- 106:../operation/operation.c **** 			*state = OP_RUNNING;
- 471              	 .loc 2 106 0
- 472 0134 FB68     	 ldr r3,[r7,#12]
- 473 0136 0222     	 mov r2,#2
- 474 0138 1A70     	 strb r2,[r3]
+  84:../operation/operation.c **** 		toggle_timer			= false;
+ 432              	 .loc 2 84 0 is_stmt 1
+ 433 00be 274B     	 ldr r3,.L19+8
+ 434 00c0 0022     	 mov r2,#0
+ 435 00c2 1A70     	 strb r2,[r3]
+  85:../operation/operation.c **** 		sysTickParam->enable 	= false;
+ 436              	 .loc 2 85 0
+ 437 00c4 BB68     	 ldr r3,[r7,#8]
+ 438 00c6 0022     	 mov r2,#0
+ 439 00c8 1A70     	 strb r2,[r3]
+  86:../operation/operation.c **** 		sysTickParam->count 	= 0;
+ 440              	 .loc 2 86 0
+ 441 00ca BB68     	 ldr r3,[r7,#8]
+ 442 00cc 0022     	 mov r2,#0
+ 443 00ce 5A80     	 strh r2,[r3,#2]
+ 444              	.L16:
+  87:../operation/operation.c **** 	}
+  88:../operation/operation.c **** 
+  89:../operation/operation.c **** 	if(ctrlFlag->isPerforming_Precharge)
+ 445              	 .loc 2 89 0
+ 446 00d0 7B68     	 ldr r3,[r7,#4]
+ 447 00d2 1B78     	 ldrb r3,[r3]
+ 448 00d4 002B     	 cmp r3,#0
+ 449 00d6 3AD0     	 beq .L12
+  90:../operation/operation.c **** 	{
+  91:../operation/operation.c **** 		if(!isPrechargeExecuted)
+ 450              	 .loc 2 91 0
+ 451 00d8 1F4B     	 ldr r3,.L19+4
+ 452 00da 1B78     	 ldrb r3,[r3]
+ 453 00dc 0122     	 mov r2,#1
+ 454 00de 5340     	 eor r3,r2
+ 455 00e0 DBB2     	 uxtb r3,r3
+ 456 00e2 002B     	 cmp r3,#0
+ 457 00e4 0ED0     	 beq .L18
+  92:../operation/operation.c **** 		{
+  93:../operation/operation.c **** 			pcsBmsStatus->bmc_main_relay 		= RELAY_OPEN;
+ 458              	 .loc 2 93 0
+ 459 00e6 3B68     	 ldr r3,[r7]
+ 460 00e8 0022     	 mov r2,#0
+ 461 00ea 9A70     	 strb r2,[r3,#2]
+  94:../operation/operation.c **** 			pcsBmsStatus->bmc_precharge_relay	= RELAY_CLOSE;
+ 462              	 .loc 2 94 0
+ 463 00ec 3B68     	 ldr r3,[r7]
+ 464 00ee 0122     	 mov r2,#1
+ 465 00f0 DA70     	 strb r2,[r3,#3]
+  95:../operation/operation.c **** 			pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
+ 466              	 .loc 2 95 0
+ 467 00f2 3B68     	 ldr r3,[r7]
+ 468 00f4 0122     	 mov r2,#1
+ 469 00f6 1A70     	 strb r2,[r3]
+  96:../operation/operation.c **** 			pcsBmsStatus->bmc_pcs_command		= BMU_PCS_STOP;
+ 470              	 .loc 2 96 0
+ 471 00f8 3B68     	 ldr r3,[r7]
+ 472 00fa 0022     	 mov r2,#0
+ 473 00fc 5A70     	 strb r2,[r3,#1]
+  97:../operation/operation.c **** 			isPrechargeExecuted					= true;
+ 474              	 .loc 2 97 0
+ 475 00fe 164B     	 ldr r3,.L19+4
+ 476 0100 0122     	 mov r2,#1
+ 477 0102 1A70     	 strb r2,[r3]
+ 478              	.L18:
+  98:../operation/operation.c **** 		}
+  99:../operation/operation.c **** 
+ 100:../operation/operation.c **** 		if(pcsStatus->pcs_precharge_IsComplete)
+ 479              	 .loc 2 100 0
+ 480 0104 BB69     	 ldr r3,[r7,#24]
+ 481 0106 5B78     	 ldrb r3,[r3,#1]
+ 482 0108 002B     	 cmp r3,#0
+ 483 010a 20D0     	 beq .L12
+ 101:../operation/operation.c **** 		{
+ 102:../operation/operation.c **** 			/* CLose Main Relay */
+ 103:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_CLOSE);
+ 484              	 .loc 2 103 0
+ 485 010c 0120     	 mov r0,#1
+ 486 010e 0121     	 mov r1,#1
+ 487 0110 FFF7FEFF 	 bl PDU_Switch_Relay
+ 104:../operation/operation.c **** 
+ 105:../operation/operation.c **** 			/* Open Predischarge Relay */
+ 106:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_OPEN);
+ 488              	 .loc 2 106 0
+ 489 0114 0320     	 mov r0,#3
+ 490 0116 0021     	 mov r1,#0
+ 491 0118 FFF7FEFF 	 bl PDU_Switch_Relay
  107:../operation/operation.c **** 
- 108:../operation/operation.c **** 			/* close battery relay */
- 109:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_CLOSE);
- 475              	 .loc 2 109 0
- 476 013a 0020     	 mov r0,#0
- 477 013c 0121     	 mov r1,#1
- 478 013e FFF7FEFF 	 bl PDU_Switch_Relay
- 110:../operation/operation.c **** 			isPrechargeExecuted					= false;
- 479              	 .loc 2 110 0
- 480 0142 054B     	 ldr r3,.L16+4
- 481 0144 0022     	 mov r2,#0
- 482 0146 1A70     	 strb r2,[r3]
- 111:../operation/operation.c **** 			ctrlFlag->isPerforming_Precharge	= false;
- 483              	 .loc 2 111 0
- 484 0148 7B68     	 ldr r3,[r7,#4]
- 485 014a 0022     	 mov r2,#0
- 486 014c 1A70     	 strb r2,[r3]
- 487              	.L9:
- 112:../operation/operation.c **** 		}
- 113:../operation/operation.c **** 	}
- 114:../operation/operation.c **** }
- 488              	 .loc 2 114 0
- 489 014e BD46     	 mov sp,r7
- 490 0150 04B0     	 add sp,sp,#16
- 491              	 
- 492 0152 80BD     	 pop {r7,pc}
- 493              	.L17:
- 494              	 .align 2
- 495              	.L16:
- 496 0154 00020440 	 .word 1074004480
- 497 0158 00000000 	 .word isPrechargeExecuted.10965
- 498 015c 00000000 	 .word toggle_timer.10964
- 499              	 .cfi_endproc
- 500              	.LFE381:
- 502              	 .section .text.OP_CheckingPCSStatus,"ax",%progbits
- 503              	 .align 2
- 504              	 .global OP_CheckingPCSStatus
- 505              	 .code 16
- 506              	 .thumb_func
- 508              	OP_CheckingPCSStatus:
- 509              	.LFB382:
- 115:../operation/operation.c **** 
- 116:../operation/operation.c **** void OP_CheckingPCSStatus(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
- 117:../operation/operation.c **** 						  MISC_SYSTICK_PARAM_t *sysTickParam,
- 118:../operation/operation.c **** 						  OP_CTRL_FLAG_t *ctrlFlag)
- 119:../operation/operation.c **** {
- 510              	 .loc 2 119 0
- 511              	 .cfi_startproc
- 512 0000 80B5     	 push {r7,lr}
- 513              	.LCFI9:
- 514              	 .cfi_def_cfa_offset 8
- 515              	 .cfi_offset 7,-8
- 516              	 .cfi_offset 14,-4
- 517 0002 84B0     	 sub sp,sp,#16
- 518              	.LCFI10:
- 519              	 .cfi_def_cfa_offset 24
- 520 0004 00AF     	 add r7,sp,#0
- 521              	.LCFI11:
- 522              	 .cfi_def_cfa_register 7
- 523 0006 F860     	 str r0,[r7,#12]
- 524 0008 B960     	 str r1,[r7,#8]
- 525 000a 7A60     	 str r2,[r7,#4]
- 526 000c 3B60     	 str r3,[r7]
- 120:../operation/operation.c **** 	static bool toggle_timer = false;
- 121:../operation/operation.c **** 	static bool isPutToStandbyExecuted = false;
+ 108:../operation/operation.c **** 			pcsBmsStatus->bmc_main_relay		= RELAY_CLOSE;
+ 492              	 .loc 2 108 0
+ 493 011c 3B68     	 ldr r3,[r7]
+ 494 011e 0122     	 mov r2,#1
+ 495 0120 9A70     	 strb r2,[r3,#2]
+ 109:../operation/operation.c **** 			pcsBmsStatus->bmc_precharge_relay	= RELAY_OPEN;
+ 496              	 .loc 2 109 0
+ 497 0122 3B68     	 ldr r3,[r7]
+ 498 0124 0022     	 mov r2,#0
+ 499 0126 DA70     	 strb r2,[r3,#3]
+ 110:../operation/operation.c **** 			pcsBmsStatus->bmc_status			= BMU_RUNNING;
+ 500              	 .loc 2 110 0
+ 501 0128 3B68     	 ldr r3,[r7]
+ 502 012a 0222     	 mov r2,#2
+ 503 012c 1A70     	 strb r2,[r3]
+ 111:../operation/operation.c **** 			pcsBmsStatus->bmc_pcs_command		= BMU_PCS_START;
+ 504              	 .loc 2 111 0
+ 505 012e 3B68     	 ldr r3,[r7]
+ 506 0130 0122     	 mov r2,#1
+ 507 0132 5A70     	 strb r2,[r3,#1]
+ 112:../operation/operation.c **** 
+ 113:../operation/operation.c **** 			*state = OP_RUNNING;
+ 508              	 .loc 2 113 0
+ 509 0134 FB68     	 ldr r3,[r7,#12]
+ 510 0136 0222     	 mov r2,#2
+ 511 0138 1A70     	 strb r2,[r3]
+ 114:../operation/operation.c **** 
+ 115:../operation/operation.c **** 			/* close battery relay */
+ 116:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_CLOSE);
+ 512              	 .loc 2 116 0
+ 513 013a 0020     	 mov r0,#0
+ 514 013c 0121     	 mov r1,#1
+ 515 013e FFF7FEFF 	 bl PDU_Switch_Relay
+ 117:../operation/operation.c **** 			isPrechargeExecuted					= false;
+ 516              	 .loc 2 117 0
+ 517 0142 054B     	 ldr r3,.L19+4
+ 518 0144 0022     	 mov r2,#0
+ 519 0146 1A70     	 strb r2,[r3]
+ 118:../operation/operation.c **** 			ctrlFlag->isPerforming_Precharge	= false;
+ 520              	 .loc 2 118 0
+ 521 0148 7B68     	 ldr r3,[r7,#4]
+ 522 014a 0022     	 mov r2,#0
+ 523 014c 1A70     	 strb r2,[r3]
+ 524              	.L12:
+ 119:../operation/operation.c **** 		}
+ 120:../operation/operation.c **** 	}
+ 121:../operation/operation.c **** }
+ 525              	 .loc 2 121 0
+ 526 014e BD46     	 mov sp,r7
+ 527 0150 04B0     	 add sp,sp,#16
+ 528              	 
+ 529 0152 80BD     	 pop {r7,pc}
+ 530              	.L20:
+ 531              	 .align 2
+ 532              	.L19:
+ 533 0154 00020440 	 .word 1074004480
+ 534 0158 00000000 	 .word isPrechargeExecuted.10968
+ 535 015c 00000000 	 .word toggle_timer.10967
+ 536              	 .cfi_endproc
+ 537              	.LFE381:
+ 539              	 .section .text.OP_CheckingPCSStatus,"ax",%progbits
+ 540              	 .align 2
+ 541              	 .global OP_CheckingPCSStatus
+ 542              	 .code 16
+ 543              	 .thumb_func
+ 545              	OP_CheckingPCSStatus:
+ 546              	.LFB382:
  122:../operation/operation.c **** 
- 123:../operation/operation.c **** 	/* 1. Check PCS Warning Status */
- 124:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_STANDBY)
- 527              	 .loc 2 124 0
- 528 000e BB68     	 ldr r3,[r7,#8]
- 529 0010 1B78     	 ldrb r3,[r3]
- 530 0012 042B     	 cmp r3,#4
- 531 0014 02D1     	 bne .L19
- 125:../operation/operation.c **** 	{
- 126:../operation/operation.c **** 		*state = OP_ERROR;
- 532              	 .loc 2 126 0
- 533 0016 FB68     	 ldr r3,[r7,#12]
- 534 0018 0422     	 mov r2,#4
- 535 001a 1A70     	 strb r2,[r3]
- 536              	.L19:
- 127:../operation/operation.c **** 	}
- 128:../operation/operation.c **** 
- 129:../operation/operation.c **** 	if(!XMC_GPIO_GetInput(P2_2) && !isPutToStandbyExecuted)
- 537              	 .loc 2 129 0
- 538 001c 3A4B     	 ldr r3,.L25
- 539 001e 181C     	 mov r0,r3
- 540 0020 0221     	 mov r1,#2
- 541 0022 FFF7FEFF 	 bl XMC_GPIO_GetInput
- 542 0026 031E     	 sub r3,r0,#0
- 543 0028 42D1     	 bne .L20
- 544              	 .loc 2 129 0 is_stmt 0 discriminator 1
- 545 002a 384B     	 ldr r3,.L25+4
- 546 002c 1B78     	 ldrb r3,[r3]
- 547 002e 0122     	 mov r2,#1
- 548 0030 5340     	 eor r3,r2
- 549 0032 DBB2     	 uxtb r3,r3
- 550 0034 002B     	 cmp r3,#0
- 551 0036 3BD0     	 beq .L20
- 130:../operation/operation.c **** 	{
- 131:../operation/operation.c **** 		if((!sysTickParam->isTimeOut) && (!sysTickParam->enable) && !toggle_timer)
- 552              	 .loc 2 131 0 is_stmt 1
- 553 0038 7B68     	 ldr r3,[r7,#4]
- 554 003a 1B79     	 ldrb r3,[r3,#4]
- 555 003c 0122     	 mov r2,#1
- 556 003e 5340     	 eor r3,r2
- 557 0040 DBB2     	 uxtb r3,r3
- 558 0042 002B     	 cmp r3,#0
- 559 0044 17D0     	 beq .L21
- 560              	 .loc 2 131 0 is_stmt 0 discriminator 1
- 561 0046 7B68     	 ldr r3,[r7,#4]
- 562 0048 1B78     	 ldrb r3,[r3]
- 563 004a 0122     	 mov r2,#1
- 564 004c 5340     	 eor r3,r2
- 565 004e DBB2     	 uxtb r3,r3
- 566 0050 002B     	 cmp r3,#0
- 567 0052 10D0     	 beq .L21
- 568              	 .loc 2 131 0 discriminator 2
- 569 0054 2E4B     	 ldr r3,.L25+8
- 570 0056 1B78     	 ldrb r3,[r3]
- 571 0058 0122     	 mov r2,#1
- 572 005a 5340     	 eor r3,r2
- 573 005c DBB2     	 uxtb r3,r3
- 574 005e 002B     	 cmp r3,#0
- 575 0060 09D0     	 beq .L21
- 132:../operation/operation.c **** 		{
- 133:../operation/operation.c **** 			toggle_timer			= true;
- 576              	 .loc 2 133 0 is_stmt 1
- 577 0062 2B4B     	 ldr r3,.L25+8
- 578 0064 0122     	 mov r2,#1
- 579 0066 1A70     	 strb r2,[r3]
- 134:../operation/operation.c **** 			sysTickParam->enable	= true;
- 580              	 .loc 2 134 0
- 581 0068 7B68     	 ldr r3,[r7,#4]
- 582 006a 0122     	 mov r2,#1
- 583 006c 1A70     	 strb r2,[r3]
- 135:../operation/operation.c **** 			sysTickParam->count		= 3;
- 584              	 .loc 2 135 0
- 585 006e 7B68     	 ldr r3,[r7,#4]
- 586 0070 0322     	 mov r2,#3
- 587 0072 5A80     	 strh r2,[r3,#2]
- 588 0074 1BE0     	 b .L22
- 589              	.L21:
- 136:../operation/operation.c **** 		}
- 137:../operation/operation.c **** 		else if ((sysTickParam->isTimeOut) && (!sysTickParam->enable) && toggle_timer)
- 590              	 .loc 2 137 0
- 591 0076 7B68     	 ldr r3,[r7,#4]
- 592 0078 1B79     	 ldrb r3,[r3,#4]
- 593 007a 002B     	 cmp r3,#0
- 594 007c 17D0     	 beq .L22
- 595              	 .loc 2 137 0 is_stmt 0 discriminator 1
- 596 007e 7B68     	 ldr r3,[r7,#4]
- 597 0080 1B78     	 ldrb r3,[r3]
- 598 0082 0122     	 mov r2,#1
- 599 0084 5340     	 eor r3,r2
- 600 0086 DBB2     	 uxtb r3,r3
- 601 0088 002B     	 cmp r3,#0
- 602 008a 10D0     	 beq .L22
- 603              	 .loc 2 137 0 discriminator 2
- 604 008c 204B     	 ldr r3,.L25+8
- 605 008e 1B78     	 ldrb r3,[r3]
- 606 0090 002B     	 cmp r3,#0
- 607 0092 0CD0     	 beq .L22
- 138:../operation/operation.c **** 		{
- 139:../operation/operation.c **** 			isPutToStandbyExecuted	= true;
- 608              	 .loc 2 139 0 is_stmt 1
- 609 0094 1D4B     	 ldr r3,.L25+4
- 610 0096 0122     	 mov r2,#1
- 611 0098 1A70     	 strb r2,[r3]
- 140:../operation/operation.c **** 			toggle_timer			= false;
- 612              	 .loc 2 140 0
- 613 009a 1D4B     	 ldr r3,.L25+8
- 614 009c 0022     	 mov r2,#0
- 615 009e 1A70     	 strb r2,[r3]
- 141:../operation/operation.c **** 			sysTickParam->isTimeOut = false;
- 616              	 .loc 2 141 0
- 617 00a0 7B68     	 ldr r3,[r7,#4]
- 618 00a2 0022     	 mov r2,#0
- 619 00a4 1A71     	 strb r2,[r3,#4]
- 142:../operation/operation.c **** 			sysTickParam->count		= 0;
- 620              	 .loc 2 142 0
- 621 00a6 7B68     	 ldr r3,[r7,#4]
- 622 00a8 0022     	 mov r2,#0
- 623 00aa 5A80     	 strh r2,[r3,#2]
- 131:../operation/operation.c **** 		{
- 624              	 .loc 2 131 0
- 625 00ac 17E0     	 b .L23
- 626              	.L22:
- 627 00ae 16E0     	 b .L23
- 628              	.L20:
- 143:../operation/operation.c **** 		}
- 144:../operation/operation.c **** 	}
- 145:../operation/operation.c **** 	else if(XMC_GPIO_GetInput(P2_2) && !isPutToStandbyExecuted)
- 629              	 .loc 2 145 0
- 630 00b0 154B     	 ldr r3,.L25
- 631 00b2 181C     	 mov r0,r3
- 632 00b4 0221     	 mov r1,#2
- 633 00b6 FFF7FEFF 	 bl XMC_GPIO_GetInput
- 634 00ba 031E     	 sub r3,r0,#0
- 635 00bc 0FD0     	 beq .L23
- 636              	 .loc 2 145 0 is_stmt 0 discriminator 1
- 637 00be 134B     	 ldr r3,.L25+4
- 638 00c0 1B78     	 ldrb r3,[r3]
- 639 00c2 0122     	 mov r2,#1
- 640 00c4 5340     	 eor r3,r2
- 641 00c6 DBB2     	 uxtb r3,r3
- 642 00c8 002B     	 cmp r3,#0
- 643 00ca 08D0     	 beq .L23
- 146:../operation/operation.c **** 	{
- 147:../operation/operation.c **** 		toggle_timer			= false;
- 644              	 .loc 2 147 0 is_stmt 1
- 645 00cc 104B     	 ldr r3,.L25+8
- 646 00ce 0022     	 mov r2,#0
- 647 00d0 1A70     	 strb r2,[r3]
- 148:../operation/operation.c **** 		sysTickParam->enable 	= false;
- 648              	 .loc 2 148 0
- 649 00d2 7B68     	 ldr r3,[r7,#4]
- 650 00d4 0022     	 mov r2,#0
- 651 00d6 1A70     	 strb r2,[r3]
- 149:../operation/operation.c **** 		sysTickParam->count 	= 0;
- 652              	 .loc 2 149 0
- 653 00d8 7B68     	 ldr r3,[r7,#4]
- 654 00da 0022     	 mov r2,#0
- 655 00dc 5A80     	 strh r2,[r3,#2]
- 656              	.L23:
- 150:../operation/operation.c **** 	}
- 151:../operation/operation.c **** 
- 152:../operation/operation.c **** 	/* Change to STANDBY upon the timer's time-out and button is released */
- 153:../operation/operation.c **** 	if(isPutToStandbyExecuted)
- 657              	 .loc 2 153 0
- 658 00de 0B4B     	 ldr r3,.L25+4
- 659 00e0 1B78     	 ldrb r3,[r3]
- 660 00e2 002B     	 cmp r3,#0
- 661 00e4 0CD0     	 beq .L18
- 154:../operation/operation.c **** 	{
- 155:../operation/operation.c **** 		if(XMC_GPIO_GetInput(P2_2))
- 662              	 .loc 2 155 0
- 663 00e6 084B     	 ldr r3,.L25
- 664 00e8 181C     	 mov r0,r3
- 665 00ea 0221     	 mov r1,#2
- 666 00ec FFF7FEFF 	 bl XMC_GPIO_GetInput
- 667 00f0 031E     	 sub r3,r0,#0
- 668 00f2 05D0     	 beq .L18
- 156:../operation/operation.c **** 		{
- 157:../operation/operation.c **** 			isPutToStandbyExecuted	= false;
- 669              	 .loc 2 157 0
- 670 00f4 054B     	 ldr r3,.L25+4
- 671 00f6 0022     	 mov r2,#0
- 672 00f8 1A70     	 strb r2,[r3]
- 158:../operation/operation.c **** 			*state					= OP_STANDBY;
- 673              	 .loc 2 158 0
- 674 00fa FB68     	 ldr r3,[r7,#12]
- 675 00fc 0322     	 mov r2,#3
- 676 00fe 1A70     	 strb r2,[r3]
- 677              	.L18:
- 159:../operation/operation.c **** 		}
- 160:../operation/operation.c **** 	}
- 161:../operation/operation.c **** }
- 678              	 .loc 2 161 0
- 679 0100 BD46     	 mov sp,r7
- 680 0102 04B0     	 add sp,sp,#16
- 681              	 
- 682 0104 80BD     	 pop {r7,pc}
- 683              	.L26:
- 684 0106 C046     	 .align 2
- 685              	.L25:
- 686 0108 00020440 	 .word 1074004480
- 687 010c 00000000 	 .word isPutToStandbyExecuted.10973
- 688 0110 00000000 	 .word toggle_timer.10972
- 689              	 .cfi_endproc
- 690              	.LFE382:
- 692              	 .section .text.OP_PutSystemStandby,"ax",%progbits
- 693              	 .align 2
- 694              	 .global OP_PutSystemStandby
- 695              	 .code 16
- 696              	 .thumb_func
- 698              	OP_PutSystemStandby:
- 699              	.LFB383:
- 162:../operation/operation.c **** 
- 163:../operation/operation.c **** void OP_PutSystemStandby(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
- 164:../operation/operation.c **** 						 OP_CTRL_FLAG_t *ctrlFlag,
- 165:../operation/operation.c **** 						 PCS_BMC_STATUS_t *pcsBmsStatus)
- 166:../operation/operation.c **** {
- 700              	 .loc 2 166 0
- 701              	 .cfi_startproc
- 702 0000 80B5     	 push {r7,lr}
- 703              	.LCFI12:
- 704              	 .cfi_def_cfa_offset 8
- 705              	 .cfi_offset 7,-8
- 706              	 .cfi_offset 14,-4
- 707 0002 84B0     	 sub sp,sp,#16
- 708              	.LCFI13:
- 709              	 .cfi_def_cfa_offset 24
- 710 0004 00AF     	 add r7,sp,#0
- 711              	.LCFI14:
- 712              	 .cfi_def_cfa_register 7
- 713 0006 F860     	 str r0,[r7,#12]
- 714 0008 B960     	 str r1,[r7,#8]
- 715 000a 7A60     	 str r2,[r7,#4]
- 716 000c 3B60     	 str r3,[r7]
- 167:../operation/operation.c **** 	static bool isStandbyExecuted = false;
- 168:../operation/operation.c **** 
- 169:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_RUNNING)
- 717              	 .loc 2 169 0
- 718 000e BB68     	 ldr r3,[r7,#8]
- 719 0010 1B78     	 ldrb r3,[r3]
- 720 0012 062B     	 cmp r3,#6
- 721 0014 0CD1     	 bne .L28
- 170:../operation/operation.c **** 	{
- 171:../operation/operation.c **** 		if(!isStandbyExecuted)
- 722              	 .loc 2 171 0
- 723 0016 154B     	 ldr r3,.L30
- 724 0018 1B78     	 ldrb r3,[r3]
- 725 001a 0122     	 mov r2,#1
- 726 001c 5340     	 eor r3,r2
- 727 001e DBB2     	 uxtb r3,r3
- 728 0020 002B     	 cmp r3,#0
- 729 0022 05D0     	 beq .L28
- 172:../operation/operation.c **** 		{
- 173:../operation/operation.c **** 			pcsBmsStatus->bmc_pcs_command = BMU_PCS_STOP;
- 730              	 .loc 2 173 0
- 731 0024 3B68     	 ldr r3,[r7]
- 732 0026 0022     	 mov r2,#0
- 733 0028 5A70     	 strb r2,[r3,#1]
- 174:../operation/operation.c **** 			isStandbyExecuted = true;
- 734              	 .loc 2 174 0
- 735 002a 104B     	 ldr r3,.L30
- 736 002c 0122     	 mov r2,#1
- 737 002e 1A70     	 strb r2,[r3]
- 738              	.L28:
- 175:../operation/operation.c **** 		}
- 176:../operation/operation.c **** 	}
- 177:../operation/operation.c **** 
- 178:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_STANDBY)
- 739              	 .loc 2 178 0
- 740 0030 BB68     	 ldr r3,[r7,#8]
- 741 0032 1B78     	 ldrb r3,[r3]
- 742 0034 042B     	 cmp r3,#4
- 743 0036 16D1     	 bne .L27
- 179:../operation/operation.c **** 	{
- 180:../operation/operation.c **** 		/* Open Pre Discharge Relay */
- 181:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_OPEN);
- 744              	 .loc 2 181 0
- 745 0038 0320     	 mov r0,#3
- 746 003a 0021     	 mov r1,#0
- 747 003c FFF7FEFF 	 bl PDU_Switch_Relay
- 182:../operation/operation.c **** 
- 183:../operation/operation.c **** 		/* Open Main Relay */
- 184:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_OPEN);
- 748              	 .loc 2 184 0
- 749 0040 0120     	 mov r0,#1
- 750 0042 0021     	 mov r1,#0
- 751 0044 FFF7FEFF 	 bl PDU_Switch_Relay
- 185:../operation/operation.c **** 
- 186:../operation/operation.c **** 		pcsBmsStatus->bmc_main_relay		= RELAY_OPEN;
- 752              	 .loc 2 186 0
- 753 0048 3B68     	 ldr r3,[r7]
- 754 004a 0022     	 mov r2,#0
- 755 004c 9A70     	 strb r2,[r3,#2]
- 187:../operation/operation.c **** 		pcsBmsStatus->bmc_precharge_relay	= RELAY_OPEN;
- 756              	 .loc 2 187 0
- 757 004e 3B68     	 ldr r3,[r7]
- 758 0050 0022     	 mov r2,#0
- 759 0052 DA70     	 strb r2,[r3,#3]
- 188:../operation/operation.c **** 		pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
- 760              	 .loc 2 188 0
- 761 0054 3B68     	 ldr r3,[r7]
- 762 0056 0122     	 mov r2,#1
- 763 0058 1A70     	 strb r2,[r3]
+ 123:../operation/operation.c **** void OP_CheckingPCSStatus(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
+ 124:../operation/operation.c **** 						  MISC_SYSTICK_PARAM_t *sysTickParam,
+ 125:../operation/operation.c **** 						  OP_CTRL_FLAG_t *ctrlFlag)
+ 126:../operation/operation.c **** {
+ 547              	 .loc 2 126 0
+ 548              	 .cfi_startproc
+ 549 0000 80B5     	 push {r7,lr}
+ 550              	.LCFI9:
+ 551              	 .cfi_def_cfa_offset 8
+ 552              	 .cfi_offset 7,-8
+ 553              	 .cfi_offset 14,-4
+ 554 0002 84B0     	 sub sp,sp,#16
+ 555              	.LCFI10:
+ 556              	 .cfi_def_cfa_offset 24
+ 557 0004 00AF     	 add r7,sp,#0
+ 558              	.LCFI11:
+ 559              	 .cfi_def_cfa_register 7
+ 560 0006 F860     	 str r0,[r7,#12]
+ 561 0008 B960     	 str r1,[r7,#8]
+ 562 000a 7A60     	 str r2,[r7,#4]
+ 563 000c 3B60     	 str r3,[r7]
+ 127:../operation/operation.c **** 	static bool toggle_timer = false;
+ 128:../operation/operation.c **** 	static bool isPutToStandbyExecuted = false;
+ 129:../operation/operation.c **** 
+ 130:../operation/operation.c **** 	/* 1. Check PCS Warning Status */
+ 131:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_STANDBY)
+ 564              	 .loc 2 131 0
+ 565 000e BB68     	 ldr r3,[r7,#8]
+ 566 0010 1B78     	 ldrb r3,[r3]
+ 567 0012 042B     	 cmp r3,#4
+ 568 0014 02D1     	 bne .L22
+ 132:../operation/operation.c **** 	{
+ 133:../operation/operation.c **** 		*state = OP_ERROR;
+ 569              	 .loc 2 133 0
+ 570 0016 FB68     	 ldr r3,[r7,#12]
+ 571 0018 0422     	 mov r2,#4
+ 572 001a 1A70     	 strb r2,[r3]
+ 573              	.L22:
+ 134:../operation/operation.c **** 	}
+ 135:../operation/operation.c **** 
+ 136:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_INITIAL)
+ 574              	 .loc 2 136 0
+ 575 001c BB68     	 ldr r3,[r7,#8]
+ 576 001e 1B78     	 ldrb r3,[r3]
+ 577 0020 002B     	 cmp r3,#0
+ 578 0022 02D1     	 bne .L23
+ 137:../operation/operation.c **** 	{
+ 138:../operation/operation.c **** 		*state = OP_SHUTDOWN;
+ 579              	 .loc 2 138 0
+ 580 0024 FB68     	 ldr r3,[r7,#12]
+ 581 0026 0522     	 mov r2,#5
+ 582 0028 1A70     	 strb r2,[r3]
+ 583              	.L23:
+ 139:../operation/operation.c **** 	}
+ 140:../operation/operation.c **** 
+ 141:../operation/operation.c **** 	if(!XMC_GPIO_GetInput(P2_2) && !isPutToStandbyExecuted)
+ 584              	 .loc 2 141 0
+ 585 002a 3C4B     	 ldr r3,.L29
+ 586 002c 181C     	 mov r0,r3
+ 587 002e 0221     	 mov r1,#2
+ 588 0030 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 589 0034 031E     	 sub r3,r0,#0
+ 590 0036 45D1     	 bne .L24
+ 591              	 .loc 2 141 0 is_stmt 0 discriminator 1
+ 592 0038 394B     	 ldr r3,.L29+4
+ 593 003a 1B78     	 ldrb r3,[r3]
+ 594 003c 0122     	 mov r2,#1
+ 595 003e 5340     	 eor r3,r2
+ 596 0040 DBB2     	 uxtb r3,r3
+ 597 0042 002B     	 cmp r3,#0
+ 598 0044 3ED0     	 beq .L24
+ 142:../operation/operation.c **** 	{
+ 143:../operation/operation.c **** 		if((!sysTickParam->isTimeOut) && (!sysTickParam->enable) && !toggle_timer)
+ 599              	 .loc 2 143 0 is_stmt 1
+ 600 0046 7B68     	 ldr r3,[r7,#4]
+ 601 0048 1B79     	 ldrb r3,[r3,#4]
+ 602 004a 0122     	 mov r2,#1
+ 603 004c 5340     	 eor r3,r2
+ 604 004e DBB2     	 uxtb r3,r3
+ 605 0050 002B     	 cmp r3,#0
+ 606 0052 17D0     	 beq .L25
+ 607              	 .loc 2 143 0 is_stmt 0 discriminator 1
+ 608 0054 7B68     	 ldr r3,[r7,#4]
+ 609 0056 1B78     	 ldrb r3,[r3]
+ 610 0058 0122     	 mov r2,#1
+ 611 005a 5340     	 eor r3,r2
+ 612 005c DBB2     	 uxtb r3,r3
+ 613 005e 002B     	 cmp r3,#0
+ 614 0060 10D0     	 beq .L25
+ 615              	 .loc 2 143 0 discriminator 2
+ 616 0062 304B     	 ldr r3,.L29+8
+ 617 0064 1B78     	 ldrb r3,[r3]
+ 618 0066 0122     	 mov r2,#1
+ 619 0068 5340     	 eor r3,r2
+ 620 006a DBB2     	 uxtb r3,r3
+ 621 006c 002B     	 cmp r3,#0
+ 622 006e 09D0     	 beq .L25
+ 144:../operation/operation.c **** 		{
+ 145:../operation/operation.c **** 			toggle_timer			= true;
+ 623              	 .loc 2 145 0 is_stmt 1
+ 624 0070 2C4B     	 ldr r3,.L29+8
+ 625 0072 0122     	 mov r2,#1
+ 626 0074 1A70     	 strb r2,[r3]
+ 146:../operation/operation.c **** 			sysTickParam->enable	= true;
+ 627              	 .loc 2 146 0
+ 628 0076 7B68     	 ldr r3,[r7,#4]
+ 629 0078 0122     	 mov r2,#1
+ 630 007a 1A70     	 strb r2,[r3]
+ 147:../operation/operation.c **** 			sysTickParam->count		= 3;
+ 631              	 .loc 2 147 0
+ 632 007c 7B68     	 ldr r3,[r7,#4]
+ 633 007e 0322     	 mov r2,#3
+ 634 0080 5A80     	 strh r2,[r3,#2]
+ 635 0082 1EE0     	 b .L26
+ 636              	.L25:
+ 148:../operation/operation.c **** 		}
+ 149:../operation/operation.c **** 		else if ((sysTickParam->isTimeOut) && (!sysTickParam->enable) && !isPutToStandbyExecuted)
+ 637              	 .loc 2 149 0
+ 638 0084 7B68     	 ldr r3,[r7,#4]
+ 639 0086 1B79     	 ldrb r3,[r3,#4]
+ 640 0088 002B     	 cmp r3,#0
+ 641 008a 1AD0     	 beq .L26
+ 642              	 .loc 2 149 0 is_stmt 0 discriminator 1
+ 643 008c 7B68     	 ldr r3,[r7,#4]
+ 644 008e 1B78     	 ldrb r3,[r3]
+ 645 0090 0122     	 mov r2,#1
+ 646 0092 5340     	 eor r3,r2
+ 647 0094 DBB2     	 uxtb r3,r3
+ 648 0096 002B     	 cmp r3,#0
+ 649 0098 13D0     	 beq .L26
+ 650              	 .loc 2 149 0 discriminator 2
+ 651 009a 214B     	 ldr r3,.L29+4
+ 652 009c 1B78     	 ldrb r3,[r3]
+ 653 009e 0122     	 mov r2,#1
+ 654 00a0 5340     	 eor r3,r2
+ 655 00a2 DBB2     	 uxtb r3,r3
+ 656 00a4 002B     	 cmp r3,#0
+ 657 00a6 0CD0     	 beq .L26
+ 150:../operation/operation.c **** 		{
+ 151:../operation/operation.c **** 			isPutToStandbyExecuted	= true;
+ 658              	 .loc 2 151 0 is_stmt 1
+ 659 00a8 1D4B     	 ldr r3,.L29+4
+ 660 00aa 0122     	 mov r2,#1
+ 661 00ac 1A70     	 strb r2,[r3]
+ 152:../operation/operation.c **** 			toggle_timer			= false;
+ 662              	 .loc 2 152 0
+ 663 00ae 1D4B     	 ldr r3,.L29+8
+ 664 00b0 0022     	 mov r2,#0
+ 665 00b2 1A70     	 strb r2,[r3]
+ 153:../operation/operation.c **** 			sysTickParam->isTimeOut = false;
+ 666              	 .loc 2 153 0
+ 667 00b4 7B68     	 ldr r3,[r7,#4]
+ 668 00b6 0022     	 mov r2,#0
+ 669 00b8 1A71     	 strb r2,[r3,#4]
+ 154:../operation/operation.c **** 			sysTickParam->count		= 0;
+ 670              	 .loc 2 154 0
+ 671 00ba 7B68     	 ldr r3,[r7,#4]
+ 672 00bc 0022     	 mov r2,#0
+ 673 00be 5A80     	 strh r2,[r3,#2]
+ 143:../operation/operation.c **** 		{
+ 674              	 .loc 2 143 0
+ 675 00c0 17E0     	 b .L27
+ 676              	.L26:
+ 677 00c2 16E0     	 b .L27
+ 678              	.L24:
+ 155:../operation/operation.c **** 		}
+ 156:../operation/operation.c **** 	}
+ 157:../operation/operation.c **** 	else if(XMC_GPIO_GetInput(P2_2) && !isPutToStandbyExecuted)
+ 679              	 .loc 2 157 0
+ 680 00c4 154B     	 ldr r3,.L29
+ 681 00c6 181C     	 mov r0,r3
+ 682 00c8 0221     	 mov r1,#2
+ 683 00ca FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 684 00ce 031E     	 sub r3,r0,#0
+ 685 00d0 0FD0     	 beq .L27
+ 686              	 .loc 2 157 0 is_stmt 0 discriminator 1
+ 687 00d2 134B     	 ldr r3,.L29+4
+ 688 00d4 1B78     	 ldrb r3,[r3]
+ 689 00d6 0122     	 mov r2,#1
+ 690 00d8 5340     	 eor r3,r2
+ 691 00da DBB2     	 uxtb r3,r3
+ 692 00dc 002B     	 cmp r3,#0
+ 693 00de 08D0     	 beq .L27
+ 158:../operation/operation.c **** 	{
+ 159:../operation/operation.c **** 		toggle_timer			= false;
+ 694              	 .loc 2 159 0 is_stmt 1
+ 695 00e0 104B     	 ldr r3,.L29+8
+ 696 00e2 0022     	 mov r2,#0
+ 697 00e4 1A70     	 strb r2,[r3]
+ 160:../operation/operation.c **** 		sysTickParam->enable 	= false;
+ 698              	 .loc 2 160 0
+ 699 00e6 7B68     	 ldr r3,[r7,#4]
+ 700 00e8 0022     	 mov r2,#0
+ 701 00ea 1A70     	 strb r2,[r3]
+ 161:../operation/operation.c **** 		sysTickParam->count 	= 0;
+ 702              	 .loc 2 161 0
+ 703 00ec 7B68     	 ldr r3,[r7,#4]
+ 704 00ee 0022     	 mov r2,#0
+ 705 00f0 5A80     	 strh r2,[r3,#2]
+ 706              	.L27:
+ 162:../operation/operation.c **** 	}
+ 163:../operation/operation.c **** 
+ 164:../operation/operation.c **** 	/* Change to STANDBY upon the timer's time-out and button is released */
+ 165:../operation/operation.c **** 	if(isPutToStandbyExecuted)
+ 707              	 .loc 2 165 0
+ 708 00f2 0B4B     	 ldr r3,.L29+4
+ 709 00f4 1B78     	 ldrb r3,[r3]
+ 710 00f6 002B     	 cmp r3,#0
+ 711 00f8 0CD0     	 beq .L21
+ 166:../operation/operation.c **** 	{
+ 167:../operation/operation.c **** 		if(XMC_GPIO_GetInput(P2_2))
+ 712              	 .loc 2 167 0
+ 713 00fa 084B     	 ldr r3,.L29
+ 714 00fc 181C     	 mov r0,r3
+ 715 00fe 0221     	 mov r1,#2
+ 716 0100 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 717 0104 031E     	 sub r3,r0,#0
+ 718 0106 05D0     	 beq .L21
+ 168:../operation/operation.c **** 		{
+ 169:../operation/operation.c **** 			isPutToStandbyExecuted	= false;
+ 719              	 .loc 2 169 0
+ 720 0108 054B     	 ldr r3,.L29+4
+ 721 010a 0022     	 mov r2,#0
+ 722 010c 1A70     	 strb r2,[r3]
+ 170:../operation/operation.c **** 			*state					= OP_STANDBY;
+ 723              	 .loc 2 170 0
+ 724 010e FB68     	 ldr r3,[r7,#12]
+ 725 0110 0322     	 mov r2,#3
+ 726 0112 1A70     	 strb r2,[r3]
+ 727              	.L21:
+ 171:../operation/operation.c **** 		}
+ 172:../operation/operation.c **** 	}
+ 173:../operation/operation.c **** }
+ 728              	 .loc 2 173 0
+ 729 0114 BD46     	 mov sp,r7
+ 730 0116 04B0     	 add sp,sp,#16
+ 731              	 
+ 732 0118 80BD     	 pop {r7,pc}
+ 733              	.L30:
+ 734 011a C046     	 .align 2
+ 735              	.L29:
+ 736 011c 00020440 	 .word 1074004480
+ 737 0120 00000000 	 .word isPutToStandbyExecuted.10976
+ 738 0124 00000000 	 .word toggle_timer.10975
+ 739              	 .cfi_endproc
+ 740              	.LFE382:
+ 742              	 .section .text.OP_PutSystemStandby,"ax",%progbits
+ 743              	 .align 2
+ 744              	 .global OP_PutSystemStandby
+ 745              	 .code 16
+ 746              	 .thumb_func
+ 748              	OP_PutSystemStandby:
+ 749              	.LFB383:
+ 174:../operation/operation.c **** 
+ 175:../operation/operation.c **** void OP_PutSystemStandby(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
+ 176:../operation/operation.c **** 						 OP_CTRL_FLAG_t *ctrlFlag,
+ 177:../operation/operation.c **** 						 PCS_BMC_STATUS_t *pcsBmsStatus)
+ 178:../operation/operation.c **** {
+ 750              	 .loc 2 178 0
+ 751              	 .cfi_startproc
+ 752 0000 80B5     	 push {r7,lr}
+ 753              	.LCFI12:
+ 754              	 .cfi_def_cfa_offset 8
+ 755              	 .cfi_offset 7,-8
+ 756              	 .cfi_offset 14,-4
+ 757 0002 84B0     	 sub sp,sp,#16
+ 758              	.LCFI13:
+ 759              	 .cfi_def_cfa_offset 24
+ 760 0004 00AF     	 add r7,sp,#0
+ 761              	.LCFI14:
+ 762              	 .cfi_def_cfa_register 7
+ 763 0006 F860     	 str r0,[r7,#12]
+ 764 0008 B960     	 str r1,[r7,#8]
+ 765 000a 7A60     	 str r2,[r7,#4]
+ 766 000c 3B60     	 str r3,[r7]
+ 179:../operation/operation.c **** 	static bool isStandbyExecuted = false;
+ 180:../operation/operation.c **** 
+ 181:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_RUNNING)
+ 767              	 .loc 2 181 0
+ 768 000e BB68     	 ldr r3,[r7,#8]
+ 769 0010 1B78     	 ldrb r3,[r3]
+ 770 0012 062B     	 cmp r3,#6
+ 771 0014 0CD1     	 bne .L32
+ 182:../operation/operation.c **** 	{
+ 183:../operation/operation.c **** 		if(!isStandbyExecuted)
+ 772              	 .loc 2 183 0
+ 773 0016 154B     	 ldr r3,.L34
+ 774 0018 1B78     	 ldrb r3,[r3]
+ 775 001a 0122     	 mov r2,#1
+ 776 001c 5340     	 eor r3,r2
+ 777 001e DBB2     	 uxtb r3,r3
+ 778 0020 002B     	 cmp r3,#0
+ 779 0022 05D0     	 beq .L32
+ 184:../operation/operation.c **** 		{
+ 185:../operation/operation.c **** 			pcsBmsStatus->bmc_pcs_command = BMU_PCS_STOP;
+ 780              	 .loc 2 185 0
+ 781 0024 3B68     	 ldr r3,[r7]
+ 782 0026 0022     	 mov r2,#0
+ 783 0028 5A70     	 strb r2,[r3,#1]
+ 186:../operation/operation.c **** 			isStandbyExecuted = true;
+ 784              	 .loc 2 186 0
+ 785 002a 104B     	 ldr r3,.L34
+ 786 002c 0122     	 mov r2,#1
+ 787 002e 1A70     	 strb r2,[r3]
+ 788              	.L32:
+ 187:../operation/operation.c **** 		}
+ 188:../operation/operation.c **** 	}
  189:../operation/operation.c **** 
- 190:../operation/operation.c **** 		*state = OP_TURN_ON;
- 764              	 .loc 2 190 0
- 765 005a FB68     	 ldr r3,[r7,#12]
- 766 005c 0122     	 mov r2,#1
- 767 005e 1A70     	 strb r2,[r3]
- 191:../operation/operation.c **** 		isStandbyExecuted = false;
- 768              	 .loc 2 191 0
- 769 0060 024B     	 ldr r3,.L30
- 770 0062 0022     	 mov r2,#0
- 771 0064 1A70     	 strb r2,[r3]
- 772              	.L27:
- 192:../operation/operation.c **** 	}
- 193:../operation/operation.c **** }
- 773              	 .loc 2 193 0
- 774 0066 BD46     	 mov sp,r7
- 775 0068 04B0     	 add sp,sp,#16
- 776              	 
- 777 006a 80BD     	 pop {r7,pc}
- 778              	.L31:
- 779              	 .align 2
- 780              	.L30:
- 781 006c 00000000 	 .word isStandbyExecuted.10980
- 782              	 .cfi_endproc
- 783              	.LFE383:
- 785              	 .section .text.OP_HandlingPCSWarning,"ax",%progbits
- 786              	 .align 2
- 787              	 .global OP_HandlingPCSWarning
- 788              	 .code 16
- 789              	 .thumb_func
- 791              	OP_HandlingPCSWarning:
- 792              	.LFB384:
+ 190:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_STANDBY)
+ 789              	 .loc 2 190 0
+ 790 0030 BB68     	 ldr r3,[r7,#8]
+ 791 0032 1B78     	 ldrb r3,[r3]
+ 792 0034 042B     	 cmp r3,#4
+ 793 0036 16D1     	 bne .L31
+ 191:../operation/operation.c **** 	{
+ 192:../operation/operation.c **** 		/* Close Pre Discharge Relay */
+ 193:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_CLOSE);
+ 794              	 .loc 2 193 0
+ 795 0038 0320     	 mov r0,#3
+ 796 003a 0121     	 mov r1,#1
+ 797 003c FFF7FEFF 	 bl PDU_Switch_Relay
  194:../operation/operation.c **** 
- 195:../operation/operation.c **** void OP_HandlingPCSWarning(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
- 196:../operation/operation.c **** 						   MISC_SYSTICK_PARAM_t *sysTickParam,
- 197:../operation/operation.c **** 						   OP_CTRL_FLAG_t *ctrlFlag, BMC_PARAMETER_t *bmsParam,
- 198:../operation/operation.c **** 						   PCS_BMC_STATUS_t *pcsBmsStatus)
- 199:../operation/operation.c **** {
- 793              	 .loc 2 199 0
- 794              	 .cfi_startproc
- 795 0000 80B5     	 push {r7,lr}
- 796              	.LCFI15:
- 797              	 .cfi_def_cfa_offset 8
- 798              	 .cfi_offset 7,-8
- 799              	 .cfi_offset 14,-4
- 800 0002 84B0     	 sub sp,sp,#16
- 801              	.LCFI16:
- 802              	 .cfi_def_cfa_offset 24
- 803 0004 00AF     	 add r7,sp,#0
- 804              	.LCFI17:
- 805              	 .cfi_def_cfa_register 7
- 806 0006 F860     	 str r0,[r7,#12]
- 807 0008 B960     	 str r1,[r7,#8]
- 808 000a 7A60     	 str r2,[r7,#4]
- 809 000c 3B60     	 str r3,[r7]
- 200:../operation/operation.c **** 
- 201:../operation/operation.c **** 	/* 1. if error elapsed, attempt for change PCS to RUN state */
- 202:../operation/operation.c **** 	if(!ctrlFlag->isStandby)
- 810              	 .loc 2 202 0
- 811 000e 3B68     	 ldr r3,[r7]
- 812 0010 5B78     	 ldrb r3,[r3,#1]
- 813 0012 0122     	 mov r2,#1
- 814 0014 5340     	 eor r3,r2
- 815 0016 DBB2     	 uxtb r3,r3
- 816 0018 002B     	 cmp r3,#0
- 817 001a 02D0     	 beq .L33
- 203:../operation/operation.c **** 	{
- 204:../operation/operation.c **** 		pcsBmsStatus->bmc_pcs_command = BMU_PCS_START;
- 818              	 .loc 2 204 0
- 819 001c FB69     	 ldr r3,[r7,#28]
- 820 001e 0122     	 mov r2,#1
- 821 0020 5A70     	 strb r2,[r3,#1]
- 822              	.L33:
- 205:../operation/operation.c **** 	}
+ 195:../operation/operation.c **** 		/* Open Main Relay */
+ 196:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_OPEN);
+ 798              	 .loc 2 196 0
+ 799 0040 0120     	 mov r0,#1
+ 800 0042 0021     	 mov r1,#0
+ 801 0044 FFF7FEFF 	 bl PDU_Switch_Relay
+ 197:../operation/operation.c **** 
+ 198:../operation/operation.c **** 		pcsBmsStatus->bmc_main_relay		= RELAY_OPEN;
+ 802              	 .loc 2 198 0
+ 803 0048 3B68     	 ldr r3,[r7]
+ 804 004a 0022     	 mov r2,#0
+ 805 004c 9A70     	 strb r2,[r3,#2]
+ 199:../operation/operation.c **** 		pcsBmsStatus->bmc_precharge_relay	= RELAY_CLOSE;
+ 806              	 .loc 2 199 0
+ 807 004e 3B68     	 ldr r3,[r7]
+ 808 0050 0122     	 mov r2,#1
+ 809 0052 DA70     	 strb r2,[r3,#3]
+ 200:../operation/operation.c **** 		pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
+ 810              	 .loc 2 200 0
+ 811 0054 3B68     	 ldr r3,[r7]
+ 812 0056 0122     	 mov r2,#1
+ 813 0058 1A70     	 strb r2,[r3]
+ 201:../operation/operation.c **** 
+ 202:../operation/operation.c **** 		*state = OP_TURN_ON;
+ 814              	 .loc 2 202 0
+ 815 005a FB68     	 ldr r3,[r7,#12]
+ 816 005c 0122     	 mov r2,#1
+ 817 005e 1A70     	 strb r2,[r3]
+ 203:../operation/operation.c **** 		isStandbyExecuted = false;
+ 818              	 .loc 2 203 0
+ 819 0060 024B     	 ldr r3,.L34
+ 820 0062 0022     	 mov r2,#0
+ 821 0064 1A70     	 strb r2,[r3]
+ 822              	.L31:
+ 204:../operation/operation.c **** 	}
+ 205:../operation/operation.c **** }
+ 823              	 .loc 2 205 0
+ 824 0066 BD46     	 mov sp,r7
+ 825 0068 04B0     	 add sp,sp,#16
+ 826              	 
+ 827 006a 80BD     	 pop {r7,pc}
+ 828              	.L35:
+ 829              	 .align 2
+ 830              	.L34:
+ 831 006c 00000000 	 .word isStandbyExecuted.10983
+ 832              	 .cfi_endproc
+ 833              	.LFE383:
+ 835              	 .section .text.OP_HandlingPCSWarning,"ax",%progbits
+ 836              	 .align 2
+ 837              	 .global OP_HandlingPCSWarning
+ 838              	 .code 16
+ 839              	 .thumb_func
+ 841              	OP_HandlingPCSWarning:
+ 842              	.LFB384:
  206:../operation/operation.c **** 
- 207:../operation/operation.c **** 	/* 1. if PCS acknowledged that already change to RUN, return the state to RUNNING */
- 208:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_RUNNING)
- 823              	 .loc 2 208 0
- 824 0022 BB68     	 ldr r3,[r7,#8]
- 825 0024 1B78     	 ldrb r3,[r3]
- 826 0026 062B     	 cmp r3,#6
- 827 0028 02D1     	 bne .L32
- 209:../operation/operation.c **** 	{
- 210:../operation/operation.c **** 		*state = OP_RUNNING;
- 828              	 .loc 2 210 0
- 829 002a FB68     	 ldr r3,[r7,#12]
- 830 002c 0222     	 mov r2,#2
- 831 002e 1A70     	 strb r2,[r3]
- 832              	.L32:
- 211:../operation/operation.c **** 	}
+ 207:../operation/operation.c **** void OP_HandlingPCSWarning(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
+ 208:../operation/operation.c **** 						   MISC_SYSTICK_PARAM_t *sysTickParam,
+ 209:../operation/operation.c **** 						   OP_CTRL_FLAG_t *ctrlFlag, BMC_PARAMETER_t *bmsParam,
+ 210:../operation/operation.c **** 						   PCS_BMC_STATUS_t *pcsBmsStatus)
+ 211:../operation/operation.c **** {
+ 843              	 .loc 2 211 0
+ 844              	 .cfi_startproc
+ 845 0000 80B5     	 push {r7,lr}
+ 846              	.LCFI15:
+ 847              	 .cfi_def_cfa_offset 8
+ 848              	 .cfi_offset 7,-8
+ 849              	 .cfi_offset 14,-4
+ 850 0002 84B0     	 sub sp,sp,#16
+ 851              	.LCFI16:
+ 852              	 .cfi_def_cfa_offset 24
+ 853 0004 00AF     	 add r7,sp,#0
+ 854              	.LCFI17:
+ 855              	 .cfi_def_cfa_register 7
+ 856 0006 F860     	 str r0,[r7,#12]
+ 857 0008 B960     	 str r1,[r7,#8]
+ 858 000a 7A60     	 str r2,[r7,#4]
+ 859 000c 3B60     	 str r3,[r7]
  212:../operation/operation.c **** 
- 213:../operation/operation.c **** 	/* 2. Check SoC Level */
- 214:../operation/operation.c **** 	/* force shutdown */
- 215:../operation/operation.c **** 	//if(ctrlFlag->isForced_shut_down){bmsParam->soc = 2;}
- 216:../operation/operation.c **** //	if((bmsParam->soc <= 50) && (!ctrlFlag->isBypass_power_mode))
- 217:../operation/operation.c **** //	{
- 218:../operation/operation.c **** //		*state = OP_SHUTDOWN;
- 219:../operation/operation.c **** //	}
- 220:../operation/operation.c **** }
- 833              	 .loc 2 220 0
- 834 0030 BD46     	 mov sp,r7
- 835 0032 04B0     	 add sp,sp,#16
- 836              	 
- 837 0034 80BD     	 pop {r7,pc}
- 838              	 .cfi_endproc
- 839              	.LFE384:
- 841 0036 C046     	 .section .text.OP_PutSystemShutDown,"ax",%progbits
- 842              	 .align 2
- 843              	 .global OP_PutSystemShutDown
- 844              	 .code 16
- 845              	 .thumb_func
- 847              	OP_PutSystemShutDown:
- 848              	.LFB385:
- 221:../operation/operation.c **** 
- 222:../operation/operation.c **** void OP_PutSystemShutDown(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam)
- 223:../operation/operation.c **** {
- 849              	 .loc 2 223 0
- 850              	 .cfi_startproc
- 851 0000 80B5     	 push {r7,lr}
- 852              	.LCFI18:
- 853              	 .cfi_def_cfa_offset 8
- 854              	 .cfi_offset 7,-8
- 855              	 .cfi_offset 14,-4
- 856 0002 82B0     	 sub sp,sp,#8
- 857              	.LCFI19:
- 858              	 .cfi_def_cfa_offset 16
- 859 0004 00AF     	 add r7,sp,#0
- 860              	.LCFI20:
- 861              	 .cfi_def_cfa_register 7
- 862 0006 7860     	 str r0,[r7,#4]
- 863 0008 3960     	 str r1,[r7]
- 224:../operation/operation.c **** 	if(!sysTickParam->isTimeOut)
- 864              	 .loc 2 224 0
- 865 000a 3B68     	 ldr r3,[r7]
- 866 000c 1B79     	 ldrb r3,[r3,#4]
- 867 000e 0122     	 mov r2,#1
- 868 0010 5340     	 eor r3,r2
- 869 0012 DBB2     	 uxtb r3,r3
- 870 0014 002B     	 cmp r3,#0
- 871 0016 06D0     	 beq .L36
- 225:../operation/operation.c **** 	{
- 226:../operation/operation.c **** 		sysTickParam->enable	= true;
- 872              	 .loc 2 226 0
- 873 0018 3B68     	 ldr r3,[r7]
- 874 001a 0122     	 mov r2,#1
- 875 001c 1A70     	 strb r2,[r3]
- 227:../operation/operation.c **** 		sysTickParam->count		= 1;
- 876              	 .loc 2 227 0
- 877 001e 3B68     	 ldr r3,[r7]
- 878 0020 0122     	 mov r2,#1
- 879 0022 5A80     	 strh r2,[r3,#2]
- 880 0024 0CE0     	 b .L35
- 881              	.L36:
+ 213:../operation/operation.c **** 	/* 1. if error elapsed, attempt for change PCS to RUN state */
+ 214:../operation/operation.c **** 	if(!ctrlFlag->isStandby)
+ 860              	 .loc 2 214 0
+ 861 000e 3B68     	 ldr r3,[r7]
+ 862 0010 5B78     	 ldrb r3,[r3,#1]
+ 863 0012 0122     	 mov r2,#1
+ 864 0014 5340     	 eor r3,r2
+ 865 0016 DBB2     	 uxtb r3,r3
+ 866 0018 002B     	 cmp r3,#0
+ 867 001a 02D0     	 beq .L37
+ 215:../operation/operation.c **** 	{
+ 216:../operation/operation.c **** 		pcsBmsStatus->bmc_pcs_command = BMU_PCS_START;
+ 868              	 .loc 2 216 0
+ 869 001c FB69     	 ldr r3,[r7,#28]
+ 870 001e 0122     	 mov r2,#1
+ 871 0020 5A70     	 strb r2,[r3,#1]
+ 872              	.L37:
+ 217:../operation/operation.c **** 	}
+ 218:../operation/operation.c **** 
+ 219:../operation/operation.c **** 	/* 1. if PCS acknowledged that already change to RUN, return the state to RUNNING */
+ 220:../operation/operation.c **** 	if(pcsStatus->pcs_system_status == PCS_STAT_RUNNING)
+ 873              	 .loc 2 220 0
+ 874 0022 BB68     	 ldr r3,[r7,#8]
+ 875 0024 1B78     	 ldrb r3,[r3]
+ 876 0026 062B     	 cmp r3,#6
+ 877 0028 02D1     	 bne .L38
+ 221:../operation/operation.c **** 	{
+ 222:../operation/operation.c **** 		*state = OP_RUNNING;
+ 878              	 .loc 2 222 0
+ 879 002a FB68     	 ldr r3,[r7,#12]
+ 880 002c 0222     	 mov r2,#2
+ 881 002e 1A70     	 strb r2,[r3]
+ 882              	.L38:
+ 223:../operation/operation.c **** 	}
+ 224:../operation/operation.c **** 	/* 2. Check SoC Level and BMC Dip Switch Mode*/
+ 225:../operation/operation.c **** 	if((pcsStatus->pcs_system_status == PCS_STAT_INITIAL) || (!ctrlFlag->isBypass_power_mode && bmsPar
+ 883              	 .loc 2 225 0
+ 884 0030 BB68     	 ldr r3,[r7,#8]
+ 885 0032 1B78     	 ldrb r3,[r3]
+ 886 0034 002B     	 cmp r3,#0
+ 887 0036 0AD0     	 beq .L39
+ 888              	 .loc 2 225 0 is_stmt 0 discriminator 1
+ 889 0038 3B68     	 ldr r3,[r7]
+ 890 003a DB78     	 ldrb r3,[r3,#3]
+ 891 003c 0122     	 mov r2,#1
+ 892 003e 5340     	 eor r3,r2
+ 893 0040 DBB2     	 uxtb r3,r3
+ 894 0042 002B     	 cmp r3,#0
+ 895 0044 06D0     	 beq .L36
+ 896              	 .loc 2 225 0 discriminator 2
+ 897 0046 BB69     	 ldr r3,[r7,#24]
+ 898 0048 1B88     	 ldrh r3,[r3]
+ 899 004a 312B     	 cmp r3,#49
+ 900 004c 02D8     	 bhi .L36
+ 901              	.L39:
+ 226:../operation/operation.c **** 	{
+ 227:../operation/operation.c **** 		*state = OP_SHUTDOWN;
+ 902              	 .loc 2 227 0 is_stmt 1
+ 903 004e FB68     	 ldr r3,[r7,#12]
+ 904 0050 0522     	 mov r2,#5
+ 905 0052 1A70     	 strb r2,[r3]
+ 906              	.L36:
  228:../operation/operation.c **** 	}
- 229:../operation/operation.c **** 	else
- 230:../operation/operation.c **** 	{
- 231:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_OPEN);
- 882              	 .loc 2 231 0
- 883 0026 0020     	 mov r0,#0
- 884 0028 0021     	 mov r1,#0
- 885 002a FFF7FEFF 	 bl PDU_Switch_Relay
- 232:../operation/operation.c **** 		sysTickParam->isTimeOut = false;
- 886              	 .loc 2 232 0
- 887 002e 3B68     	 ldr r3,[r7]
- 888 0030 0022     	 mov r2,#0
- 889 0032 1A71     	 strb r2,[r3,#4]
- 233:../operation/operation.c **** 		sysTickParam->count = 0;
- 890              	 .loc 2 233 0
- 891 0034 3B68     	 ldr r3,[r7]
- 892 0036 0022     	 mov r2,#0
- 893 0038 5A80     	 strh r2,[r3,#2]
- 234:../operation/operation.c **** 		*state = OP_SETUP;
- 894              	 .loc 2 234 0
- 895 003a 7B68     	 ldr r3,[r7,#4]
- 896 003c 0022     	 mov r2,#0
- 897 003e 1A70     	 strb r2,[r3]
- 898              	.L35:
- 235:../operation/operation.c **** 	}
- 236:../operation/operation.c **** }
- 899              	 .loc 2 236 0
- 900 0040 BD46     	 mov sp,r7
- 901 0042 02B0     	 add sp,sp,#8
- 902              	 
- 903 0044 80BD     	 pop {r7,pc}
- 904              	 .cfi_endproc
- 905              	.LFE385:
- 907 0046 C046     	 .section .text.OP_CheckingMode,"ax",%progbits
- 908              	 .align 2
- 909              	 .global OP_CheckingMode
- 910              	 .code 16
- 911              	 .thumb_func
- 913              	OP_CheckingMode:
- 914              	.LFB386:
- 237:../operation/operation.c **** 
- 238:../operation/operation.c **** void OP_CheckingMode(OP_CTRL_FLAG_t *ctrlFlag)
- 239:../operation/operation.c **** {
- 915              	 .loc 2 239 0
- 916              	 .cfi_startproc
- 917 0000 80B5     	 push {r7,lr}
- 918              	.LCFI21:
- 919              	 .cfi_def_cfa_offset 8
- 920              	 .cfi_offset 7,-8
- 921              	 .cfi_offset 14,-4
- 922 0002 82B0     	 sub sp,sp,#8
- 923              	.LCFI22:
- 924              	 .cfi_def_cfa_offset 16
- 925 0004 00AF     	 add r7,sp,#0
- 926              	.LCFI23:
- 927              	 .cfi_def_cfa_register 7
- 928 0006 7860     	 str r0,[r7,#4]
- 240:../operation/operation.c **** 	/* Read Dip Switch */
- 241:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_2) == 1)?(ctrlFlag->isBypass_power_mode = true):
- 929              	 .loc 2 241 0
- 930 0008 1F4B     	 ldr r3,.L47
- 931 000a 181C     	 mov r0,r3
- 932 000c 0221     	 mov r1,#2
- 933 000e FFF7FEFF 	 bl XMC_GPIO_GetInput
- 934 0012 031E     	 sub r3,r0,#0
- 935 0014 012B     	 cmp r3,#1
- 936 0016 03D1     	 bne .L39
- 937              	 .loc 2 241 0 is_stmt 0 discriminator 1
- 938 0018 7B68     	 ldr r3,[r7,#4]
- 939 001a 0122     	 mov r2,#1
- 940 001c DA70     	 strb r2,[r3,#3]
- 941 001e 02E0     	 b .L40
- 942              	.L39:
- 242:../operation/operation.c **** 								   (ctrlFlag->isBypass_power_mode = false);
- 943              	 .loc 2 242 0 is_stmt 1 discriminator 2
- 944 0020 7B68     	 ldr r3,[r7,#4]
- 945 0022 0022     	 mov r2,#0
- 946 0024 DA70     	 strb r2,[r3,#3]
- 947              	.L40:
- 243:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_3) == 1)?(ctrlFlag->isAuto_mode = true):
- 948              	 .loc 2 243 0
- 949 0026 184B     	 ldr r3,.L47
- 950 0028 181C     	 mov r0,r3
- 951 002a 0321     	 mov r1,#3
- 952 002c FFF7FEFF 	 bl XMC_GPIO_GetInput
- 953 0030 031E     	 sub r3,r0,#0
- 954 0032 012B     	 cmp r3,#1
- 955 0034 03D1     	 bne .L41
- 956              	 .loc 2 243 0 is_stmt 0 discriminator 1
- 957 0036 7B68     	 ldr r3,[r7,#4]
- 958 0038 0122     	 mov r2,#1
- 959 003a 9A70     	 strb r2,[r3,#2]
- 960 003c 02E0     	 b .L42
- 961              	.L41:
- 244:../operation/operation.c **** 								   (ctrlFlag->isAuto_mode = false);
- 962              	 .loc 2 244 0 is_stmt 1 discriminator 2
- 963 003e 7B68     	 ldr r3,[r7,#4]
- 964 0040 0022     	 mov r2,#0
- 965 0042 9A70     	 strb r2,[r3,#2]
- 966              	.L42:
- 245:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_4) == 1)?(ctrlFlag->isChecking_peripheral = true):
- 967              	 .loc 2 245 0
- 968 0044 104B     	 ldr r3,.L47
- 969 0046 181C     	 mov r0,r3
- 970 0048 0421     	 mov r1,#4
- 971 004a FFF7FEFF 	 bl XMC_GPIO_GetInput
- 972 004e 031E     	 sub r3,r0,#0
- 973 0050 012B     	 cmp r3,#1
- 974 0052 03D1     	 bne .L43
- 975              	 .loc 2 245 0 is_stmt 0 discriminator 1
- 976 0054 7B68     	 ldr r3,[r7,#4]
- 977 0056 0122     	 mov r2,#1
- 978 0058 5A71     	 strb r2,[r3,#5]
- 979 005a 02E0     	 b .L44
- 980              	.L43:
- 246:../operation/operation.c **** 								   (ctrlFlag->isChecking_peripheral = false);
- 981              	 .loc 2 246 0 is_stmt 1 discriminator 2
- 982 005c 7B68     	 ldr r3,[r7,#4]
- 983 005e 0022     	 mov r2,#0
- 984 0060 5A71     	 strb r2,[r3,#5]
- 985              	.L44:
- 247:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_5) == 1)?(ctrlFlag->isForced_shutting_down = true):
- 986              	 .loc 2 247 0
- 987 0062 094B     	 ldr r3,.L47
- 988 0064 181C     	 mov r0,r3
- 989 0066 0521     	 mov r1,#5
- 990 0068 FFF7FEFF 	 bl XMC_GPIO_GetInput
- 991 006c 031E     	 sub r3,r0,#0
- 992 006e 012B     	 cmp r3,#1
- 993 0070 03D1     	 bne .L45
- 994              	 .loc 2 247 0 is_stmt 0 discriminator 1
- 995 0072 7B68     	 ldr r3,[r7,#4]
- 996 0074 0122     	 mov r2,#1
- 997 0076 1A71     	 strb r2,[r3,#4]
- 998 0078 02E0     	 b .L38
- 999              	.L45:
- 248:../operation/operation.c **** 								   (ctrlFlag->isForced_shutting_down = false);
- 1000              	 .loc 2 248 0 is_stmt 1 discriminator 2
- 1001 007a 7B68     	 ldr r3,[r7,#4]
- 1002 007c 0022     	 mov r2,#0
- 1003 007e 1A71     	 strb r2,[r3,#4]
- 1004              	.L38:
- 249:../operation/operation.c **** }
- 1005              	 .loc 2 249 0
- 1006 0080 BD46     	 mov sp,r7
- 1007 0082 02B0     	 add sp,sp,#8
- 1008              	 
- 1009 0084 80BD     	 pop {r7,pc}
- 1010              	.L48:
- 1011 0086 C046     	 .align 2
- 1012              	.L47:
- 1013 0088 00040440 	 .word 1074004992
+ 229:../operation/operation.c **** }
+ 907              	 .loc 2 229 0
+ 908 0054 BD46     	 mov sp,r7
+ 909 0056 04B0     	 add sp,sp,#16
+ 910              	 
+ 911 0058 80BD     	 pop {r7,pc}
+ 912              	 .cfi_endproc
+ 913              	.LFE384:
+ 915 005a C046     	 .section .text.OP_PutSystemShutDown,"ax",%progbits
+ 916              	 .align 2
+ 917              	 .global OP_PutSystemShutDown
+ 918              	 .code 16
+ 919              	 .thumb_func
+ 921              	OP_PutSystemShutDown:
+ 922              	.LFB385:
+ 230:../operation/operation.c **** 
+ 231:../operation/operation.c **** void OP_PutSystemShutDown(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam, OP_CTRL_FLAG_t *ct
+ 232:../operation/operation.c **** 						  PCS_BMC_STATUS_t *pcsBmsStatus)
+ 233:../operation/operation.c **** {
+ 923              	 .loc 2 233 0
+ 924              	 .cfi_startproc
+ 925 0000 80B5     	 push {r7,lr}
+ 926              	.LCFI18:
+ 927              	 .cfi_def_cfa_offset 8
+ 928              	 .cfi_offset 7,-8
+ 929              	 .cfi_offset 14,-4
+ 930 0002 84B0     	 sub sp,sp,#16
+ 931              	.LCFI19:
+ 932              	 .cfi_def_cfa_offset 24
+ 933 0004 00AF     	 add r7,sp,#0
+ 934              	.LCFI20:
+ 935              	 .cfi_def_cfa_register 7
+ 936 0006 F860     	 str r0,[r7,#12]
+ 937 0008 B960     	 str r1,[r7,#8]
+ 938 000a 7A60     	 str r2,[r7,#4]
+ 939 000c 3B60     	 str r3,[r7]
+ 234:../operation/operation.c **** 	if(!sysTickParam->isTimeOut)
+ 940              	 .loc 2 234 0
+ 941 000e BB68     	 ldr r3,[r7,#8]
+ 942 0010 1B79     	 ldrb r3,[r3,#4]
+ 943 0012 0122     	 mov r2,#1
+ 944 0014 5340     	 eor r3,r2
+ 945 0016 DBB2     	 uxtb r3,r3
+ 946 0018 002B     	 cmp r3,#0
+ 947 001a 06D0     	 beq .L42
+ 235:../operation/operation.c **** 	{
+ 236:../operation/operation.c **** 		sysTickParam->enable	= true;
+ 948              	 .loc 2 236 0
+ 949 001c BB68     	 ldr r3,[r7,#8]
+ 950 001e 0122     	 mov r2,#1
+ 951 0020 1A70     	 strb r2,[r3]
+ 237:../operation/operation.c **** 		sysTickParam->count		= 10;
+ 952              	 .loc 2 237 0
+ 953 0022 BB68     	 ldr r3,[r7,#8]
+ 954 0024 0A22     	 mov r2,#10
+ 955 0026 5A80     	 strh r2,[r3,#2]
+ 956 0028 28E0     	 b .L41
+ 957              	.L42:
+ 238:../operation/operation.c **** 	}
+ 239:../operation/operation.c **** 	else
+ 240:../operation/operation.c **** 	{
+ 241:../operation/operation.c **** 		sysTickParam->isTimeOut = false;
+ 958              	 .loc 2 241 0
+ 959 002a BB68     	 ldr r3,[r7,#8]
+ 960 002c 0022     	 mov r2,#0
+ 961 002e 1A71     	 strb r2,[r3,#4]
+ 242:../operation/operation.c **** 		sysTickParam->count = 0;
+ 962              	 .loc 2 242 0
+ 963 0030 BB68     	 ldr r3,[r7,#8]
+ 964 0032 0022     	 mov r2,#0
+ 965 0034 5A80     	 strh r2,[r3,#2]
+ 243:../operation/operation.c **** 
+ 244:../operation/operation.c **** 		/* Close Pre Discharge Relay */
+ 245:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_CLOSE);
+ 966              	 .loc 2 245 0
+ 967 0036 0320     	 mov r0,#3
+ 968 0038 0121     	 mov r1,#1
+ 969 003a FFF7FEFF 	 bl PDU_Switch_Relay
+ 246:../operation/operation.c **** 
+ 247:../operation/operation.c **** 		/* Open Main Relay */
+ 248:../operation/operation.c **** 		PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_OPEN);
+ 970              	 .loc 2 248 0
+ 971 003e 0120     	 mov r0,#1
+ 972 0040 0021     	 mov r1,#0
+ 973 0042 FFF7FEFF 	 bl PDU_Switch_Relay
+ 249:../operation/operation.c **** 		pcsBmsStatus->bmc_main_relay		= RELAY_OPEN;
+ 974              	 .loc 2 249 0
+ 975 0046 3B68     	 ldr r3,[r7]
+ 976 0048 0022     	 mov r2,#0
+ 977 004a 9A70     	 strb r2,[r3,#2]
+ 250:../operation/operation.c **** 		pcsBmsStatus->bmc_precharge_relay	= RELAY_CLOSE;
+ 978              	 .loc 2 250 0
+ 979 004c 3B68     	 ldr r3,[r7]
+ 980 004e 0122     	 mov r2,#1
+ 981 0050 DA70     	 strb r2,[r3,#3]
+ 251:../operation/operation.c **** 		pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
+ 982              	 .loc 2 251 0
+ 983 0052 3B68     	 ldr r3,[r7]
+ 984 0054 0122     	 mov r2,#1
+ 985 0056 1A70     	 strb r2,[r3]
+ 252:../operation/operation.c **** 		if(!ctrlFlag->isBypass_power_mode)
+ 986              	 .loc 2 252 0
+ 987 0058 7B68     	 ldr r3,[r7,#4]
+ 988 005a DB78     	 ldrb r3,[r3,#3]
+ 989 005c 0122     	 mov r2,#1
+ 990 005e 5340     	 eor r3,r2
+ 991 0060 DBB2     	 uxtb r3,r3
+ 992 0062 002B     	 cmp r3,#0
+ 993 0064 07D0     	 beq .L44
+ 253:../operation/operation.c **** 		{
+ 254:../operation/operation.c **** 			PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_OPEN);
+ 994              	 .loc 2 254 0
+ 995 0066 0020     	 mov r0,#0
+ 996 0068 0021     	 mov r1,#0
+ 997 006a FFF7FEFF 	 bl PDU_Switch_Relay
+ 255:../operation/operation.c **** 			*state = OP_POWERUP;
+ 998              	 .loc 2 255 0
+ 999 006e FB68     	 ldr r3,[r7,#12]
+ 1000 0070 0022     	 mov r2,#0
+ 1001 0072 1A70     	 strb r2,[r3]
+ 1002 0074 02E0     	 b .L41
+ 1003              	.L44:
+ 256:../operation/operation.c **** 		}
+ 257:../operation/operation.c **** 		else
+ 258:../operation/operation.c **** 		{
+ 259:../operation/operation.c **** 			*state = OP_TURN_ON;
+ 1004              	 .loc 2 259 0
+ 1005 0076 FB68     	 ldr r3,[r7,#12]
+ 1006 0078 0122     	 mov r2,#1
+ 1007 007a 1A70     	 strb r2,[r3]
+ 1008              	.L41:
+ 260:../operation/operation.c **** 		}
+ 261:../operation/operation.c **** 	}
+ 262:../operation/operation.c **** }
+ 1009              	 .loc 2 262 0
+ 1010 007c BD46     	 mov sp,r7
+ 1011 007e 04B0     	 add sp,sp,#16
+ 1012              	 
+ 1013 0080 80BD     	 pop {r7,pc}
  1014              	 .cfi_endproc
- 1015              	.LFE386:
- 1017              	 .section .text.OP_CheckingError,"ax",%progbits
+ 1015              	.LFE385:
+ 1017 0082 C046     	 .section .text.OP_CheckingMode,"ax",%progbits
  1018              	 .align 2
- 1019              	 .global OP_CheckingError
+ 1019              	 .global OP_CheckingMode
  1020              	 .code 16
  1021              	 .thumb_func
- 1023              	OP_CheckingError:
- 1024              	.LFB387:
- 250:../operation/operation.c **** 
- 251:../operation/operation.c **** void OP_CheckingError(OP_CTRL_FLAG_t *ctrlFlag, PCS_STATUS_t *pcsStatus,
- 252:../operation/operation.c **** 					  DCGRID_STATUS_t *gridStatus, ACINV_STATUS_t *invStatus,
- 253:../operation/operation.c **** 					  PVCONV_STATUS_t *pvStatus, BATCONV_STATUS_t *BatStatus)
- 254:../operation/operation.c **** {
- 1025              	 .loc 2 254 0
+ 1023              	OP_CheckingMode:
+ 1024              	.LFB386:
+ 263:../operation/operation.c **** 
+ 264:../operation/operation.c **** void OP_CheckingMode(OP_CTRL_FLAG_t *ctrlFlag)
+ 265:../operation/operation.c **** {
+ 1025              	 .loc 2 265 0
  1026              	 .cfi_startproc
  1027 0000 80B5     	 push {r7,lr}
- 1028              	.LCFI24:
+ 1028              	.LCFI21:
  1029              	 .cfi_def_cfa_offset 8
  1030              	 .cfi_offset 7,-8
  1031              	 .cfi_offset 14,-4
- 1032 0002 84B0     	 sub sp,sp,#16
- 1033              	.LCFI25:
- 1034              	 .cfi_def_cfa_offset 24
+ 1032 0002 82B0     	 sub sp,sp,#8
+ 1033              	.LCFI22:
+ 1034              	 .cfi_def_cfa_offset 16
  1035 0004 00AF     	 add r7,sp,#0
- 1036              	.LCFI26:
+ 1036              	.LCFI23:
  1037              	 .cfi_def_cfa_register 7
- 1038 0006 F860     	 str r0,[r7,#12]
- 1039 0008 B960     	 str r1,[r7,#8]
- 1040 000a 7A60     	 str r2,[r7,#4]
- 1041 000c 3B60     	 str r3,[r7]
- 255:../operation/operation.c **** 	  /* Check if any system in Standby mode */
- 256:../operation/operation.c **** 	ctrlFlag->isStandby = pcsStatus->pcs_system_pcsIsStandBy 	 |\
- 1042              	 .loc 2 256 0
- 1043 000e BB68     	 ldr r3,[r7,#8]
- 1044 0010 1B79     	 ldrb r3,[r3,#4]
- 1045 0012 1A1C     	 mov r2,r3
- 257:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
- 1046              	 .loc 2 257 0
- 1047 0014 7B68     	 ldr r3,[r7,#4]
- 1048 0016 DB78     	 ldrb r3,[r3,#3]
- 256:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
- 1049              	 .loc 2 256 0
- 1050 0018 1343     	 orr r3,r2
- 258:../operation/operation.c **** 						  invStatus->acinv_system_pcsIsStandBy	 |\
- 1051              	 .loc 2 258 0
- 1052 001a 3A68     	 ldr r2,[r7]
- 1053 001c D278     	 ldrb r2,[r2,#3]
- 257:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
- 1054              	 .loc 2 257 0
- 1055 001e 1343     	 orr r3,r2
- 259:../operation/operation.c **** 						  pvStatus->pvconv_system_pcsIsStandBy   |\
- 1056              	 .loc 2 259 0
- 1057 0020 BA69     	 ldr r2,[r7,#24]
- 1058 0022 D278     	 ldrb r2,[r2,#3]
- 258:../operation/operation.c **** 						  invStatus->acinv_system_pcsIsStandBy	 |\
- 1059              	 .loc 2 258 0
- 1060 0024 1343     	 orr r3,r2
- 260:../operation/operation.c **** 						  BatStatus->batconv_system_pcsIsStandBy;
- 1061              	 .loc 2 260 0
- 1062 0026 FA69     	 ldr r2,[r7,#28]
- 1063 0028 D278     	 ldrb r2,[r2,#3]
- 259:../operation/operation.c **** 						  pvStatus->pvconv_system_pcsIsStandBy   |\
- 1064              	 .loc 2 259 0
- 1065 002a 1343     	 orr r3,r2
- 1066 002c 5A1E     	 sub r2,r3,#1
- 1067 002e 9341     	 sbc r3,r3,r2
- 1068 0030 DAB2     	 uxtb r2,r3
- 256:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
- 1069              	 .loc 2 256 0
- 1070 0032 FB68     	 ldr r3,[r7,#12]
- 1071 0034 5A70     	 strb r2,[r3,#1]
- 261:../operation/operation.c **** }
- 1072              	 .loc 2 261 0
- 1073 0036 BD46     	 mov sp,r7
- 1074 0038 04B0     	 add sp,sp,#16
- 1075              	 
- 1076 003a 80BD     	 pop {r7,pc}
- 1077              	 .cfi_endproc
- 1078              	.LFE387:
- 1080              	 .section .bss.toggle_timer.10956,"aw",%nobits
- 1083              	toggle_timer.10956:
- 1084 0000 00       	 .space 1
- 1085              	 .section .bss.isPrechargeExecuted.10965,"aw",%nobits
- 1088              	isPrechargeExecuted.10965:
- 1089 0000 00       	 .space 1
- 1090              	 .section .bss.toggle_timer.10964,"aw",%nobits
- 1093              	toggle_timer.10964:
- 1094 0000 00       	 .space 1
- 1095              	 .section .bss.isPutToStandbyExecuted.10973,"aw",%nobits
- 1098              	isPutToStandbyExecuted.10973:
- 1099 0000 00       	 .space 1
- 1100              	 .section .bss.toggle_timer.10972,"aw",%nobits
- 1103              	toggle_timer.10972:
- 1104 0000 00       	 .space 1
- 1105              	 .section .bss.isStandbyExecuted.10980,"aw",%nobits
- 1108              	isStandbyExecuted.10980:
- 1109 0000 00       	 .space 1
- 1110              	 .text
- 1111              	.Letext0:
- 1112              	 .file 3 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
- 1113              	 .file 4 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
- 1114              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/XMC1400.h"
- 1115              	 .file 6 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc1_gpio.h"
- 1116              	 .file 7 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_usic.h"
- 1117              	 .file 8 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_uart.h"
- 1118              	 .file 9 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/esp32/esp32_op.h"
- 1119              	 .file 10 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_ccu4.h"
- 1120              	 .file 11 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_can.h"
- 1121              	 .file 12 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pcs/pcs_op.h"
- 1122              	 .file 13 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/genix/genix_op.h"
- 1123              	 .file 14 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_vadc.h"
- 1124              	 .file 15 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pdu/pdu_op.h"
- 1125              	 .file 16 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/variables/variables.h"
- 1126              	 .file 17 "../operation/operation.h"
- 1127              	 .file 18 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
- 1128              	 .file 19 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/system_XMC1400.h"
- 1129              	 .file 20 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/esp32/esp32_op_conf.h"
- 1130              	 .file 21 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pcs/pcs_op_conf.h"
- 1131              	 .file 22 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/genix/genix_op_conf.h"
- 1132              	 .file 23 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/gpios/gpio_op_conf.h"
- 1133              	 .file 24 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pdu/pdu_op_conf.h"
- 1134              	 .file 25 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/timing/timing_op_conf.h"
+ 1038 0006 7860     	 str r0,[r7,#4]
+ 266:../operation/operation.c **** 	/* Read Dip Switch */
+ 267:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_2) == 1)?(ctrlFlag->isBypass_power_mode = true):
+ 1039              	 .loc 2 267 0
+ 1040 0008 1F4B     	 ldr r3,.L54
+ 1041 000a 181C     	 mov r0,r3
+ 1042 000c 0221     	 mov r1,#2
+ 1043 000e FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 1044 0012 031E     	 sub r3,r0,#0
+ 1045 0014 012B     	 cmp r3,#1
+ 1046 0016 03D1     	 bne .L46
+ 1047              	 .loc 2 267 0 is_stmt 0 discriminator 1
+ 1048 0018 7B68     	 ldr r3,[r7,#4]
+ 1049 001a 0122     	 mov r2,#1
+ 1050 001c DA70     	 strb r2,[r3,#3]
+ 1051 001e 02E0     	 b .L47
+ 1052              	.L46:
+ 268:../operation/operation.c **** 								   (ctrlFlag->isBypass_power_mode = false);
+ 1053              	 .loc 2 268 0 is_stmt 1 discriminator 2
+ 1054 0020 7B68     	 ldr r3,[r7,#4]
+ 1055 0022 0022     	 mov r2,#0
+ 1056 0024 DA70     	 strb r2,[r3,#3]
+ 1057              	.L47:
+ 269:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_3) == 1)?(ctrlFlag->isAuto_mode = true):
+ 1058              	 .loc 2 269 0
+ 1059 0026 184B     	 ldr r3,.L54
+ 1060 0028 181C     	 mov r0,r3
+ 1061 002a 0321     	 mov r1,#3
+ 1062 002c FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 1063 0030 031E     	 sub r3,r0,#0
+ 1064 0032 012B     	 cmp r3,#1
+ 1065 0034 03D1     	 bne .L48
+ 1066              	 .loc 2 269 0 is_stmt 0 discriminator 1
+ 1067 0036 7B68     	 ldr r3,[r7,#4]
+ 1068 0038 0122     	 mov r2,#1
+ 1069 003a 9A70     	 strb r2,[r3,#2]
+ 1070 003c 02E0     	 b .L49
+ 1071              	.L48:
+ 270:../operation/operation.c **** 								   (ctrlFlag->isAuto_mode = false);
+ 1072              	 .loc 2 270 0 is_stmt 1 discriminator 2
+ 1073 003e 7B68     	 ldr r3,[r7,#4]
+ 1074 0040 0022     	 mov r2,#0
+ 1075 0042 9A70     	 strb r2,[r3,#2]
+ 1076              	.L49:
+ 271:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_4) == 1)?(ctrlFlag->isChecking_peripheral = true):
+ 1077              	 .loc 2 271 0
+ 1078 0044 104B     	 ldr r3,.L54
+ 1079 0046 181C     	 mov r0,r3
+ 1080 0048 0421     	 mov r1,#4
+ 1081 004a FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 1082 004e 031E     	 sub r3,r0,#0
+ 1083 0050 012B     	 cmp r3,#1
+ 1084 0052 03D1     	 bne .L50
+ 1085              	 .loc 2 271 0 is_stmt 0 discriminator 1
+ 1086 0054 7B68     	 ldr r3,[r7,#4]
+ 1087 0056 0122     	 mov r2,#1
+ 1088 0058 5A71     	 strb r2,[r3,#5]
+ 1089 005a 02E0     	 b .L51
+ 1090              	.L50:
+ 272:../operation/operation.c **** 								   (ctrlFlag->isChecking_peripheral = false);
+ 1091              	 .loc 2 272 0 is_stmt 1 discriminator 2
+ 1092 005c 7B68     	 ldr r3,[r7,#4]
+ 1093 005e 0022     	 mov r2,#0
+ 1094 0060 5A71     	 strb r2,[r3,#5]
+ 1095              	.L51:
+ 273:../operation/operation.c **** 	(XMC_GPIO_GetInput(P4_5) == 1)?(ctrlFlag->isForced_shutting_down = true):
+ 1096              	 .loc 2 273 0
+ 1097 0062 094B     	 ldr r3,.L54
+ 1098 0064 181C     	 mov r0,r3
+ 1099 0066 0521     	 mov r1,#5
+ 1100 0068 FFF7FEFF 	 bl XMC_GPIO_GetInput
+ 1101 006c 031E     	 sub r3,r0,#0
+ 1102 006e 012B     	 cmp r3,#1
+ 1103 0070 03D1     	 bne .L52
+ 1104              	 .loc 2 273 0 is_stmt 0 discriminator 1
+ 1105 0072 7B68     	 ldr r3,[r7,#4]
+ 1106 0074 0122     	 mov r2,#1
+ 1107 0076 1A71     	 strb r2,[r3,#4]
+ 1108 0078 02E0     	 b .L45
+ 1109              	.L52:
+ 274:../operation/operation.c **** 								   (ctrlFlag->isForced_shutting_down = false);
+ 1110              	 .loc 2 274 0 is_stmt 1 discriminator 2
+ 1111 007a 7B68     	 ldr r3,[r7,#4]
+ 1112 007c 0022     	 mov r2,#0
+ 1113 007e 1A71     	 strb r2,[r3,#4]
+ 1114              	.L45:
+ 275:../operation/operation.c **** }
+ 1115              	 .loc 2 275 0
+ 1116 0080 BD46     	 mov sp,r7
+ 1117 0082 02B0     	 add sp,sp,#8
+ 1118              	 
+ 1119 0084 80BD     	 pop {r7,pc}
+ 1120              	.L55:
+ 1121 0086 C046     	 .align 2
+ 1122              	.L54:
+ 1123 0088 00040440 	 .word 1074004992
+ 1124              	 .cfi_endproc
+ 1125              	.LFE386:
+ 1127              	 .section .text.OP_CheckingError,"ax",%progbits
+ 1128              	 .align 2
+ 1129              	 .global OP_CheckingError
+ 1130              	 .code 16
+ 1131              	 .thumb_func
+ 1133              	OP_CheckingError:
+ 1134              	.LFB387:
+ 276:../operation/operation.c **** 
+ 277:../operation/operation.c **** void OP_CheckingError(OP_CTRL_FLAG_t *ctrlFlag, PCS_STATUS_t *pcsStatus,
+ 278:../operation/operation.c **** 					  DCGRID_STATUS_t *gridStatus, ACINV_STATUS_t *invStatus,
+ 279:../operation/operation.c **** 					  PVCONV_STATUS_t *pvStatus, BATCONV_STATUS_t *BatStatus)
+ 280:../operation/operation.c **** {
+ 1135              	 .loc 2 280 0
+ 1136              	 .cfi_startproc
+ 1137 0000 80B5     	 push {r7,lr}
+ 1138              	.LCFI24:
+ 1139              	 .cfi_def_cfa_offset 8
+ 1140              	 .cfi_offset 7,-8
+ 1141              	 .cfi_offset 14,-4
+ 1142 0002 84B0     	 sub sp,sp,#16
+ 1143              	.LCFI25:
+ 1144              	 .cfi_def_cfa_offset 24
+ 1145 0004 00AF     	 add r7,sp,#0
+ 1146              	.LCFI26:
+ 1147              	 .cfi_def_cfa_register 7
+ 1148 0006 F860     	 str r0,[r7,#12]
+ 1149 0008 B960     	 str r1,[r7,#8]
+ 1150 000a 7A60     	 str r2,[r7,#4]
+ 1151 000c 3B60     	 str r3,[r7]
+ 281:../operation/operation.c **** 	  /* Check if any system in Standby mode */
+ 282:../operation/operation.c **** 	ctrlFlag->isStandby = pcsStatus->pcs_system_pcsIsStandBy 	 |\
+ 1152              	 .loc 2 282 0
+ 1153 000e BB68     	 ldr r3,[r7,#8]
+ 1154 0010 1B79     	 ldrb r3,[r3,#4]
+ 1155 0012 1A1C     	 mov r2,r3
+ 283:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
+ 1156              	 .loc 2 283 0
+ 1157 0014 7B68     	 ldr r3,[r7,#4]
+ 1158 0016 DB78     	 ldrb r3,[r3,#3]
+ 282:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
+ 1159              	 .loc 2 282 0
+ 1160 0018 1343     	 orr r3,r2
+ 284:../operation/operation.c **** 						  invStatus->acinv_system_pcsIsStandBy	 |\
+ 1161              	 .loc 2 284 0
+ 1162 001a 3A68     	 ldr r2,[r7]
+ 1163 001c D278     	 ldrb r2,[r2,#3]
+ 283:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
+ 1164              	 .loc 2 283 0
+ 1165 001e 1343     	 orr r3,r2
+ 285:../operation/operation.c **** 						  pvStatus->pvconv_system_pcsIsStandBy   |\
+ 1166              	 .loc 2 285 0
+ 1167 0020 BA69     	 ldr r2,[r7,#24]
+ 1168 0022 D278     	 ldrb r2,[r2,#3]
+ 284:../operation/operation.c **** 						  invStatus->acinv_system_pcsIsStandBy	 |\
+ 1169              	 .loc 2 284 0
+ 1170 0024 1343     	 orr r3,r2
+ 286:../operation/operation.c **** 						  BatStatus->batconv_system_pcsIsStandBy;
+ 1171              	 .loc 2 286 0
+ 1172 0026 FA69     	 ldr r2,[r7,#28]
+ 1173 0028 D278     	 ldrb r2,[r2,#3]
+ 285:../operation/operation.c **** 						  pvStatus->pvconv_system_pcsIsStandBy   |\
+ 1174              	 .loc 2 285 0
+ 1175 002a 1343     	 orr r3,r2
+ 1176 002c 5A1E     	 sub r2,r3,#1
+ 1177 002e 9341     	 sbc r3,r3,r2
+ 1178 0030 DAB2     	 uxtb r2,r3
+ 282:../operation/operation.c **** 						  gridStatus->dcgrid_system_pcsIsStandBy |\
+ 1179              	 .loc 2 282 0
+ 1180 0032 FB68     	 ldr r3,[r7,#12]
+ 1181 0034 5A70     	 strb r2,[r3,#1]
+ 287:../operation/operation.c **** }
+ 1182              	 .loc 2 287 0
+ 1183 0036 BD46     	 mov sp,r7
+ 1184 0038 04B0     	 add sp,sp,#16
+ 1185              	 
+ 1186 003a 80BD     	 pop {r7,pc}
+ 1187              	 .cfi_endproc
+ 1188              	.LFE387:
+ 1190              	 .section .bss.toggle_timer.10959,"aw",%nobits
+ 1193              	toggle_timer.10959:
+ 1194 0000 00       	 .space 1
+ 1195              	 .section .bss.isPrechargeExecuted.10968,"aw",%nobits
+ 1198              	isPrechargeExecuted.10968:
+ 1199 0000 00       	 .space 1
+ 1200              	 .section .bss.toggle_timer.10967,"aw",%nobits
+ 1203              	toggle_timer.10967:
+ 1204 0000 00       	 .space 1
+ 1205              	 .section .bss.isPutToStandbyExecuted.10976,"aw",%nobits
+ 1208              	isPutToStandbyExecuted.10976:
+ 1209 0000 00       	 .space 1
+ 1210              	 .section .bss.toggle_timer.10975,"aw",%nobits
+ 1213              	toggle_timer.10975:
+ 1214 0000 00       	 .space 1
+ 1215              	 .section .bss.isStandbyExecuted.10983,"aw",%nobits
+ 1218              	isStandbyExecuted.10983:
+ 1219 0000 00       	 .space 1
+ 1220              	 .text
+ 1221              	.Letext0:
+ 1222              	 .file 3 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1223              	 .file 4 "d:\\software\\dave_4-4-2_64bit_2018-02-23\\dave_4-4-2_64bit_2018-02-23\\dave-ide-4.4.2-64bit\\dave-ide-4.4.2-64bit\\eclipse\\arm-gcc-49\\arm-none-eabi\\include\\stdint.h"
+ 1224              	 .file 5 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/XMC1400.h"
+ 1225              	 .file 6 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc1_gpio.h"
+ 1226              	 .file 7 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_usic.h"
+ 1227              	 .file 8 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_uart.h"
+ 1228              	 .file 9 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/esp32/esp32_op.h"
+ 1229              	 .file 10 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_ccu4.h"
+ 1230              	 .file 11 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_can.h"
+ 1231              	 .file 12 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pcs/pcs_op.h"
+ 1232              	 .file 13 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/genix/genix_op.h"
+ 1233              	 .file 14 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/XMCLib/inc/xmc_vadc.h"
+ 1234              	 .file 15 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pdu/pdu_op.h"
+ 1235              	 .file 16 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/variables/variables.h"
+ 1236              	 .file 17 "../operation/operation.h"
+ 1237              	 .file 18 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Include/cmsis_gcc.h"
+ 1238              	 .file 19 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/Libraries/CMSIS/Infineon/XMC1400_series/Include/system_XMC1400.h"
+ 1239              	 .file 20 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/esp32/esp32_op_conf.h"
+ 1240              	 .file 21 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pcs/pcs_op_conf.h"
+ 1241              	 .file 22 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/genix/genix_op_conf.h"
+ 1242              	 .file 23 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/gpios/gpio_op_conf.h"
+ 1243              	 .file 24 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/pdu/pdu_op_conf.h"
+ 1244              	 .file 25 "C:/Users/Lenovo/workspace/dave_workspace/SOLAR_TOWER_XMC/interconnect/timing/timing_op_conf.h"
 DEFINED SYMBOLS
                             *ABS*:00000000 operation.c
     {standard input}:18     .text.XMC_GPIO_GetInput:00000000 $t
@@ -1753,7 +1890,7 @@ DEFINED SYMBOLS
                             *COM*:00000004 pcsACinvStatus
                             *COM*:00000004 pcsPVconvStatus
                             *COM*:00000004 pcsBatconvStatus
-                            *COM*:0000004c data_group
+                            *COM*:00000050 data_group
                             *COM*:00000004 buffptr
                             *COM*:00000050 espBuffer
                             *COM*:00000008 pduSensorRaw
@@ -1762,41 +1899,42 @@ DEFINED SYMBOLS
                             *COM*:00000008 genix_data
                             *COM*:00000001 mcu_state
                             *COM*:00000006 controlFlag
-    {standard input}:112    .text.OP_SetupConnection:00000000 $t
-    {standard input}:117    .text.OP_SetupConnection:00000000 OP_SetupConnection
-    {standard input}:258    .text.OP_SetupConnection:000000d0 $d
-    {standard input}:1083   .bss.toggle_timer.10956:00000000 toggle_timer.10956
-    {standard input}:264    .text.OP_TurnOnPCS:00000000 $t
-    {standard input}:269    .text.OP_TurnOnPCS:00000000 OP_TurnOnPCS
-    {standard input}:496    .text.OP_TurnOnPCS:00000154 $d
-    {standard input}:1088   .bss.isPrechargeExecuted.10965:00000000 isPrechargeExecuted.10965
-    {standard input}:1093   .bss.toggle_timer.10964:00000000 toggle_timer.10964
-    {standard input}:503    .text.OP_CheckingPCSStatus:00000000 $t
-    {standard input}:508    .text.OP_CheckingPCSStatus:00000000 OP_CheckingPCSStatus
-    {standard input}:686    .text.OP_CheckingPCSStatus:00000108 $d
-    {standard input}:1098   .bss.isPutToStandbyExecuted.10973:00000000 isPutToStandbyExecuted.10973
-    {standard input}:1103   .bss.toggle_timer.10972:00000000 toggle_timer.10972
-    {standard input}:693    .text.OP_PutSystemStandby:00000000 $t
-    {standard input}:698    .text.OP_PutSystemStandby:00000000 OP_PutSystemStandby
-    {standard input}:781    .text.OP_PutSystemStandby:0000006c $d
-    {standard input}:1108   .bss.isStandbyExecuted.10980:00000000 isStandbyExecuted.10980
-    {standard input}:786    .text.OP_HandlingPCSWarning:00000000 $t
-    {standard input}:791    .text.OP_HandlingPCSWarning:00000000 OP_HandlingPCSWarning
-    {standard input}:842    .text.OP_PutSystemShutDown:00000000 $t
-    {standard input}:847    .text.OP_PutSystemShutDown:00000000 OP_PutSystemShutDown
-    {standard input}:908    .text.OP_CheckingMode:00000000 $t
-    {standard input}:913    .text.OP_CheckingMode:00000000 OP_CheckingMode
-    {standard input}:1013   .text.OP_CheckingMode:00000088 $d
-    {standard input}:1018   .text.OP_CheckingError:00000000 $t
-    {standard input}:1023   .text.OP_CheckingError:00000000 OP_CheckingError
-    {standard input}:1084   .bss.toggle_timer.10956:00000000 $d
-    {standard input}:1089   .bss.isPrechargeExecuted.10965:00000000 $d
-    {standard input}:1094   .bss.toggle_timer.10964:00000000 $d
-    {standard input}:1099   .bss.isPutToStandbyExecuted.10973:00000000 $d
-    {standard input}:1104   .bss.toggle_timer.10972:00000000 $d
-    {standard input}:1109   .bss.isStandbyExecuted.10980:00000000 $d
+    {standard input}:113    .text.OP_SetupConnection:00000000 $t
+    {standard input}:118    .text.OP_SetupConnection:00000000 OP_SetupConnection
+    {standard input}:295    .text.OP_SetupConnection:00000104 $d
+    {standard input}:1193   .bss.toggle_timer.10959:00000000 toggle_timer.10959
+    {standard input}:301    .text.OP_TurnOnPCS:00000000 $t
+    {standard input}:306    .text.OP_TurnOnPCS:00000000 OP_TurnOnPCS
+    {standard input}:533    .text.OP_TurnOnPCS:00000154 $d
+    {standard input}:1198   .bss.isPrechargeExecuted.10968:00000000 isPrechargeExecuted.10968
+    {standard input}:1203   .bss.toggle_timer.10967:00000000 toggle_timer.10967
+    {standard input}:540    .text.OP_CheckingPCSStatus:00000000 $t
+    {standard input}:545    .text.OP_CheckingPCSStatus:00000000 OP_CheckingPCSStatus
+    {standard input}:736    .text.OP_CheckingPCSStatus:0000011c $d
+    {standard input}:1208   .bss.isPutToStandbyExecuted.10976:00000000 isPutToStandbyExecuted.10976
+    {standard input}:1213   .bss.toggle_timer.10975:00000000 toggle_timer.10975
+    {standard input}:743    .text.OP_PutSystemStandby:00000000 $t
+    {standard input}:748    .text.OP_PutSystemStandby:00000000 OP_PutSystemStandby
+    {standard input}:831    .text.OP_PutSystemStandby:0000006c $d
+    {standard input}:1218   .bss.isStandbyExecuted.10983:00000000 isStandbyExecuted.10983
+    {standard input}:836    .text.OP_HandlingPCSWarning:00000000 $t
+    {standard input}:841    .text.OP_HandlingPCSWarning:00000000 OP_HandlingPCSWarning
+    {standard input}:916    .text.OP_PutSystemShutDown:00000000 $t
+    {standard input}:921    .text.OP_PutSystemShutDown:00000000 OP_PutSystemShutDown
+    {standard input}:1018   .text.OP_CheckingMode:00000000 $t
+    {standard input}:1023   .text.OP_CheckingMode:00000000 OP_CheckingMode
+    {standard input}:1123   .text.OP_CheckingMode:00000088 $d
+    {standard input}:1128   .text.OP_CheckingError:00000000 $t
+    {standard input}:1133   .text.OP_CheckingError:00000000 OP_CheckingError
+    {standard input}:1194   .bss.toggle_timer.10959:00000000 $d
+    {standard input}:1199   .bss.isPrechargeExecuted.10968:00000000 $d
+    {standard input}:1204   .bss.toggle_timer.10967:00000000 $d
+    {standard input}:1209   .bss.isPutToStandbyExecuted.10976:00000000 $d
+    {standard input}:1214   .bss.toggle_timer.10975:00000000 $d
+    {standard input}:1219   .bss.isStandbyExecuted.10983:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
 __aeabi_fcmpgt
+__aeabi_fcmplt
 PDU_Switch_Relay

@@ -55,7 +55,7 @@
   55              	 .comm pcsACinvStatus,4,4
   56              	 .comm pcsPVconvStatus,4,4
   57              	 .comm pcsBatconvStatus,4,4
-  58              	 .comm data_group,76,4
+  58              	 .comm data_group,80,4
   59              	 .comm buffptr,4,4
   60              	 .comm espBuffer,80,4
   61              	 .comm pduSensorRaw,8,4
@@ -130,7 +130,7 @@ DEFINED SYMBOLS
                             *COM*:00000004 pcsACinvStatus
                             *COM*:00000004 pcsPVconvStatus
                             *COM*:00000004 pcsBatconvStatus
-                            *COM*:0000004c data_group
+                            *COM*:00000050 data_group
                             *COM*:00000004 buffptr
                             *COM*:00000050 espBuffer
                             *COM*:00000008 pduSensorRaw

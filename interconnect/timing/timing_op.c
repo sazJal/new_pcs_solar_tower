@@ -36,8 +36,11 @@ void TIMING_TimerInit(void)
 	/* Frequency CCU4 = 96MHz */
 	/* Freq / Prescaler 1024 = 93750 Hz */
 	/* Program duty cycle[50%] and frequency [10 Hz] */
-	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC41, 4687); // any value less than PWM Period Counter
-	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC41, 9375);
+//	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC41, 4687); // any value less than PWM Period Counter
+//	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC41, 9375);
+	/* Program duty cycle[50%] and frequency [9.375 Hz] */
+	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC41, 5000); // any value less than PWM Period Counter
+	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC41, 10000);
 
 	/* Frequency CCU4 = 96MHz */
 	/* Freq / Prescaler 8192 = 11718.75 Hz */

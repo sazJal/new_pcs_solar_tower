@@ -113,6 +113,11 @@ PCS_STATUS_t PCS_GetPCSStatus(XMC_CAN_MO_t *can_m0_obj)
 		param.pcs_system_warning = PCS_WARN_BAT_OVDSG2;
 		param.pcs_system_pcsIsStandBy = true;
 	}
+	if((status>>2)&0x01)
+	{
+		param.pcs_system_warning = PCS_WARN_COMM_ERR;
+		param.pcs_system_pcsIsStandBy = true;
+	}
 
 	return param;
 }

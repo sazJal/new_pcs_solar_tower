@@ -3395,181 +3395,184 @@
   36:../interconnect/timing/timing_op.c **** 	/* Frequency CCU4 = 96MHz */
   37:../interconnect/timing/timing_op.c **** 	/* Freq / Prescaler 1024 = 93750 Hz */
   38:../interconnect/timing/timing_op.c **** 	/* Program duty cycle[50%] and frequency [10 Hz] */
-  39:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC41, 4687); // any value less than PWM Period Counter
- 537              	 .loc 3 39 0
+  39:../interconnect/timing/timing_op.c **** //	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC41, 4687); // any value less than PWM Period Counter
+  40:../interconnect/timing/timing_op.c **** //	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC41, 9375);
+  41:../interconnect/timing/timing_op.c **** 	/* Program duty cycle[50%] and frequency [9.375 Hz] */
+  42:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC41, 5000); // any value less than PWM Period Counter
+ 537              	 .loc 3 42 0
  538 005c 404A     	 ldr r2,.L18+12
  539 005e 464B     	 ldr r3,.L18+36
  540 0060 101C     	 mov r0,r2
  541 0062 191C     	 mov r1,r3
  542 0064 FFF7FEFF 	 bl XMC_CCU4_SLICE_SetTimerCompareMatch
-  40:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC41, 9375);
- 543              	 .loc 3 40 0
+  43:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC41, 10000);
+ 543              	 .loc 3 43 0
  544 0068 3D4A     	 ldr r2,.L18+12
  545 006a 444B     	 ldr r3,.L18+40
  546 006c 101C     	 mov r0,r2
  547 006e 191C     	 mov r1,r3
  548 0070 FFF7FEFF 	 bl XMC_CCU4_SLICE_SetTimerPeriodMatch
-  41:../interconnect/timing/timing_op.c **** 
-  42:../interconnect/timing/timing_op.c **** 	/* Frequency CCU4 = 96MHz */
-  43:../interconnect/timing/timing_op.c **** 	/* Freq / Prescaler 8192 = 11718.75 Hz */
-  44:../interconnect/timing/timing_op.c **** 	/* Program duty cycle[50%] and frequency [2 Hz] */
-  45:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC42, 2930); // any value less than PWM Period Counter
- 549              	 .loc 3 45 0
+  44:../interconnect/timing/timing_op.c **** 
+  45:../interconnect/timing/timing_op.c **** 	/* Frequency CCU4 = 96MHz */
+  46:../interconnect/timing/timing_op.c **** 	/* Freq / Prescaler 8192 = 11718.75 Hz */
+  47:../interconnect/timing/timing_op.c **** 	/* Program duty cycle[50%] and frequency [2 Hz] */
+  48:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerCompareMatch(CCU40_CC42, 2930); // any value less than PWM Period Counter
+ 549              	 .loc 3 48 0
  550 0074 3C4A     	 ldr r2,.L18+20
  551 0076 424B     	 ldr r3,.L18+44
  552 0078 101C     	 mov r0,r2
  553 007a 191C     	 mov r1,r3
  554 007c FFF7FEFF 	 bl XMC_CCU4_SLICE_SetTimerCompareMatch
-  46:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC42, 5859);
- 555              	 .loc 3 46 0
+  49:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetTimerPeriodMatch(CCU40_CC42, 5859);
+ 555              	 .loc 3 49 0
  556 0080 394A     	 ldr r2,.L18+20
  557 0082 404B     	 ldr r3,.L18+48
  558 0084 101C     	 mov r0,r2
  559 0086 191C     	 mov r1,r3
  560 0088 FFF7FEFF 	 bl XMC_CCU4_SLICE_SetTimerPeriodMatch
-  47:../interconnect/timing/timing_op.c **** 
-  48:../interconnect/timing/timing_op.c **** 	/* Enable shadow transfer for PWM Slice */
-  49:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableShadowTransfer(CCU40, \
- 561              	 .loc 3 49 0
+  50:../interconnect/timing/timing_op.c **** 
+  51:../interconnect/timing/timing_op.c **** 	/* Enable shadow transfer for PWM Slice */
+  52:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableShadowTransfer(CCU40, \
+ 561              	 .loc 3 52 0
  562 008c 314B     	 ldr r3,.L18
  563 008e 181C     	 mov r0,r3
  564 0090 0521     	 mov r1,#5
  565 0092 FFF7FEFF 	 bl XMC_CCU4_EnableShadowTransfer
-  50:../interconnect/timing/timing_op.c **** 		(uint32_t)(XMC_CCU4_SHADOW_TRANSFER_SLICE_0|XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0));
-  51:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableShadowTransfer(CCU40, \
- 566              	 .loc 3 51 0
+  53:../interconnect/timing/timing_op.c **** 		(uint32_t)(XMC_CCU4_SHADOW_TRANSFER_SLICE_0|XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_0));
+  54:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableShadowTransfer(CCU40, \
+ 566              	 .loc 3 54 0
  567 0096 2F4B     	 ldr r3,.L18
  568 0098 181C     	 mov r0,r3
  569 009a 5021     	 mov r1,#80
  570 009c FFF7FEFF 	 bl XMC_CCU4_EnableShadowTransfer
-  52:../interconnect/timing/timing_op.c **** 		(uint32_t)(XMC_CCU4_SHADOW_TRANSFER_SLICE_1|XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_1));
-  53:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableShadowTransfer(CCU40, \
- 571              	 .loc 3 53 0
+  55:../interconnect/timing/timing_op.c **** 		(uint32_t)(XMC_CCU4_SHADOW_TRANSFER_SLICE_1|XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_1));
+  56:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableShadowTransfer(CCU40, \
+ 571              	 .loc 3 56 0
  572 00a0 2C4A     	 ldr r2,.L18
  573 00a2 A023     	 mov r3,#160
  574 00a4 DB00     	 lsl r3,r3,#3
  575 00a6 101C     	 mov r0,r2
  576 00a8 191C     	 mov r1,r3
  577 00aa FFF7FEFF 	 bl XMC_CCU4_EnableShadowTransfer
-  54:../interconnect/timing/timing_op.c **** 		(uint32_t)(XMC_CCU4_SHADOW_TRANSFER_SLICE_2|XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_2));
-  55:../interconnect/timing/timing_op.c **** 
-  56:../interconnect/timing/timing_op.c **** 	/* Enable events */
-  57:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_EnableEvent(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
- 578              	 .loc 3 57 0
+  57:../interconnect/timing/timing_op.c **** 		(uint32_t)(XMC_CCU4_SHADOW_TRANSFER_SLICE_2|XMC_CCU4_SHADOW_TRANSFER_PRESCALER_SLICE_2));
+  58:../interconnect/timing/timing_op.c **** 
+  59:../interconnect/timing/timing_op.c **** 	/* Enable events */
+  60:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_EnableEvent(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
+ 578              	 .loc 3 60 0
  579 00ae 2A4B     	 ldr r3,.L18+4
  580 00b0 181C     	 mov r0,r3
  581 00b2 0021     	 mov r1,#0
  582 00b4 FFF7FEFF 	 bl XMC_CCU4_SLICE_EnableEvent
-  58:../interconnect/timing/timing_op.c **** 	/* Enable events */
-  59:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_EnableEvent(CCU40_CC41, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
- 583              	 .loc 3 59 0
+  61:../interconnect/timing/timing_op.c **** 	/* Enable events */
+  62:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_EnableEvent(CCU40_CC41, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
+ 583              	 .loc 3 62 0
  584 00b8 294B     	 ldr r3,.L18+12
  585 00ba 181C     	 mov r0,r3
  586 00bc 0021     	 mov r1,#0
  587 00be FFF7FEFF 	 bl XMC_CCU4_SLICE_EnableEvent
-  60:../interconnect/timing/timing_op.c **** 	/* Enable events */
-  61:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_EnableEvent(CCU40_CC42, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
- 588              	 .loc 3 61 0
+  63:../interconnect/timing/timing_op.c **** 	/* Enable events */
+  64:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_EnableEvent(CCU40_CC42, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH);
+ 588              	 .loc 3 64 0
  589 00c2 294B     	 ldr r3,.L18+20
  590 00c4 181C     	 mov r0,r3
  591 00c6 0021     	 mov r1,#0
  592 00c8 FFF7FEFF 	 bl XMC_CCU4_SLICE_EnableEvent
-  62:../interconnect/timing/timing_op.c **** 
-  63:../interconnect/timing/timing_op.c **** 	/* Connect event to SR2 */
-  64:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_
- 593              	 .loc 3 64 0
+  65:../interconnect/timing/timing_op.c **** 
+  66:../interconnect/timing/timing_op.c **** 	/* Connect event to SR2 */
+  67:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC40, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_
+ 593              	 .loc 3 67 0
  594 00cc 224B     	 ldr r3,.L18+4
  595 00ce 181C     	 mov r0,r3
  596 00d0 0021     	 mov r1,#0
  597 00d2 0222     	 mov r2,#2
  598 00d4 FFF7FEFF 	 bl XMC_CCU4_SLICE_SetInterruptNode
-  65:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC41, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_
- 599              	 .loc 3 65 0
+  68:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC41, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_
+ 599              	 .loc 3 68 0
  600 00d8 214B     	 ldr r3,.L18+12
  601 00da 181C     	 mov r0,r3
  602 00dc 0021     	 mov r1,#0
  603 00de 0322     	 mov r2,#3
  604 00e0 FFF7FEFF 	 bl XMC_CCU4_SLICE_SetInterruptNode
-  66:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC42, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_
- 605              	 .loc 3 66 0
+  69:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_SetInterruptNode(CCU40_CC42, XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH, XMC_CCU4_SLICE_SR_
+ 605              	 .loc 3 69 0
  606 00e4 204B     	 ldr r3,.L18+20
  607 00e6 181C     	 mov r0,r3
  608 00e8 0021     	 mov r1,#0
  609 00ea 0022     	 mov r2,#0
  610 00ec FFF7FEFF 	 bl XMC_CCU4_SLICE_SetInterruptNode
-  67:../interconnect/timing/timing_op.c **** 
-  68:../interconnect/timing/timing_op.c **** 	/* Set NVIC priority */
-  69:../interconnect/timing/timing_op.c **** 	NVIC_SetPriority(IRQ23_IRQn, 3U); // for CCU40_CC40
- 611              	 .loc 3 69 0
+  70:../interconnect/timing/timing_op.c **** 
+  71:../interconnect/timing/timing_op.c **** 	/* Set NVIC priority */
+  72:../interconnect/timing/timing_op.c **** 	NVIC_SetPriority(IRQ23_IRQn, 3U); // for CCU40_CC40
+ 611              	 .loc 3 72 0
  612 00f0 1720     	 mov r0,#23
  613 00f2 0321     	 mov r1,#3
  614 00f4 FFF7FEFF 	 bl __NVIC_SetPriority
-  70:../interconnect/timing/timing_op.c **** 	NVIC_EnableIRQ(IRQ23_IRQn);
- 615              	 .loc 3 70 0
+  73:../interconnect/timing/timing_op.c **** 	NVIC_EnableIRQ(IRQ23_IRQn);
+ 615              	 .loc 3 73 0
  616 00f8 1720     	 mov r0,#23
  617 00fa FFF7FEFF 	 bl __NVIC_EnableIRQ
-  71:../interconnect/timing/timing_op.c **** 
-  72:../interconnect/timing/timing_op.c **** 	/* Set NVIC priority */
-  73:../interconnect/timing/timing_op.c **** 	NVIC_SetPriority(IRQ24_IRQn, 9U); // for CCU40_CC41
- 618              	 .loc 3 73 0
+  74:../interconnect/timing/timing_op.c **** 
+  75:../interconnect/timing/timing_op.c **** 	/* Set NVIC priority */
+  76:../interconnect/timing/timing_op.c **** 	NVIC_SetPriority(IRQ24_IRQn, 9U); // for CCU40_CC41
+ 618              	 .loc 3 76 0
  619 00fe 1820     	 mov r0,#24
  620 0100 0921     	 mov r1,#9
  621 0102 FFF7FEFF 	 bl __NVIC_SetPriority
-  74:../interconnect/timing/timing_op.c **** 	NVIC_EnableIRQ(IRQ24_IRQn);
- 622              	 .loc 3 74 0
+  77:../interconnect/timing/timing_op.c **** 	NVIC_EnableIRQ(IRQ24_IRQn);
+ 622              	 .loc 3 77 0
  623 0106 1820     	 mov r0,#24
  624 0108 FFF7FEFF 	 bl __NVIC_EnableIRQ
-  75:../interconnect/timing/timing_op.c **** 
-  76:../interconnect/timing/timing_op.c **** 	/* Set NVIC priority */
-  77:../interconnect/timing/timing_op.c **** 	NVIC_SetPriority(IRQ21_IRQn, 2U); // for CCU40_CC42
- 625              	 .loc 3 77 0
+  78:../interconnect/timing/timing_op.c **** 
+  79:../interconnect/timing/timing_op.c **** 	/* Set NVIC priority */
+  80:../interconnect/timing/timing_op.c **** 	NVIC_SetPriority(IRQ21_IRQn, 2U); // for CCU40_CC42
+ 625              	 .loc 3 80 0
  626 010c 1520     	 mov r0,#21
  627 010e 0221     	 mov r1,#2
  628 0110 FFF7FEFF 	 bl __NVIC_SetPriority
-  78:../interconnect/timing/timing_op.c **** 	NVIC_EnableIRQ(IRQ21_IRQn);
- 629              	 .loc 3 78 0
+  81:../interconnect/timing/timing_op.c **** 	NVIC_EnableIRQ(IRQ21_IRQn);
+ 629              	 .loc 3 81 0
  630 0114 1520     	 mov r0,#21
  631 0116 FFF7FEFF 	 bl __NVIC_EnableIRQ
-  79:../interconnect/timing/timing_op.c **** 
-  80:../interconnect/timing/timing_op.c **** 	/* Get the slice out of idle mode */
-  81:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableClock(CCU40, 0U);
- 632              	 .loc 3 81 0
+  82:../interconnect/timing/timing_op.c **** 
+  83:../interconnect/timing/timing_op.c **** 	/* Get the slice out of idle mode */
+  84:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableClock(CCU40, 0U);
+ 632              	 .loc 3 84 0
  633 011a 0E4B     	 ldr r3,.L18
  634 011c 181C     	 mov r0,r3
  635 011e 0021     	 mov r1,#0
  636 0120 FFF7FEFF 	 bl XMC_CCU4_EnableClock
-  82:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableClock(CCU40, 1U);
- 637              	 .loc 3 82 0
+  85:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableClock(CCU40, 1U);
+ 637              	 .loc 3 85 0
  638 0124 0B4B     	 ldr r3,.L18
  639 0126 181C     	 mov r0,r3
  640 0128 0121     	 mov r1,#1
  641 012a FFF7FEFF 	 bl XMC_CCU4_EnableClock
-  83:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableClock(CCU40, 2U);
- 642              	 .loc 3 83 0
+  86:../interconnect/timing/timing_op.c **** 	XMC_CCU4_EnableClock(CCU40, 2U);
+ 642              	 .loc 3 86 0
  643 012e 094B     	 ldr r3,.L18
  644 0130 181C     	 mov r0,r3
  645 0132 0221     	 mov r1,#2
  646 0134 FFF7FEFF 	 bl XMC_CCU4_EnableClock
-  84:../interconnect/timing/timing_op.c **** 
-  85:../interconnect/timing/timing_op.c **** 	/* Start the TImer*/
-  86:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_StartTimer(CCU40_CC40); // timer for Handshaking
- 647              	 .loc 3 86 0
+  87:../interconnect/timing/timing_op.c **** 
+  88:../interconnect/timing/timing_op.c **** 	/* Start the TImer*/
+  89:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_StartTimer(CCU40_CC40); // timer for Handshaking
+ 647              	 .loc 3 89 0
  648 0138 074B     	 ldr r3,.L18+4
  649 013a 181C     	 mov r0,r3
  650 013c FFF7FEFF 	 bl XMC_CCU4_SLICE_StartTimer
-  87:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_StartTimer(CCU40_CC41); // clocking for BMS and ESP32
- 651              	 .loc 3 87 0
+  90:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_StartTimer(CCU40_CC41); // clocking for BMS and ESP32
+ 651              	 .loc 3 90 0
  652 0140 074B     	 ldr r3,.L18+12
  653 0142 181C     	 mov r0,r3
  654 0144 FFF7FEFF 	 bl XMC_CCU4_SLICE_StartTimer
-  88:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_StartTimer(CCU40_CC42); // send data via bluetooth
- 655              	 .loc 3 88 0
+  91:../interconnect/timing/timing_op.c **** 	XMC_CCU4_SLICE_StartTimer(CCU40_CC42); // send data via bluetooth
+ 655              	 .loc 3 91 0
  656 0148 074B     	 ldr r3,.L18+20
  657 014a 181C     	 mov r0,r3
  658 014c FFF7FEFF 	 bl XMC_CCU4_SLICE_StartTimer
-  89:../interconnect/timing/timing_op.c **** 
-  90:../interconnect/timing/timing_op.c **** }
- 659              	 .loc 3 90 0
+  92:../interconnect/timing/timing_op.c **** 
+  93:../interconnect/timing/timing_op.c **** }
+ 659              	 .loc 3 93 0
  660 0150 BD46     	 mov sp,r7
  661              	 
  662 0152 80BD     	 pop {r7,pc}
@@ -3585,8 +3588,8 @@
  672 016c 00000000 	 .word SLICE2_config
  673 0170 DC050000 	 .word 1500
  674 0174 B80B0000 	 .word 3000
- 675 0178 4F120000 	 .word 4687
- 676 017c 9F240000 	 .word 9375
+ 675 0178 88130000 	 .word 5000
+ 676 017c 10270000 	 .word 10000
  677 0180 720B0000 	 .word 2930
  678 0184 E3160000 	 .word 5859
  679              	 .cfi_endproc

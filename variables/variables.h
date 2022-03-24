@@ -24,6 +24,8 @@ typedef struct MISC_SYSTICK_PARAM
 
 MISC_SYSTICK_PARAM_t sysTickParamHandle;
 
+#define BATTERY_NUM_75 1
+
 /* PCS BMC Parameter */
 PCS_BMC_STATUS_t pcsBmsStatus;
 BMC_PARAMETER_t	 bmsSensor;
@@ -52,5 +54,6 @@ PDU_SENSOR_t 	 pduSensor;
 
 /* Genix Data */
 GENIX_DATA_t genix_data;
+
 
 #endif /* VARIABLES_VARIABLES_H_ */

@@ -125,7 +125,8 @@ uint8_t *ESP32_Map_Data(ESP_Data_Group_t *dataGroup)
 	buffer[offset+64] = dataGroup->month;
 	buffer[offset+65] = dataGroup->date;
 	buffer[offset+66] = dataGroup->hour;
-	buffer[offset+67] = dataGroup->minute;
+//	buffer[offset+67] = dataGroup->minute;
+	buffer[offset+67] = dataGroup->bmc_operation_state;
 	buffer[offset+68] = dataGroup->second;
 
 	crc	= ESP32_CRC16_Operation((unsigned char *) &buffer[offset], buffer[2]);

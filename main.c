@@ -22,18 +22,12 @@ uint16_t count = 0;
  * This routine is the application entry point. It is invoked by the device startup code. 
  */
 
-void SysTick_Handler(void)
-{
-
-}
-
 int main(void)
 {
   /* Create 1 kHz tick and Initialize systick handler variable */
   sysTickParamHandle.enable 	= false;
   sysTickParamHandle.isTimeOut 	= false;
   sysTickParamHandle.count		= 0;
-  SysTick_Config(SystemCoreClock / 1000);
 
   /* Initialize Button, LED, and Dipswitches */
   GPIO_Init();
@@ -55,7 +49,7 @@ int main(void)
   TIMING_TimerInit();
 
   /* PCS Command Initialization */
-  mcu_state = OP_SETUP;
+  mcu_state = OP_POWERUP;
 
   controlFlag.isAuto_mode 			 = false;
   controlFlag.isBypass_power_mode 	 = false;
@@ -72,11 +66,13 @@ int main(void)
   			  	  	   &pcsACinvStatus, &pcsPVconvStatus, &pcsBatconvStatus);
   	  OP_CheckingMode(&controlFlag);
 
+
   	  /* Run operational state */
   	  switch (mcu_state)
   	  {
-  	  	  case OP_SETUP 	:
-  	  		  mcu_state	= OP_SETUP;
+  	  	  case OP_POWERUP 	:
+  	  		  mcu_state	= OP_POWERUP;
+  	  		  data_group.bmc_operation_state = 0x01;
 
 			  /* Set LED Indicator for this state */
 	  		  XMC_GPIO_SetOutputLevel(P2_11, XMC_GPIO_OUTPUT_LEVEL_LOW);
@@ -89,6 +85,7 @@ int main(void)
 			  break;
   	  	  case OP_TURN_ON 	:
   	  		  mcu_state	= OP_TURN_ON;
+  	  		  data_group.bmc_operation_state = 0x02;
 
   	  		  /* Set LED Indicator for this state */
 	  		  XMC_GPIO_SetOutputLevel(P2_11, XMC_GPIO_OUTPUT_LEVEL_HIGH);
@@ -101,7 +98,7 @@ int main(void)
 	  		  break;
   	  	  case OP_RUNNING 	:
   	  		  mcu_state	= OP_RUNNING;
-
+  	  		  data_group.bmc_operation_state = 0x03;
 			  /* Set LED Indicator for this state */
 	  		  XMC_GPIO_SetOutputLevel(P2_11, XMC_GPIO_OUTPUT_LEVEL_LOW);
 	  		  XMC_GPIO_SetOutputLevel(P2_12, XMC_GPIO_OUTPUT_LEVEL_LOW);
@@ -113,6 +110,7 @@ int main(void)
 			  break;
 		  case OP_STANDBY	:
 			  mcu_state	= OP_STANDBY;
+			  data_group.bmc_operation_state = 0x04;
 
 			  /* Set LED Indicator for this state */
 	  		  XMC_GPIO_SetOutputLevel(P2_11, XMC_GPIO_OUTPUT_LEVEL_HIGH);
@@ -125,6 +123,7 @@ int main(void)
 			  break;
 		  case OP_ERROR		:
 			  mcu_state	= OP_ERROR;
+			  data_group.bmc_operation_state = 0x05;
 
 			  /* Set LED Indicator for this state */
 	  		  XMC_GPIO_SetOutputLevel(P2_11, XMC_GPIO_OUTPUT_LEVEL_LOW);
@@ -137,6 +136,7 @@ int main(void)
 			  break;
 		  case OP_SHUTDOWN	:
 			  mcu_state 	= OP_SHUTDOWN;
+			  data_group.bmc_operation_state = 0x07;
 
 			  /* Set LED Indicator for this state */
 	  		  XMC_GPIO_SetOutputLevel(P2_11, XMC_GPIO_OUTPUT_LEVEL_LOW);
@@ -144,7 +144,7 @@ int main(void)
 	  		  XMC_GPIO_SetOutputLevel(P2_13, XMC_GPIO_OUTPUT_LEVEL_LOW);
 
 			  /* Perform actions for this state */
-			  OP_PutSystemShutDown(&mcu_state, &sysTickParamHandle);
+			  OP_PutSystemShutDown(&mcu_state, &sysTickParamHandle, &controlFlag, &pcsBmsStatus);
 			  break;
 		  default			: break;
 	  }

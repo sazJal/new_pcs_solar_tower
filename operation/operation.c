@@ -35,7 +35,7 @@ void OP_SetupConnection(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam,
 		{
 			toggle_timer = true;
 			sysTickParam->enable	= true;
-			sysTickParam->count		= 5;
+			sysTickParam->count		= 15;
 		}
 		else if((sysTickParam->isTimeOut) && toggle_timer)
 		{
@@ -47,6 +47,13 @@ void OP_SetupConnection(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam,
 			pcsBmsStatus->bmc_precharge_relay = RELAY_CLOSE;
 			*state	= OP_TURN_ON;
 		}
+	}
+	else if((pvVoltage < 150.0 || !ctrlFlag->isBypass_power_mode))
+	{
+		toggle_timer = false;
+		sysTickParam->enable	= false;
+		sysTickParam->isTimeOut	= false;
+		sysTickParam->count		= 0;
 	}
 }
 
@@ -126,6 +133,11 @@ void OP_CheckingPCSStatus(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
 		*state = OP_ERROR;
 	}
 
+	if(pcsStatus->pcs_system_status == PCS_STAT_INITIAL)
+	{
+		*state = OP_SHUTDOWN;
+	}
+
 	if(!XMC_GPIO_GetInput(P2_2) && !isPutToStandbyExecuted)
 	{
 		if((!sysTickParam->isTimeOut) && (!sysTickParam->enable) && !toggle_timer)
@@ -134,7 +146,7 @@ void OP_CheckingPCSStatus(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
 			sysTickParam->enable	= true;
 			sysTickParam->count		= 3;
 		}
-		else if ((sysTickParam->isTimeOut) && (!sysTickParam->enable) && toggle_timer)
+		else if ((sysTickParam->isTimeOut) && (!sysTickParam->enable) && !isPutToStandbyExecuted)
 		{
 			isPutToStandbyExecuted	= true;
 			toggle_timer			= false;
@@ -177,14 +189,14 @@ void OP_PutSystemStandby(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
 
 	if(pcsStatus->pcs_system_status == PCS_STAT_STANDBY)
 	{
-		/* Open Pre Discharge Relay */
-		PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_OPEN);
+		/* Close Pre Discharge Relay */
+		PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_CLOSE);
 
 		/* Open Main Relay */
 		PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_OPEN);
 
 		pcsBmsStatus->bmc_main_relay		= RELAY_OPEN;
-		pcsBmsStatus->bmc_precharge_relay	= RELAY_OPEN;
+		pcsBmsStatus->bmc_precharge_relay	= RELAY_CLOSE;
 		pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
 
 		*state = OP_TURN_ON;
@@ -209,29 +221,43 @@ void OP_HandlingPCSWarning(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
 	{
 		*state = OP_RUNNING;
 	}
-
-	/* 2. Check SoC Level */
-	/* force shutdown */
-	//if(ctrlFlag->isForced_shut_down){bmsParam->soc = 2;}
-//	if((bmsParam->soc <= 50) && (!ctrlFlag->isBypass_power_mode))
-//	{
-//		*state = OP_SHUTDOWN;
-//	}
+	/* 2. Check SoC Level and BMC Dip Switch Mode*/
+	if((pcsStatus->pcs_system_status == PCS_STAT_INITIAL) || (!ctrlFlag->isBypass_power_mode && bmsParam->soc < 50))
+	{
+		*state = OP_SHUTDOWN;
+	}
 }
 
-void OP_PutSystemShutDown(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam)
+void OP_PutSystemShutDown(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam, OP_CTRL_FLAG_t *ctrlFlag,
+						  PCS_BMC_STATUS_t *pcsBmsStatus)
 {
 	if(!sysTickParam->isTimeOut)
 	{
 		sysTickParam->enable	= true;
-		sysTickParam->count		= 1;
+		sysTickParam->count		= 10;
 	}
 	else
 	{
-		PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_OPEN);
 		sysTickParam->isTimeOut = false;
 		sysTickParam->count = 0;
-		*state = OP_SETUP;
+
+		/* Close Pre Discharge Relay */
+		PDU_Switch_Relay(PDU_RELAY_KDSG, PDU_RELAY_CLOSE);
+
+		/* Open Main Relay */
+		PDU_Switch_Relay(PDU_RELAY_KMP, PDU_RELAY_OPEN);
+		pcsBmsStatus->bmc_main_relay		= RELAY_OPEN;
+		pcsBmsStatus->bmc_precharge_relay	= RELAY_CLOSE;
+		pcsBmsStatus->bmc_status			= BMU_PRECHARGE;
+		if(!ctrlFlag->isBypass_power_mode)
+		{
+			PDU_Switch_Relay(PDU_RELAY_KBAT, PDU_RELAY_OPEN);
+			*state = OP_POWERUP;
+		}
+		else
+		{
+			*state = OP_TURN_ON;
+		}
 	}
 }
 
@@ -259,3 +285,4 @@ void OP_CheckingError(OP_CTRL_FLAG_t *ctrlFlag, PCS_STATUS_t *pcsStatus,
 						  pvStatus->pvconv_system_pcsIsStandBy   |\
 						  BatStatus->batconv_system_pcsIsStandBy;
 }
+

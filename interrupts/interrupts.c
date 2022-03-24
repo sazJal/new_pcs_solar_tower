@@ -84,7 +84,7 @@ void genixrs485_intrpt_handler(void)
 					/* do a parse */
 					/* Battery Voltage */
 					genix_data.pack_voltage = (((uint16_t)(buffer[0]) << 8) | buffer[1]);
-					data_group.vBat_genix = genix_data.pack_voltage;
+					data_group.vBat_genix = genix_data.pack_voltage/10;
 					/* Current */
 					genix_data.pack_current = ((((int16_t)(buffer[2]) << 8) | buffer[3]) - 30000);
 					data_group.iBat_genix = (genix_data.pack_current)/10;
@@ -92,8 +92,8 @@ void genixrs485_intrpt_handler(void)
 					genix_data.pack_max_temp = ((uint16_t)(buffer[11])-40)*10;
 					data_group.temp_genix = genix_data.pack_max_temp/10;
 					/* SoC */
-					genix_data.pack_soc = (uint16_t)(buffer[4]);
-					data_group.soC = genix_data.pack_soc/10;
+					genix_data.pack_soc = (uint8_t)(buffer[4]);
+					data_group.soC = genix_data.pack_soc;
 					count = 0;
 				}
 				rcvState = RCV_HEADER_CHECK;
@@ -191,37 +191,38 @@ void pcsCAN_intrpt_handler(void)
 			if(pcsSystemStatus.pcs_precharge_IsComplete) {data_group.pcs_system |= 0x04;}
 			else {data_group.pcs_system |= 0x00;}
 
-			if(pcsSystemStatus.pcs_system_warning == PCS_WARN_NORMAL) 			{data_group.pcs_system |= (0x00 << 3);}
+				 if (pcsSystemStatus.pcs_system_warning == PCS_WARN_NORMAL) 	{data_group.pcs_system |= (0x00 << 3);}
 			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_PCS_OT) 	{data_group.pcs_system |= (0x01 << 3);}
 			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_BAT_OVCHG) 	{data_group.pcs_system |= (0x02 << 3);}
 			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_BAT_CHGSUP) {data_group.pcs_system |= (0x03 << 3);}
 			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_BAT_DSGSUP) {data_group.pcs_system |= (0x04 << 3);}
 			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_BAT_OVDSG)  {data_group.pcs_system |= (0x05 << 3);}
 			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_BAT_OVDSG2) {data_group.pcs_system |= (0x06 << 3);}
+			else if (pcsSystemStatus.pcs_system_warning == PCS_WARN_COMM_ERR)	{data_group.pcs_system |= (0x07 << 3);}
 			break;
 
 		case 0x201 : // DC Grid Converter Properties
 			pcsDCgridStatus = PCS_GetDCGridStatus(&msgObjFromPCS);
 
 			data_group.dcgrid_system = 0x00;
-			if(pcsDCgridStatus.dcgrid_system_status == GRID_STAT_NOT_RUNNING) 	{data_group.dcgrid_system |= 0x01;}
-			else if(pcsDCgridStatus.dcgrid_system_status == GRID_STAT_CHG) 		{data_group.dcgrid_system |= 0x02;}
-			else if(pcsDCgridStatus.dcgrid_system_status == GRID_STAT_DSG) 		{data_group.dcgrid_system |= 0x03;}
+				 if(pcsDCgridStatus.dcgrid_system_status == GRID_STAT_NOT_RUNNING) 	{data_group.dcgrid_system |= 0x01;}
+			else if(pcsDCgridStatus.dcgrid_system_status == GRID_STAT_CHG) 			{data_group.dcgrid_system |= 0x02;}
+			else if(pcsDCgridStatus.dcgrid_system_status == GRID_STAT_DSG) 			{data_group.dcgrid_system |= 0x03;}
 
-			if(pcsDCgridStatus.dcgrid_system_warning == GRID_WARN_NORMAL)	{data_group.dcgrid_system |= (0x00 << 2);}
-			else if(pcsDCgridStatus.dcgrid_system_warning == GRID_WARN_OV)	{data_group.dcgrid_system |= (0x01 << 2);}
-			else if(pcsDCgridStatus.dcgrid_system_warning == GRID_WARN_OC)	{data_group.dcgrid_system |= (0x02 << 2);}
+				 if(pcsDCgridStatus.dcgrid_system_warning == GRID_WARN_NORMAL)	{data_group.dcgrid_system |= (0x00 << 2);}
+			else if(pcsDCgridStatus.dcgrid_system_warning == GRID_WARN_OV)		{data_group.dcgrid_system |= (0x01 << 2);}
+			else if(pcsDCgridStatus.dcgrid_system_warning == GRID_WARN_OC)		{data_group.dcgrid_system |= (0x02 << 2);}
 			break;
 
 		case 0x202 : // AC Inverter Properties
 			pcsACinvStatus = PCS_GetACInvStatus(&msgObjFromPCS);
 
 			data_group.inv_system = 0x00;
-			if(pcsACinvStatus.acinv_system_status == INV_STAT_NOT_RUNNING) 	{data_group.inv_system |= 0x01;}
-			else if(pcsACinvStatus.acinv_system_status == INV_STAT_RUNNING) {data_group.inv_system |= 0x02;}
-			else if(pcsACinvStatus.acinv_system_status == INV_STAT_NONE) 	{data_group.inv_system |= 0x03;}
+				 if(pcsACinvStatus.acinv_system_status == INV_STAT_NOT_RUNNING) {data_group.inv_system |= 0x01;}
+			else if(pcsACinvStatus.acinv_system_status == INV_STAT_RUNNING) 	{data_group.inv_system |= 0x02;}
+			else if(pcsACinvStatus.acinv_system_status == INV_STAT_NONE) 		{data_group.inv_system |= 0x03;}
 
-			if(pcsACinvStatus.acinv_system_warning == INV_WARN_NORMAL)		{data_group.inv_system |= (0x00 << 2);}
+				 if(pcsACinvStatus.acinv_system_warning == INV_WARN_NORMAL)	{data_group.inv_system |= (0x00 << 2);}
 			else if(pcsACinvStatus.acinv_system_warning == INV_WARN_MCU_OV)	{data_group.inv_system |= (0x01 << 2);}
 			else if(pcsACinvStatus.acinv_system_warning == INV_WARN_OT)		{data_group.inv_system |= (0x02 << 2);}
 			else if(pcsACinvStatus.acinv_system_warning == INV_WARN_OV)		{data_group.inv_system |= (0x03 << 2);}
@@ -233,23 +234,22 @@ void pcsCAN_intrpt_handler(void)
 			pcsPVconvStatus = PCS_GetPVConvStatus(&msgObjFromPCS);
 
 			data_group.pvconv_system = 0x00;
-			if(pcsPVconvStatus.pvconv_system_status == PV_STAT_NOT_RUNNING)		{data_group.pvconv_system |= 0x01;}
-			else if (pcsPVconvStatus.pvconv_system_status == PV_STAT_RUNNING) 	{data_group.pvconv_system |= 0x02;}
+				 if(pcsPVconvStatus.pvconv_system_status == PV_STAT_NOT_RUNNING){data_group.pvconv_system |= 0x01;}
+			else if(pcsPVconvStatus.pvconv_system_status == PV_STAT_RUNNING) 	{data_group.pvconv_system |= 0x02;}
 
-			if(pcsPVconvStatus.pvconv_system_warning == PV_WARN_NORMAL)		{data_group.pvconv_system |= (0x00 << 2);}
+				 if(pcsPVconvStatus.pvconv_system_warning == PV_WARN_NORMAL){data_group.pvconv_system |= (0x00 << 2);}
 			else if(pcsPVconvStatus.pvconv_system_warning == PV_WARN_OV) 	{data_group.pvconv_system |= (0x01 << 2);}
 			else if(pcsPVconvStatus.pvconv_system_warning == PV_WARN_OC) 	{data_group.pvconv_system |= (0x02 << 2);}
 			break;
 
 		case 0x204 : // Battery Converter Properties
 			pcsBatconvStatus = PCS_GetBatConvStatus(&msgObjFromPCS);
-			data_group.batconv_system = ((pcsBatconvStatus.batconv_system_warning & 0xFF) << 2) | (pcsBatconvStatus.batconv_system_status);
 
 			data_group.batconv_system = 0x00;
-			if(pcsBatconvStatus.batconv_system_status == BATCONV_STAT_NOT_RUNNING) 	{data_group.batconv_system |= 0x01;}
-			else if(pcsBatconvStatus.batconv_system_status == BATCONV_STAT_RUNNING) {data_group.batconv_system |= 0x02;}
+				 if(pcsBatconvStatus.batconv_system_status == BATCONV_STAT_NOT_RUNNING) {data_group.batconv_system |= 0x01;}
+			else if(pcsBatconvStatus.batconv_system_status == BATCONV_STAT_RUNNING) 	{data_group.batconv_system |= 0x02;}
 
-			if(pcsBatconvStatus.batconv_system_warning == BATCONV_WARN_NORMAL) 		 {data_group.batconv_system |= (0x00 << 2);}
+				 if(pcsBatconvStatus.batconv_system_warning == BATCONV_WARN_NORMAL)  {data_group.batconv_system |= (0x00 << 2);}
 			else if(pcsBatconvStatus.batconv_system_warning == BATCONV_WARN_OV) 	 {data_group.batconv_system |= (0x01 << 2);}
 			else if(pcsBatconvStatus.batconv_system_warning == BATCONV_WARN_OC) 	 {data_group.batconv_system |= (0x02 << 2);}
 			else if(pcsBatconvStatus.batconv_system_warning == BATCONV_WARN_DCDC_OV) {data_group.batconv_system |= (0x03 << 2);}
@@ -258,6 +258,7 @@ void pcsCAN_intrpt_handler(void)
 
 		case 0x205 : // Voltage Properties
 			pcsVoltages = PCS_GetVoltParam(&msgObjFromPCS);
+
 			data_group.vPv_conv 	= pcsVoltages.vPV*0.1;
 			data_group.vDC_grid 	= pcsVoltages.vdcGrid*0.1;
 			data_group.vBat_conv 	= pcsVoltages.vbat*0.1;
@@ -266,14 +267,16 @@ void pcsCAN_intrpt_handler(void)
 
 		case 0x206 : // Current Properties
 			pcsCurrents = PCS_GetAmpParam(&msgObjFromPCS);
-			data_group.iPv_conv		= pcsCurrents.iPV*0.1;
-			data_group.iDC_grid		= pcsCurrents.idcGrid*0.1;
-			data_group.iBat_conv	= pcsCurrents.ibat*0.1;
-			data_group.iAC_inv		= pcsCurrents.iacOut*0.1;
+
+			data_group.iPv_conv		= pcsCurrents.iPV*0.01;
+			data_group.iDC_grid		= pcsCurrents.idcGrid*0.001;
+			data_group.iBat_conv	= pcsCurrents.ibat*0.01;
+			data_group.iAC_inv		= pcsCurrents.iacOut*0.01;
 			break;
 
 		case 0x207 : // Power Properties
 			pcsPowers = PCS_GetPowerParam(&msgObjFromPCS);
+
 			data_group.pPv_conv		= pcsPowers.pPV;
 			data_group.pDC_grid		= pcsPowers.pdcGrid;
 			data_group.pBat_conv	= pcsPowers.pbat;
@@ -282,6 +285,7 @@ void pcsCAN_intrpt_handler(void)
 
 		case 0x208 : // Frequency and Temperature Properties
 			pcsMiscs = PCS_GetMiscParam(&msgObjFromPCS);
+
 			data_group.temp_sensor	= pcsMiscs.tempPCS*0.1;
 			data_group.frequency	= pcsMiscs.frequency*0.1;
 			break;
@@ -303,13 +307,12 @@ void adc_intrpt_handler(void)
 	pduSensorRaw.rawDCCT = (XMC_VADC_GROUP_GetResult(VADC_G1,2));
 	pduSensorRaw.rawPVPT = (XMC_VADC_GROUP_GetResult(VADC_G1,3));
 
-
-
 	sensorAvgBuff.sumAvgBTPT = sensorAvgBuff.sumAvgBTPT + pduSensorRaw.rawBTPT;
 	sensorAvgBuff.sumAvgPVPT = sensorAvgBuff.sumAvgPVPT + pduSensorRaw.rawPVPT;
 	sensorAvgBuff.sumAvgHVPT = sensorAvgBuff.sumAvgHVPT + pduSensorRaw.rawHVPT;
 	sensorAvgBuff.sumAvgDCCT = sensorAvgBuff.sumAvgDCCT + pduSensorRaw.rawDCCT;
 
+	/* Do moving Average Filter */
 	if(pduSensorAvg.count == 31)
 	{
 		pduSensorAvg.sumAvgPVPT = sensorAvgBuff.sumAvgPVPT >> 5;
@@ -329,8 +332,6 @@ void adc_intrpt_handler(void)
 	}
 	else {pduSensorAvg.count++;}
 
-	/* Do moving Average Filter */
-//	MF_MovingAverage(&pduSensorAvg, &pduSensorRaw);
 }
 
 void one_msec_intrpt_handler(void)
@@ -344,24 +345,36 @@ void hundred_msec_intrpt_handler(void)
 	float soc_f;
 	float ocv;
 
-	ocv = genix_data.pack_voltage*0.1;
+//	ocv = genix_data.pack_voltage*0.1;
+	ocv = pduSensor.mBTPT;
 
 	/* piece-wise OCV-SoC transformation */
+#if (BATTERY_NUM_75 == 1)
 	if 		((ocv > 182.25)  && (ocv <= 201.75)) {soc_f = 0.1425*ocv - 25.962;}
 	else if ((ocv > 201.75)  && (ocv <= 235.125)){soc_f = 0.3167*ocv - 61.374;}
-	else if ((ocv > 235.125) && (ocv <= 245.25)){soc_f = 2.4691*ocv - 566.67;}
-	else if ((ocv > 245.25) && (ocv <= 250.65)){soc_f = 9.2593*ocv - 2231.9;}
-	else if ((ocv > 250.65) && (ocv <= 250.875)){soc_f = 37.037*ocv - 9194.4;}
+	else if ((ocv > 235.125) && (ocv <= 245.25)) {soc_f = 2.4691*ocv - 566.67;}
+	else if ((ocv > 245.25)  && (ocv <= 250.65)) {soc_f = 9.2593*ocv - 2231.9;}
+	else if ((ocv > 250.65)  && (ocv <= 250.875)){soc_f = 37.037*ocv - 9194.4;}
 	else if (ocv  > 250.875){soc_f = 100.0;}
 	else if (ocv <= 182.25){soc_f = 0.0;}
+#else
+	if 		((ocv > 194.4)  && (ocv <= 215.2)) {soc_f = 0.1335*ocv - 25.962;}
+	else if ((ocv > 215.2)  && (ocv <= 250.8)) {soc_f = 0.2969*ocv - 61.374;}
+	else if ((ocv > 250.8) 	&& (ocv <= 261.6)) {soc_f = 2.3148*ocv - 566.67;}
+	else if ((ocv > 261.6)  && (ocv <= 267.36)){soc_f = 8.6806*ocv - 2231.9;}
+	else if ((ocv > 267.36) && (ocv <= 267.6)) {soc_f = 34.722*ocv - 9194.4;}
+	else if (ocv  > 267.6){soc_f = 100.0;}
+	else if (ocv <= 194.4){soc_f = 0.0;}
+#endif
+
 	/* send PCS status */
 	bmsSensor.vbat 		= pduSensor.mBTPT*10;
+//	bmsSensor.ibat 		= genix_data.pack_current;
 	bmsSensor.ibat 		= pduSensor.mDCCT*10;
 //	bmsSensor.soc		= genix_data.pack_soc;
 	bmsSensor.soc		= soc_f*10;
 	bmsSensor.tempbat 	= genix_data.pack_max_temp;
 
-	/* Obtain data from Genix Battery */
 	GENIX_RequestData(GENIX_SUMMARY);
 	PCS_BMUTransmitToPCS(0x100, &pcsBmsStatus, &bmsSensor);
 	PCS_BMUTransmitToPCS(0x101, &pcsBmsStatus, &bmsSensor);
@@ -375,7 +388,6 @@ void five_hundreds_intrpt_handler(void)
 	{
 		if(sysTickParamHandle.enable)
 		{
-//			XMC_GPIO_ToggleOutput(P2_13);
 			if(sysTickParamHandle.count == 0)
 			{
 				sysTickParamHandle.enable = false;

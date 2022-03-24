@@ -53,6 +53,7 @@ typedef struct ESP_Data_Group
 
 	/* bmc status */
 	uint8_t  bmc_system;
+	uint8_t  bmc_operation_state;
 
 	/* battery information */
 	uint8_t  soC;

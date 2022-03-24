@@ -12,13 +12,12 @@
 
 typedef enum OP_STATE
 {
-	OP_SETUP,		// Initialize remote device and handshaking
+	OP_POWERUP,		// Initialize remote device and handshaking
 	OP_TURN_ON,
 	OP_RUNNING,
 	OP_STANDBY,
 	OP_ERROR,
-	OP_SHUTDOWN,
-	OP_PERIPH,
+	OP_SHUTDOWN
 } OP_STATE_t;
 
 typedef struct OP_CTRL_FLAG
@@ -48,7 +47,8 @@ void OP_HandlingPCSWarning(OP_STATE_t *state, PCS_STATUS_t *pcsStatus,
 						   MISC_SYSTICK_PARAM_t *sysTickParam,
 						   OP_CTRL_FLAG_t *ctrlFlag, BMC_PARAMETER_t *bmsParam,
 						   PCS_BMC_STATUS_t *pcsBmsStatus);
-void OP_PutSystemShutDown(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam);
+void OP_PutSystemShutDown(OP_STATE_t *state, MISC_SYSTICK_PARAM_t *sysTickParam, OP_CTRL_FLAG_t *ctrlFlag,
+						PCS_BMC_STATUS_t *pcsBmsStatus);
 void OP_CheckingMode(OP_CTRL_FLAG_t *ctrlFlag);
 void OP_CheckingError(OP_CTRL_FLAG_t *ctrlFlag, PCS_STATUS_t *pcsStatus,
 					  DCGRID_STATUS_t *gridStatus, ACINV_STATUS_t *invStatus,

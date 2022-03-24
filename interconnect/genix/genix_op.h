@@ -14,7 +14,7 @@
 
 typedef struct _GENIX_DATA
 {
-	uint16_t 	pack_soc;
+	uint8_t 	pack_soc;
 	uint16_t	pack_voltage;
 	uint16_t	pack_max_temp;
 	int16_t		pack_current;

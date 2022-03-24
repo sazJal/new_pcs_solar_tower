@@ -3990,7 +3990,7 @@
  1274              	.L28:
  1275 03f6 C046     	 .align 2
  1276              	.L26:
- 1277 03f8 00000000 	 .word buffer.7343
+ 1277 03f8 00000000 	 .word buffer.7344
  1278              	.L27:
  1279 03fc 6F4A     	 ldr r2,.L29
  1280 03fe D154     	 strb r1,[r2,r3]
@@ -4039,7 +4039,7 @@
  1316 043e 1B78     	 ldrb r3,[r3]
  1317 0440 3633     	 add r3,r3,#54
  1318 0442 7A68     	 ldr r2,[r7,#4]
- 1319 0444 3921     	 mov r1,#57
+ 1319 0444 3A21     	 mov r1,#58
  1320 0446 515C     	 ldrb r1,[r2,r1]
  1321 0448 5C4A     	 ldr r2,.L29
  1322 044a D154     	 strb r1,[r2,r3]
@@ -4050,7 +4050,7 @@
  1326 0450 1B78     	 ldrb r3,[r3]
  1327 0452 3733     	 add r3,r3,#55
  1328 0454 7A68     	 ldr r2,[r7,#4]
- 1329 0456 528F     	 ldrh r2,[r2,#58]
+ 1329 0456 928F     	 ldrh r2,[r2,#60]
  1330 0458 120A     	 lsr r2,r2,#8
  1331 045a 92B2     	 uxth r2,r2
  1332 045c D1B2     	 uxtb r1,r2
@@ -4063,7 +4063,7 @@
  1338 0466 1B78     	 ldrb r3,[r3]
  1339 0468 3833     	 add r3,r3,#56
  1340 046a 7A68     	 ldr r2,[r7,#4]
- 1341 046c 528F     	 ldrh r2,[r2,#58]
+ 1341 046c 928F     	 ldrh r2,[r2,#60]
  1342 046e D1B2     	 uxtb r1,r2
  1343 0470 524A     	 ldr r2,.L29
  1344 0472 D154     	 strb r1,[r2,r3]
@@ -4074,7 +4074,7 @@
  1348 0478 1B78     	 ldrb r3,[r3]
  1349 047a 3933     	 add r3,r3,#57
  1350 047c 7A68     	 ldr r2,[r7,#4]
- 1351 047e 3C32     	 add r2,r2,#60
+ 1351 047e 4032     	 add r2,r2,#64
  1352 0480 1178     	 ldrb r1,[r2]
  1353 0482 4E4A     	 ldr r2,.L29
  1354 0484 D154     	 strb r1,[r2,r3]
@@ -4085,7 +4085,7 @@
  1358 048a 1B78     	 ldrb r3,[r3]
  1359 048c 3A33     	 add r3,r3,#58
  1360 048e 7A68     	 ldr r2,[r7,#4]
- 1361 0490 3C32     	 add r2,r2,#60
+ 1361 0490 4032     	 add r2,r2,#64
  1362 0492 0132     	 add r2,r2,#1
  1363 0494 1178     	 ldrb r1,[r2]
  1364 0496 494A     	 ldr r2,.L29
@@ -4097,7 +4097,7 @@
  1369 049e 1B78     	 ldrb r3,[r3]
  1370 04a0 3B33     	 add r3,r3,#59
  1371 04a2 7A68     	 ldr r2,[r7,#4]
- 1372 04a4 3C32     	 add r2,r2,#60
+ 1372 04a4 4032     	 add r2,r2,#64
  1373 04a6 0232     	 add r2,r2,#2
  1374 04a8 1178     	 ldrb r1,[r2]
  1375 04aa 444A     	 ldr r2,.L29
@@ -4109,7 +4109,7 @@
  1380 04b2 1B78     	 ldrb r3,[r3]
  1381 04b4 3C33     	 add r3,r3,#60
  1382 04b6 7A68     	 ldr r2,[r7,#4]
- 1383 04b8 3C32     	 add r2,r2,#60
+ 1383 04b8 4032     	 add r2,r2,#64
  1384 04ba 0332     	 add r2,r2,#3
  1385 04bc 1178     	 ldrb r1,[r2]
  1386 04be 3F4A     	 ldr r2,.L29
@@ -4121,7 +4121,7 @@
  1391 04c6 1B78     	 ldrb r3,[r3]
  1392 04c8 3D33     	 add r3,r3,#61
  1393 04ca 7A68     	 ldr r2,[r7,#4]
- 1394 04cc 4021     	 mov r1,#64
+ 1394 04cc 4421     	 mov r1,#68
  1395 04ce 515C     	 ldrb r1,[r2,r1]
  1396 04d0 3A4A     	 ldr r2,.L29
  1397 04d2 D154     	 strb r1,[r2,r3]
@@ -4134,7 +4134,7 @@
  1401 04d8 1B78     	 ldrb r3,[r3]
  1402 04da 3E33     	 add r3,r3,#62
  1403 04dc 7A68     	 ldr r2,[r7,#4]
- 1404 04de 4221     	 mov r1,#66
+ 1404 04de 4621     	 mov r1,#70
  1405 04e0 525A     	 ldrh r2,[r2,r1]
  1406 04e2 120A     	 lsr r2,r2,#8
  1407 04e4 92B2     	 uxth r2,r2
@@ -4148,7 +4148,7 @@
  1414 04f0 1B78     	 ldrb r3,[r3]
  1415 04f2 3F33     	 add r3,r3,#63
  1416 04f4 7A68     	 ldr r2,[r7,#4]
- 1417 04f6 4221     	 mov r1,#66
+ 1417 04f6 4621     	 mov r1,#70
  1418 04f8 525A     	 ldrh r2,[r2,r1]
  1419 04fa D1B2     	 uxtb r1,r2
  1420 04fc 2F4A     	 ldr r2,.L29
@@ -4160,7 +4160,7 @@
  1425 0504 1B78     	 ldrb r3,[r3]
  1426 0506 4033     	 add r3,r3,#64
  1427 0508 7A68     	 ldr r2,[r7,#4]
- 1428 050a 4421     	 mov r1,#68
+ 1428 050a 4821     	 mov r1,#72
  1429 050c 515C     	 ldrb r1,[r2,r1]
  1430 050e 2B4A     	 ldr r2,.L29
  1431 0510 D154     	 strb r1,[r2,r3]
@@ -4171,7 +4171,7 @@
  1435 0516 1B78     	 ldrb r3,[r3]
  1436 0518 4133     	 add r3,r3,#65
  1437 051a 7A68     	 ldr r2,[r7,#4]
- 1438 051c 4521     	 mov r1,#69
+ 1438 051c 4921     	 mov r1,#73
  1439 051e 515C     	 ldrb r1,[r2,r1]
  1440 0520 264A     	 ldr r2,.L29
  1441 0522 D154     	 strb r1,[r2,r3]
@@ -4182,35 +4182,36 @@
  1445 0528 1B78     	 ldrb r3,[r3]
  1446 052a 4233     	 add r3,r3,#66
  1447 052c 7A68     	 ldr r2,[r7,#4]
- 1448 052e 4621     	 mov r1,#70
+ 1448 052e 4A21     	 mov r1,#74
  1449 0530 515C     	 ldrb r1,[r2,r1]
  1450 0532 224A     	 ldr r2,.L29
  1451 0534 D154     	 strb r1,[r2,r3]
- 128:../interconnect/esp32/esp32_op.c **** 	buffer[offset+67] = dataGroup->minute;
- 1452              	 .loc 4 128 0
+ 128:../interconnect/esp32/esp32_op.c **** //	buffer[offset+67] = dataGroup->minute;
+ 129:../interconnect/esp32/esp32_op.c **** 	buffer[offset+67] = dataGroup->bmc_operation_state;
+ 1452              	 .loc 4 129 0
  1453 0536 0F23     	 mov r3,#15
  1454 0538 FB18     	 add r3,r7,r3
  1455 053a 1B78     	 ldrb r3,[r3]
  1456 053c 4333     	 add r3,r3,#67
  1457 053e 7A68     	 ldr r2,[r7,#4]
- 1458 0540 4721     	 mov r1,#71
+ 1458 0540 3921     	 mov r1,#57
  1459 0542 515C     	 ldrb r1,[r2,r1]
  1460 0544 1D4A     	 ldr r2,.L29
  1461 0546 D154     	 strb r1,[r2,r3]
- 129:../interconnect/esp32/esp32_op.c **** 	buffer[offset+68] = dataGroup->second;
- 1462              	 .loc 4 129 0
+ 130:../interconnect/esp32/esp32_op.c **** 	buffer[offset+68] = dataGroup->second;
+ 1462              	 .loc 4 130 0
  1463 0548 0F23     	 mov r3,#15
  1464 054a FB18     	 add r3,r7,r3
  1465 054c 1B78     	 ldrb r3,[r3]
  1466 054e 4433     	 add r3,r3,#68
  1467 0550 7A68     	 ldr r2,[r7,#4]
- 1468 0552 4821     	 mov r1,#72
+ 1468 0552 4C21     	 mov r1,#76
  1469 0554 515C     	 ldrb r1,[r2,r1]
  1470 0556 194A     	 ldr r2,.L29
  1471 0558 D154     	 strb r1,[r2,r3]
- 130:../interconnect/esp32/esp32_op.c **** 
- 131:../interconnect/esp32/esp32_op.c **** 	crc	= ESP32_CRC16_Operation((unsigned char *) &buffer[offset], buffer[2]);
- 1472              	 .loc 4 131 0
+ 131:../interconnect/esp32/esp32_op.c **** 
+ 132:../interconnect/esp32/esp32_op.c **** 	crc	= ESP32_CRC16_Operation((unsigned char *) &buffer[offset], buffer[2]);
+ 1472              	 .loc 4 132 0
  1473 055a 0F23     	 mov r3,#15
  1474 055c FB18     	 add r3,r7,r3
  1475 055e 1A78     	 ldrb r2,[r3]
@@ -4225,8 +4226,8 @@
  1484 0570 FFF7FEFF 	 bl ESP32_CRC16_Operation
  1485 0574 031C     	 mov r3,r0
  1486 0576 2380     	 strh r3,[r4]
- 132:../interconnect/esp32/esp32_op.c **** 	buffer[offset+69] = crc >> 8;
- 1487              	 .loc 4 132 0
+ 133:../interconnect/esp32/esp32_op.c **** 	buffer[offset+69] = crc >> 8;
+ 1487              	 .loc 4 133 0
  1488 0578 0F23     	 mov r3,#15
  1489 057a FB18     	 add r3,r7,r3
  1490 057c 1B78     	 ldrb r3,[r3]
@@ -4239,8 +4240,8 @@
  1497 058a D1B2     	 uxtb r1,r2
  1498 058c 0B4A     	 ldr r2,.L29
  1499 058e D154     	 strb r1,[r2,r3]
- 133:../interconnect/esp32/esp32_op.c **** 	buffer[offset+70] = crc;
- 1500              	 .loc 4 133 0
+ 134:../interconnect/esp32/esp32_op.c **** 	buffer[offset+70] = crc;
+ 1500              	 .loc 4 134 0
  1501 0590 0F23     	 mov r3,#15
  1502 0592 FB18     	 add r3,r7,r3
  1503 0594 1B78     	 ldrb r3,[r3]
@@ -4251,8 +4252,8 @@
  1508 059e D1B2     	 uxtb r1,r2
  1509 05a0 064A     	 ldr r2,.L29
  1510 05a2 D154     	 strb r1,[r2,r3]
- 134:../interconnect/esp32/esp32_op.c **** 	buffer[offset+71] = EoF;
- 1511              	 .loc 4 134 0
+ 135:../interconnect/esp32/esp32_op.c **** 	buffer[offset+71] = EoF;
+ 1511              	 .loc 4 135 0
  1512 05a4 0F23     	 mov r3,#15
  1513 05a6 FB18     	 add r3,r7,r3
  1514 05a8 1B78     	 ldrb r3,[r3]
@@ -4260,12 +4261,12 @@
  1516 05ac 034A     	 ldr r2,.L29
  1517 05ae 0A21     	 mov r1,#10
  1518 05b0 D154     	 strb r1,[r2,r3]
- 135:../interconnect/esp32/esp32_op.c **** 
- 136:../interconnect/esp32/esp32_op.c **** 	return buffer;
- 1519              	 .loc 4 136 0
+ 136:../interconnect/esp32/esp32_op.c **** 
+ 137:../interconnect/esp32/esp32_op.c **** 	return buffer;
+ 1519              	 .loc 4 137 0
  1520 05b2 024B     	 ldr r3,.L29
- 137:../interconnect/esp32/esp32_op.c **** }
- 1521              	 .loc 4 137 0
+ 138:../interconnect/esp32/esp32_op.c **** }
+ 1521              	 .loc 4 138 0
  1522 05b4 181C     	 mov r0,r3
  1523 05b6 BD46     	 mov sp,r7
  1524 05b8 05B0     	 add sp,sp,#20
@@ -4274,7 +4275,7 @@
  1527              	.L30:
  1528              	 .align 2
  1529              	.L29:
- 1530 05bc 00000000 	 .word buffer.7343
+ 1530 05bc 00000000 	 .word buffer.7344
  1531              	 .cfi_endproc
  1532              	.LFE183:
  1534              	 .section .text.ESP32_CRC16_table_init,"ax",%progbits
@@ -4284,10 +4285,10 @@
  1538              	 .thumb_func
  1540              	ESP32_CRC16_table_init:
  1541              	.LFB184:
- 138:../interconnect/esp32/esp32_op.c **** 
- 139:../interconnect/esp32/esp32_op.c **** void ESP32_CRC16_table_init(void)
- 140:../interconnect/esp32/esp32_op.c **** {
- 1542              	 .loc 4 140 0
+ 139:../interconnect/esp32/esp32_op.c **** 
+ 140:../interconnect/esp32/esp32_op.c **** void ESP32_CRC16_table_init(void)
+ 141:../interconnect/esp32/esp32_op.c **** {
+ 1542              	 .loc 4 141 0
  1543              	 .cfi_startproc
  1544 0000 80B5     	 push {r7,lr}
  1545              	.LCFI32:
@@ -4300,41 +4301,41 @@
  1552 0004 00AF     	 add r7,sp,#0
  1553              	.LCFI34:
  1554              	 .cfi_def_cfa_register 7
- 141:../interconnect/esp32/esp32_op.c **** 	uint16_t i;
- 142:../interconnect/esp32/esp32_op.c **** 	uint16_t j;
- 143:../interconnect/esp32/esp32_op.c **** 	uint16_t crc;
- 144:../interconnect/esp32/esp32_op.c **** 	uint16_t c;
- 145:../interconnect/esp32/esp32_op.c **** 
- 146:../interconnect/esp32/esp32_op.c **** 	for (i=0; i<256; i++) {
- 1555              	 .loc 4 146 0
+ 142:../interconnect/esp32/esp32_op.c **** 	uint16_t i;
+ 143:../interconnect/esp32/esp32_op.c **** 	uint16_t j;
+ 144:../interconnect/esp32/esp32_op.c **** 	uint16_t crc;
+ 145:../interconnect/esp32/esp32_op.c **** 	uint16_t c;
+ 146:../interconnect/esp32/esp32_op.c **** 
+ 147:../interconnect/esp32/esp32_op.c **** 	for (i=0; i<256; i++) {
+ 1555              	 .loc 4 147 0
  1556 0006 BB1D     	 add r3,r7,#6
  1557 0008 0022     	 mov r2,#0
  1558 000a 1A80     	 strh r2,[r3]
  1559 000c 3CE0     	 b .L32
  1560              	.L37:
- 147:../interconnect/esp32/esp32_op.c **** 
- 148:../interconnect/esp32/esp32_op.c **** 		crc = 0;
- 1561              	 .loc 4 148 0
+ 148:../interconnect/esp32/esp32_op.c **** 
+ 149:../interconnect/esp32/esp32_op.c **** 		crc = 0;
+ 1561              	 .loc 4 149 0
  1562 000e BB1C     	 add r3,r7,#2
  1563 0010 0022     	 mov r2,#0
  1564 0012 1A80     	 strh r2,[r3]
- 149:../interconnect/esp32/esp32_op.c **** 		c   = i;
- 1565              	 .loc 4 149 0
+ 150:../interconnect/esp32/esp32_op.c **** 		c   = i;
+ 1565              	 .loc 4 150 0
  1566 0014 3B1C     	 mov r3,r7
  1567 0016 BA1D     	 add r2,r7,#6
  1568 0018 1288     	 ldrh r2,[r2]
  1569 001a 1A80     	 strh r2,[r3]
- 150:../interconnect/esp32/esp32_op.c **** 
- 151:../interconnect/esp32/esp32_op.c **** 		for (j=0; j<8; j++) {
- 1570              	 .loc 4 151 0
+ 151:../interconnect/esp32/esp32_op.c **** 
+ 152:../interconnect/esp32/esp32_op.c **** 		for (j=0; j<8; j++) {
+ 1570              	 .loc 4 152 0
  1571 001c 3B1D     	 add r3,r7,#4
  1572 001e 0022     	 mov r2,#0
  1573 0020 1A80     	 strh r2,[r3]
  1574 0022 21E0     	 b .L33
  1575              	.L36:
- 152:../interconnect/esp32/esp32_op.c **** 
- 153:../interconnect/esp32/esp32_op.c **** 			if ( (crc ^ c) & 0x0001 ) crc = ( crc >> 1 ) ^ CRC_POLY_16;
- 1576              	 .loc 4 153 0
+ 153:../interconnect/esp32/esp32_op.c **** 
+ 154:../interconnect/esp32/esp32_op.c **** 			if ( (crc ^ c) & 0x0001 ) crc = ( crc >> 1 ) ^ CRC_POLY_16;
+ 1576              	 .loc 4 154 0
  1577 0024 BA1C     	 add r2,r7,#2
  1578 0026 3B1C     	 mov r3,r7
  1579 0028 1288     	 ldrh r2,[r2]
@@ -4345,7 +4346,7 @@
  1584 0032 0123     	 mov r3,#1
  1585 0034 1340     	 and r3,r2
  1586 0036 08D0     	 beq .L34
- 1587              	 .loc 4 153 0 is_stmt 0 discriminator 1
+ 1587              	 .loc 4 154 0 is_stmt 0 discriminator 1
  1588 0038 BB1C     	 add r3,r7,#2
  1589 003a 1B88     	 ldrh r3,[r3]
  1590 003c 5B08     	 lsr r3,r3,#1
@@ -4356,40 +4357,40 @@
  1595 0046 1A80     	 strh r2,[r3]
  1596 0048 04E0     	 b .L35
  1597              	.L34:
- 154:../interconnect/esp32/esp32_op.c **** 			else                      crc =   crc >> 1;
- 1598              	 .loc 4 154 0 is_stmt 1
+ 155:../interconnect/esp32/esp32_op.c **** 			else                      crc =   crc >> 1;
+ 1598              	 .loc 4 155 0 is_stmt 1
  1599 004a BB1C     	 add r3,r7,#2
  1600 004c BA1C     	 add r2,r7,#2
  1601 004e 1288     	 ldrh r2,[r2]
  1602 0050 5208     	 lsr r2,r2,#1
  1603 0052 1A80     	 strh r2,[r3]
  1604              	.L35:
- 155:../interconnect/esp32/esp32_op.c **** 
- 156:../interconnect/esp32/esp32_op.c **** 			c = c >> 1;
- 1605              	 .loc 4 156 0 discriminator 2
+ 156:../interconnect/esp32/esp32_op.c **** 
+ 157:../interconnect/esp32/esp32_op.c **** 			c = c >> 1;
+ 1605              	 .loc 4 157 0 discriminator 2
  1606 0054 3B1C     	 mov r3,r7
  1607 0056 3A1C     	 mov r2,r7
  1608 0058 1288     	 ldrh r2,[r2]
  1609 005a 5208     	 lsr r2,r2,#1
  1610 005c 1A80     	 strh r2,[r3]
- 151:../interconnect/esp32/esp32_op.c **** 
- 1611              	 .loc 4 151 0 discriminator 2
+ 152:../interconnect/esp32/esp32_op.c **** 
+ 1611              	 .loc 4 152 0 discriminator 2
  1612 005e 3B1D     	 add r3,r7,#4
  1613 0060 1A88     	 ldrh r2,[r3]
  1614 0062 3B1D     	 add r3,r7,#4
  1615 0064 0132     	 add r2,r2,#1
  1616 0066 1A80     	 strh r2,[r3]
  1617              	.L33:
- 151:../interconnect/esp32/esp32_op.c **** 
- 1618              	 .loc 4 151 0 is_stmt 0 discriminator 1
+ 152:../interconnect/esp32/esp32_op.c **** 
+ 1618              	 .loc 4 152 0 is_stmt 0 discriminator 1
  1619 0068 3B1D     	 add r3,r7,#4
  1620 006a 1B88     	 ldrh r3,[r3]
  1621 006c 072B     	 cmp r3,#7
  1622 006e D9D9     	 bls .L36
- 157:../interconnect/esp32/esp32_op.c **** 		}
- 158:../interconnect/esp32/esp32_op.c **** 
- 159:../interconnect/esp32/esp32_op.c **** 		crc_tab16[i] = crc;
- 1623              	 .loc 4 159 0 is_stmt 1 discriminator 2
+ 158:../interconnect/esp32/esp32_op.c **** 		}
+ 159:../interconnect/esp32/esp32_op.c **** 
+ 160:../interconnect/esp32/esp32_op.c **** 		crc_tab16[i] = crc;
+ 1623              	 .loc 4 160 0 is_stmt 1 discriminator 2
  1624 0070 BB1D     	 add r3,r7,#6
  1625 0072 1A88     	 ldrh r2,[r3]
  1626 0074 0A4B     	 ldr r3,.L38+4
@@ -4397,29 +4398,29 @@
  1628 0078 B91C     	 add r1,r7,#2
  1629 007a 0988     	 ldrh r1,[r1]
  1630 007c D152     	 strh r1,[r2,r3]
- 146:../interconnect/esp32/esp32_op.c **** 
- 1631              	 .loc 4 146 0 discriminator 2
+ 147:../interconnect/esp32/esp32_op.c **** 
+ 1631              	 .loc 4 147 0 discriminator 2
  1632 007e BB1D     	 add r3,r7,#6
  1633 0080 1A88     	 ldrh r2,[r3]
  1634 0082 BB1D     	 add r3,r7,#6
  1635 0084 0132     	 add r2,r2,#1
  1636 0086 1A80     	 strh r2,[r3]
  1637              	.L32:
- 146:../interconnect/esp32/esp32_op.c **** 
- 1638              	 .loc 4 146 0 is_stmt 0 discriminator 1
+ 147:../interconnect/esp32/esp32_op.c **** 
+ 1638              	 .loc 4 147 0 is_stmt 0 discriminator 1
  1639 0088 BB1D     	 add r3,r7,#6
  1640 008a 1B88     	 ldrh r3,[r3]
  1641 008c FF2B     	 cmp r3,#255
  1642 008e BED9     	 bls .L37
- 160:../interconnect/esp32/esp32_op.c **** 	}
- 161:../interconnect/esp32/esp32_op.c **** 
- 162:../interconnect/esp32/esp32_op.c **** 	crc_tab16_init = true;
- 1643              	 .loc 4 162 0 is_stmt 1
+ 161:../interconnect/esp32/esp32_op.c **** 	}
+ 162:../interconnect/esp32/esp32_op.c **** 
+ 163:../interconnect/esp32/esp32_op.c **** 	crc_tab16_init = true;
+ 1643              	 .loc 4 163 0 is_stmt 1
  1644 0090 044B     	 ldr r3,.L38+8
  1645 0092 0122     	 mov r2,#1
  1646 0094 1A70     	 strb r2,[r3]
- 163:../interconnect/esp32/esp32_op.c **** }
- 1647              	 .loc 4 163 0
+ 164:../interconnect/esp32/esp32_op.c **** }
+ 1647              	 .loc 4 164 0
  1648 0096 BD46     	 mov sp,r7
  1649 0098 02B0     	 add sp,sp,#8
  1650              	 
@@ -4439,10 +4440,10 @@
  1665              	 .thumb_func
  1667              	ESP32_CRC16_Operation:
  1668              	.LFB185:
- 164:../interconnect/esp32/esp32_op.c **** 
- 165:../interconnect/esp32/esp32_op.c **** uint16_t ESP32_CRC16_Operation(const unsigned char *input_str, unsigned char num_bytes)
- 166:../interconnect/esp32/esp32_op.c **** {
- 1669              	 .loc 4 166 0
+ 165:../interconnect/esp32/esp32_op.c **** 
+ 166:../interconnect/esp32/esp32_op.c **** uint16_t ESP32_CRC16_Operation(const unsigned char *input_str, unsigned char num_bytes)
+ 167:../interconnect/esp32/esp32_op.c **** {
+ 1669              	 .loc 4 167 0
  1670              	 .cfi_startproc
  1671 0000 80B5     	 push {r7,lr}
  1672              	.LCFI35:
@@ -4459,14 +4460,14 @@
  1683 0008 0A1C     	 mov r2,r1
  1684 000a FB1C     	 add r3,r7,#3
  1685 000c 1A70     	 strb r2,[r3]
- 167:../interconnect/esp32/esp32_op.c **** 	uint16_t crc;
- 168:../interconnect/esp32/esp32_op.c **** 	uint16_t tmp;
- 169:../interconnect/esp32/esp32_op.c **** 	uint16_t short_c;
- 170:../interconnect/esp32/esp32_op.c **** 	const unsigned char *ptr;
- 171:../interconnect/esp32/esp32_op.c **** 	unsigned char a;
- 172:../interconnect/esp32/esp32_op.c **** 
- 173:../interconnect/esp32/esp32_op.c **** 	if (!crc_tab16_init) ESP32_CRC16_table_init();
- 1686              	 .loc 4 173 0
+ 168:../interconnect/esp32/esp32_op.c **** 	uint16_t crc;
+ 169:../interconnect/esp32/esp32_op.c **** 	uint16_t tmp;
+ 170:../interconnect/esp32/esp32_op.c **** 	uint16_t short_c;
+ 171:../interconnect/esp32/esp32_op.c **** 	const unsigned char *ptr;
+ 172:../interconnect/esp32/esp32_op.c **** 	unsigned char a;
+ 173:../interconnect/esp32/esp32_op.c **** 
+ 174:../interconnect/esp32/esp32_op.c **** 	if (!crc_tab16_init) ESP32_CRC16_table_init();
+ 1686              	 .loc 4 174 0
  1687 000e 274B     	 ldr r3,.L46
  1688 0010 1B78     	 ldrb r3,[r3]
  1689 0012 0122     	 mov r2,#1
@@ -4474,43 +4475,43 @@
  1691 0016 DBB2     	 uxtb r3,r3
  1692 0018 002B     	 cmp r3,#0
  1693 001a 01D0     	 beq .L41
- 1694              	 .loc 4 173 0 is_stmt 0 discriminator 1
+ 1694              	 .loc 4 174 0 is_stmt 0 discriminator 1
  1695 001c FFF7FEFF 	 bl ESP32_CRC16_table_init
  1696              	.L41:
- 174:../interconnect/esp32/esp32_op.c **** 
- 175:../interconnect/esp32/esp32_op.c **** 	crc = CRC_START_16;
- 1697              	 .loc 4 175 0 is_stmt 1
+ 175:../interconnect/esp32/esp32_op.c **** 
+ 176:../interconnect/esp32/esp32_op.c **** 	crc = CRC_START_16;
+ 1697              	 .loc 4 176 0 is_stmt 1
  1698 0020 1623     	 mov r3,#22
  1699 0022 FB18     	 add r3,r7,r3
  1700 0024 0022     	 mov r2,#0
  1701 0026 1A80     	 strh r2,[r3]
- 176:../interconnect/esp32/esp32_op.c **** 	ptr = input_str;
- 1702              	 .loc 4 176 0
+ 177:../interconnect/esp32/esp32_op.c **** 	ptr = input_str;
+ 1702              	 .loc 4 177 0
  1703 0028 7B68     	 ldr r3,[r7,#4]
  1704 002a 3B61     	 str r3,[r7,#16]
- 177:../interconnect/esp32/esp32_op.c **** 
- 178:../interconnect/esp32/esp32_op.c **** 	if ( ptr != NULL ) for (a=0; a<num_bytes; a++) {
- 1705              	 .loc 4 178 0
+ 178:../interconnect/esp32/esp32_op.c **** 
+ 179:../interconnect/esp32/esp32_op.c **** 	if ( ptr != NULL ) for (a=0; a<num_bytes; a++) {
+ 1705              	 .loc 4 179 0
  1706 002c 3B69     	 ldr r3,[r7,#16]
  1707 002e 002B     	 cmp r3,#0
  1708 0030 35D0     	 beq .L42
- 1709              	 .loc 4 178 0 is_stmt 0 discriminator 1
+ 1709              	 .loc 4 179 0 is_stmt 0 discriminator 1
  1710 0032 0F23     	 mov r3,#15
  1711 0034 FB18     	 add r3,r7,r3
  1712 0036 0022     	 mov r2,#0
  1713 0038 1A70     	 strb r2,[r3]
  1714 003a 29E0     	 b .L43
  1715              	.L44:
- 179:../interconnect/esp32/esp32_op.c **** 
- 180:../interconnect/esp32/esp32_op.c **** 		short_c = 0x00ff & (uint16_t) *ptr;
- 1716              	 .loc 4 180 0 is_stmt 1 discriminator 4
+ 180:../interconnect/esp32/esp32_op.c **** 
+ 181:../interconnect/esp32/esp32_op.c **** 		short_c = 0x00ff & (uint16_t) *ptr;
+ 1716              	 .loc 4 181 0 is_stmt 1 discriminator 4
  1717 003c 3B69     	 ldr r3,[r7,#16]
  1718 003e 1A78     	 ldrb r2,[r3]
  1719 0040 0C23     	 mov r3,#12
  1720 0042 FB18     	 add r3,r7,r3
  1721 0044 1A80     	 strh r2,[r3]
- 181:../interconnect/esp32/esp32_op.c **** 		tmp     =  crc       ^ short_c;
- 1722              	 .loc 4 181 0 discriminator 4
+ 182:../interconnect/esp32/esp32_op.c **** 		tmp     =  crc       ^ short_c;
+ 1722              	 .loc 4 182 0 discriminator 4
  1723 0046 0A23     	 mov r3,#10
  1724 0048 FB18     	 add r3,r7,r3
  1725 004a 1622     	 mov r2,#22
@@ -4521,8 +4522,8 @@
  1730 0054 1288     	 ldrh r2,[r2]
  1731 0056 4A40     	 eor r2,r1
  1732 0058 1A80     	 strh r2,[r3]
- 182:../interconnect/esp32/esp32_op.c **** 		crc     = (crc >> 8) ^ crc_tab16[ tmp & 0xff ];
- 1733              	 .loc 4 182 0 discriminator 4
+ 183:../interconnect/esp32/esp32_op.c **** 		crc     = (crc >> 8) ^ crc_tab16[ tmp & 0xff ];
+ 1733              	 .loc 4 183 0 discriminator 4
  1734 005a 1623     	 mov r3,#22
  1735 005c FB18     	 add r3,r7,r3
  1736 005e 1B88     	 ldrh r3,[r3]
@@ -4540,14 +4541,14 @@
  1748 0076 FB18     	 add r3,r7,r3
  1749 0078 4A40     	 eor r2,r1
  1750 007a 1A80     	 strh r2,[r3]
- 183:../interconnect/esp32/esp32_op.c **** 
- 184:../interconnect/esp32/esp32_op.c **** 		ptr++;
- 1751              	 .loc 4 184 0 discriminator 4
+ 184:../interconnect/esp32/esp32_op.c **** 
+ 185:../interconnect/esp32/esp32_op.c **** 		ptr++;
+ 1751              	 .loc 4 185 0 discriminator 4
  1752 007c 3B69     	 ldr r3,[r7,#16]
  1753 007e 0133     	 add r3,r3,#1
  1754 0080 3B61     	 str r3,[r7,#16]
- 178:../interconnect/esp32/esp32_op.c **** 
- 1755              	 .loc 4 178 0 discriminator 4
+ 179:../interconnect/esp32/esp32_op.c **** 
+ 1755              	 .loc 4 179 0 discriminator 4
  1756 0082 0F23     	 mov r3,#15
  1757 0084 FB18     	 add r3,r7,r3
  1758 0086 1A78     	 ldrb r2,[r3]
@@ -4556,8 +4557,8 @@
  1761 008c 0132     	 add r2,r2,#1
  1762 008e 1A70     	 strb r2,[r3]
  1763              	.L43:
- 178:../interconnect/esp32/esp32_op.c **** 
- 1764              	 .loc 4 178 0 is_stmt 0 discriminator 2
+ 179:../interconnect/esp32/esp32_op.c **** 
+ 1764              	 .loc 4 179 0 is_stmt 0 discriminator 2
  1765 0090 0F23     	 mov r3,#15
  1766 0092 FA18     	 add r2,r7,r3
  1767 0094 FB1C     	 add r3,r7,#3
@@ -4566,15 +4567,15 @@
  1770 009a 9A42     	 cmp r2,r3
  1771 009c CED3     	 bcc .L44
  1772              	.L42:
- 185:../interconnect/esp32/esp32_op.c **** 	}
- 186:../interconnect/esp32/esp32_op.c **** 
- 187:../interconnect/esp32/esp32_op.c **** 	return crc;
- 1773              	 .loc 4 187 0 is_stmt 1
+ 186:../interconnect/esp32/esp32_op.c **** 	}
+ 187:../interconnect/esp32/esp32_op.c **** 
+ 188:../interconnect/esp32/esp32_op.c **** 	return crc;
+ 1773              	 .loc 4 188 0 is_stmt 1
  1774 009e 1623     	 mov r3,#22
  1775 00a0 FB18     	 add r3,r7,r3
  1776 00a2 1B88     	 ldrh r3,[r3]
- 188:../interconnect/esp32/esp32_op.c **** }
- 1777              	 .loc 4 188 0
+ 189:../interconnect/esp32/esp32_op.c **** }
+ 1777              	 .loc 4 189 0
  1778 00a4 181C     	 mov r0,r3
  1779 00a6 BD46     	 mov sp,r7
  1780 00a8 06B0     	 add sp,sp,#24
@@ -4594,10 +4595,10 @@
  1795              	 .thumb_func
  1797              	ESP32_CRC8_maxim:
  1798              	.LFB186:
- 189:../interconnect/esp32/esp32_op.c **** 
- 190:../interconnect/esp32/esp32_op.c **** uint8_t ESP32_CRC8_maxim(uint8_t *data, int length)
- 191:../interconnect/esp32/esp32_op.c **** {
- 1799              	 .loc 4 191 0
+ 190:../interconnect/esp32/esp32_op.c **** 
+ 191:../interconnect/esp32/esp32_op.c **** uint8_t ESP32_CRC8_maxim(uint8_t *data, int length)
+ 192:../interconnect/esp32/esp32_op.c **** {
+ 1799              	 .loc 4 192 0
  1800              	 .cfi_startproc
  1801 0000 80B5     	 push {r7,lr}
  1802              	.LCFI38:
@@ -4612,41 +4613,41 @@
  1811              	 .cfi_def_cfa_register 7
  1812 0006 7860     	 str r0,[r7,#4]
  1813 0008 3960     	 str r1,[r7]
- 192:../interconnect/esp32/esp32_op.c ****    uint8_t crc = 0x00;
- 1814              	 .loc 4 192 0
+ 193:../interconnect/esp32/esp32_op.c ****    uint8_t crc = 0x00;
+ 1814              	 .loc 4 193 0
  1815 000a 1723     	 mov r3,#23
  1816 000c FB18     	 add r3,r7,r3
  1817 000e 0022     	 mov r2,#0
  1818 0010 1A70     	 strb r2,[r3]
  1819              	.LBB2:
- 193:../interconnect/esp32/esp32_op.c ****    uint8_t extract;
- 194:../interconnect/esp32/esp32_op.c ****    uint8_t sum;
- 195:../interconnect/esp32/esp32_op.c ****    for(int i=0;i<length;i++)
- 1820              	 .loc 4 195 0
+ 194:../interconnect/esp32/esp32_op.c ****    uint8_t extract;
+ 195:../interconnect/esp32/esp32_op.c ****    uint8_t sum;
+ 196:../interconnect/esp32/esp32_op.c ****    for(int i=0;i<length;i++)
+ 1820              	 .loc 4 196 0
  1821 0012 0023     	 mov r3,#0
  1822 0014 3B61     	 str r3,[r7,#16]
  1823 0016 44E0     	 b .L49
  1824              	.L53:
- 196:../interconnect/esp32/esp32_op.c ****    {
- 197:../interconnect/esp32/esp32_op.c ****       extract = *data;
- 1825              	 .loc 4 197 0
+ 197:../interconnect/esp32/esp32_op.c ****    {
+ 198:../interconnect/esp32/esp32_op.c ****       extract = *data;
+ 1825              	 .loc 4 198 0
  1826 0018 1623     	 mov r3,#22
  1827 001a FB18     	 add r3,r7,r3
  1828 001c 7A68     	 ldr r2,[r7,#4]
  1829 001e 1278     	 ldrb r2,[r2]
  1830 0020 1A70     	 strb r2,[r3]
  1831              	.LBB3:
- 198:../interconnect/esp32/esp32_op.c ****       for (uint8_t tempI = 8; tempI; tempI--)
- 1832              	 .loc 4 198 0
+ 199:../interconnect/esp32/esp32_op.c ****       for (uint8_t tempI = 8; tempI; tempI--)
+ 1832              	 .loc 4 199 0
  1833 0022 0F23     	 mov r3,#15
  1834 0024 FB18     	 add r3,r7,r3
  1835 0026 0822     	 mov r2,#8
  1836 0028 1A70     	 strb r2,[r3]
  1837 002a 2FE0     	 b .L50
  1838              	.L52:
- 199:../interconnect/esp32/esp32_op.c ****       {
- 200:../interconnect/esp32/esp32_op.c ****          sum = (crc ^ extract) & 0x01;
- 1839              	 .loc 4 200 0
+ 200:../interconnect/esp32/esp32_op.c ****       {
+ 201:../interconnect/esp32/esp32_op.c ****          sum = (crc ^ extract) & 0x01;
+ 1839              	 .loc 4 201 0
  1840 002c 1723     	 mov r3,#23
  1841 002e FA18     	 add r2,r7,r3
  1842 0030 1623     	 mov r3,#22
@@ -4660,8 +4661,8 @@
  1850 0040 0121     	 mov r1,#1
  1851 0042 0A40     	 and r2,r1
  1852 0044 1A70     	 strb r2,[r3]
- 201:../interconnect/esp32/esp32_op.c ****          crc >>= 1;
- 1853              	 .loc 4 201 0
+ 202:../interconnect/esp32/esp32_op.c ****          crc >>= 1;
+ 1853              	 .loc 4 202 0
  1854 0046 1723     	 mov r3,#23
  1855 0048 FB18     	 add r3,r7,r3
  1856 004a 1722     	 mov r2,#23
@@ -4669,15 +4670,15 @@
  1858 004e 1278     	 ldrb r2,[r2]
  1859 0050 5208     	 lsr r2,r2,#1
  1860 0052 1A70     	 strb r2,[r3]
- 202:../interconnect/esp32/esp32_op.c ****          if (sum)
- 1861              	 .loc 4 202 0
+ 203:../interconnect/esp32/esp32_op.c ****          if (sum)
+ 1861              	 .loc 4 203 0
  1862 0054 0E23     	 mov r3,#14
  1863 0056 FB18     	 add r3,r7,r3
  1864 0058 1B78     	 ldrb r3,[r3]
  1865 005a 002B     	 cmp r3,#0
  1866 005c 08D0     	 beq .L51
- 203:../interconnect/esp32/esp32_op.c ****             crc ^= 0x8C;
- 1867              	 .loc 4 203 0
+ 204:../interconnect/esp32/esp32_op.c ****             crc ^= 0x8C;
+ 1867              	 .loc 4 204 0
  1868 005e 1723     	 mov r3,#23
  1869 0060 FB18     	 add r3,r7,r3
  1870 0062 1722     	 mov r2,#23
@@ -4688,8 +4689,8 @@
  1875 006c 4A40     	 eor r2,r1
  1876 006e 1A70     	 strb r2,[r3]
  1877              	.L51:
- 204:../interconnect/esp32/esp32_op.c ****          extract >>= 1;
- 1878              	 .loc 4 204 0 discriminator 2
+ 205:../interconnect/esp32/esp32_op.c ****          extract >>= 1;
+ 1878              	 .loc 4 205 0 discriminator 2
  1879 0070 1623     	 mov r3,#22
  1880 0072 FB18     	 add r3,r7,r3
  1881 0074 1622     	 mov r2,#22
@@ -4697,8 +4698,8 @@
  1883 0078 1278     	 ldrb r2,[r2]
  1884 007a 5208     	 lsr r2,r2,#1
  1885 007c 1A70     	 strb r2,[r3]
- 198:../interconnect/esp32/esp32_op.c ****       {
- 1886              	 .loc 4 198 0 discriminator 2
+ 199:../interconnect/esp32/esp32_op.c ****       {
+ 1886              	 .loc 4 199 0 discriminator 2
  1887 007e 0F23     	 mov r3,#15
  1888 0080 FB18     	 add r3,r7,r3
  1889 0082 1A78     	 ldrb r2,[r3]
@@ -4707,41 +4708,41 @@
  1892 0088 013A     	 sub r2,r2,#1
  1893 008a 1A70     	 strb r2,[r3]
  1894              	.L50:
- 198:../interconnect/esp32/esp32_op.c ****       {
- 1895              	 .loc 4 198 0 is_stmt 0 discriminator 1
+ 199:../interconnect/esp32/esp32_op.c ****       {
+ 1895              	 .loc 4 199 0 is_stmt 0 discriminator 1
  1896 008c 0F23     	 mov r3,#15
  1897 008e FB18     	 add r3,r7,r3
  1898 0090 1B78     	 ldrb r3,[r3]
  1899 0092 002B     	 cmp r3,#0
  1900 0094 CAD1     	 bne .L52
  1901              	.LBE3:
- 205:../interconnect/esp32/esp32_op.c ****       }
- 206:../interconnect/esp32/esp32_op.c ****       data++;
- 1902              	 .loc 4 206 0 is_stmt 1 discriminator 2
+ 206:../interconnect/esp32/esp32_op.c ****       }
+ 207:../interconnect/esp32/esp32_op.c ****       data++;
+ 1902              	 .loc 4 207 0 is_stmt 1 discriminator 2
  1903 0096 7B68     	 ldr r3,[r7,#4]
  1904 0098 0133     	 add r3,r3,#1
  1905 009a 7B60     	 str r3,[r7,#4]
- 195:../interconnect/esp32/esp32_op.c ****    {
- 1906              	 .loc 4 195 0 discriminator 2
+ 196:../interconnect/esp32/esp32_op.c ****    {
+ 1906              	 .loc 4 196 0 discriminator 2
  1907 009c 3B69     	 ldr r3,[r7,#16]
  1908 009e 0133     	 add r3,r3,#1
  1909 00a0 3B61     	 str r3,[r7,#16]
  1910              	.L49:
- 195:../interconnect/esp32/esp32_op.c ****    {
- 1911              	 .loc 4 195 0 is_stmt 0 discriminator 1
+ 196:../interconnect/esp32/esp32_op.c ****    {
+ 1911              	 .loc 4 196 0 is_stmt 0 discriminator 1
  1912 00a2 3A69     	 ldr r2,[r7,#16]
  1913 00a4 3B68     	 ldr r3,[r7]
  1914 00a6 9A42     	 cmp r2,r3
  1915 00a8 B6DB     	 blt .L53
  1916              	.LBE2:
- 207:../interconnect/esp32/esp32_op.c ****    }
- 208:../interconnect/esp32/esp32_op.c ****    return crc;
- 1917              	 .loc 4 208 0 is_stmt 1
+ 208:../interconnect/esp32/esp32_op.c ****    }
+ 209:../interconnect/esp32/esp32_op.c ****    return crc;
+ 1917              	 .loc 4 209 0 is_stmt 1
  1918 00aa 1723     	 mov r3,#23
  1919 00ac FB18     	 add r3,r7,r3
  1920 00ae 1B78     	 ldrb r3,[r3]
- 209:../interconnect/esp32/esp32_op.c **** }
- 1921              	 .loc 4 209 0
+ 210:../interconnect/esp32/esp32_op.c **** }
+ 1921              	 .loc 4 210 0
  1922 00b0 181C     	 mov r0,r3
  1923 00b2 BD46     	 mov sp,r7
  1924 00b4 06B0     	 add sp,sp,#24
@@ -4749,9 +4750,9 @@
  1926 00b6 80BD     	 pop {r7,pc}
  1927              	 .cfi_endproc
  1928              	.LFE186:
- 1930              	 .section .bss.buffer.7343,"aw",%nobits
+ 1930              	 .section .bss.buffer.7344,"aw",%nobits
  1931              	 .align 2
- 1934              	buffer.7343:
+ 1934              	buffer.7344:
  1935 0000 00000000 	 .space 80
  1935      00000000 
  1935      00000000 
@@ -4804,7 +4805,7 @@ DEFINED SYMBOLS
     {standard input}:694    .text.ESP32_Map_Data:00000000 $t
     {standard input}:699    .text.ESP32_Map_Data:00000000 ESP32_Map_Data
     {standard input}:1277   .text.ESP32_Map_Data:000003f8 $d
-    {standard input}:1934   .bss.buffer.7343:00000000 buffer.7343
+    {standard input}:1934   .bss.buffer.7344:00000000 buffer.7344
     {standard input}:1279   .text.ESP32_Map_Data:000003fc $t
     {standard input}:1667   .text.ESP32_CRC16_Operation:00000000 ESP32_CRC16_Operation
     {standard input}:1530   .text.ESP32_Map_Data:000005bc $d
@@ -4815,7 +4816,7 @@ DEFINED SYMBOLS
     {standard input}:1786   .text.ESP32_CRC16_Operation:000000ac $d
     {standard input}:1792   .text.ESP32_CRC8_maxim:00000000 $t
     {standard input}:1797   .text.ESP32_CRC8_maxim:00000000 ESP32_CRC8_maxim
-    {standard input}:1931   .bss.buffer.7343:00000000 $d
+    {standard input}:1931   .bss.buffer.7344:00000000 $d
                      .debug_frame:00000010 $d
 
 UNDEFINED SYMBOLS
